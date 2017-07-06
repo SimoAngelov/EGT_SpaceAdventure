@@ -34,6 +34,8 @@ private:
     
     SDL_Texture* forwardButtonTexture = NULL;
     
+    SDL_Texture* pushedForwardButtonTexture = NULL;
+    
 public:
     
     Intro();
@@ -52,6 +54,8 @@ public:
     
     void SetForwardButtonTexture(SDL_Texture* texture);
     
+    void SetPushedForwardButtonTexture(SDL_Texture* texture);
+    
     /////
 
     SDL_Texture* GetBackgroundTexture();
@@ -65,6 +69,8 @@ public:
     SDL_Texture* GetVolumeTexture();
     
     SDL_Texture* GetForwardButtonTexture();
+    
+    SDL_Texture* GetPushedForwardButtonTexture();
     
 };
 #endif /* Controller1_Intro_hpp */

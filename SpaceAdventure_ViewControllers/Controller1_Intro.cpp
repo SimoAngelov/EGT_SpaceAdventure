@@ -56,6 +56,13 @@ void Intro:: SetForwardButtonTexture(SDL_Texture* texture)
 
 //
 
+void Intro:: SetPushedForwardButtonTexture(SDL_Texture* texture)
+{
+    pushedForwardButtonTexture = texture;
+}
+
+//
+
 SDL_Texture* Intro:: GetBackgroundTexture()
 {
     return backgroundTexture;
@@ -94,5 +101,12 @@ SDL_Texture* Intro:: GetVolumeTexture()
 SDL_Texture* Intro:: GetForwardButtonTexture()
 {
     return forwardButtonTexture;
+}
+
+//
+
+SDL_Texture* Intro:: GetPushedForwardButtonTexture()
+{
+    return pushedForwardButtonTexture;
 }
 

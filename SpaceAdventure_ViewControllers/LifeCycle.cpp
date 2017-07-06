@@ -69,15 +69,27 @@ void LifeCycle:: Play()
     
     SDL_Rect rectBackground = createRect(0, 0, 1280, 720); // :)
     
+    SDL_Rect rectForwardButton = createRect(700, 570, 200, 150);
+    
     SDL_Event ev;
     
     // Load Textures
     
     Intro.SetBackgroundTexture(LoadTexture("background.png"));
     
+    Intro.SetForwardButtonTexture(LoadTexture("right.png"));
+    
+    Intro.SetPushedForwardButtonTexture(LoadTexture("rightPushed.png"));
+    
     //
     
     bool quitCycle = false;
+    
+    //
+    
+    int xZ = 0;
+    
+    int yZ = 0;
     
     while(quitCycle == false)
     {
@@ -88,13 +100,20 @@ void LifeCycle:: Play()
                 quitCycle = true;
             }
             
+            SDL_GetMouseState(&xZ, &yZ);
+            
             SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+            
+            SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
             
             if(ev.type == SDL_MOUSEBUTTONDOWN)
             {
-                rectBackground.x += 50;
-                
-                SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                if(xZ >= rectForwardButton.x && xZ <= 900 && yZ >= rectForwardButton.y && yZ <= 650)
+                {
+                    SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetPushedForwardButtonTexture(), NULL, &rectForwardButton);
+                }
                 
             }
             
