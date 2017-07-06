@@ -22,7 +22,7 @@ using std::cout;
 typedef struct Payline
 {
 	int figure[5];
-} Line;
+} Payline;
 
 //number of reels
 const int GAME_REELS = 5;
