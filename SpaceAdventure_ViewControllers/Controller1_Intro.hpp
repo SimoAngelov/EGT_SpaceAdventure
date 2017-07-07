@@ -54,6 +54,16 @@ private:
     
     SDL_Texture* pushedForwardButtonTexture = NULL;
     
+    SDL_Texture* spaceShipTexture = NULL;
+    
+    SDL_Texture* spaceShipButtonPlus = NULL;
+    
+    SDL_Texture* spaceShipButtonPlusPushed = NULL;
+    
+    SDL_Texture* spaceShipButtonMinus = NULL;
+    
+    SDL_Texture* spaceShipButtonMinusPushed = NULL;
+    
 public:
     
     Intro();
@@ -92,6 +102,16 @@ public:
     
     void SetPushedForwardButtonTexture(SDL_Texture* texture);
     
+    void SetSpaceShipTexture(SDL_Texture* texture);
+    
+    void SetSpaceShipButtonPlus(SDL_Texture* texture);
+    
+    void SetSpaceShipButtonPlusPushed(SDL_Texture* texture);
+    
+    void SetSpaceShipButtonMinus(SDL_Texture* texture);
+    
+    void SetSpaceShupButtonMinusPushed(SDL_Texture* texture);
+    
     /////
 
     SDL_Texture* GetBackgroundTexture();
@@ -126,5 +146,14 @@ public:
     
     SDL_Texture* GetPushedForwardButtonTexture();
     
+    SDL_Texture* GetSpaceShipTexture();
+    
+    SDL_Texture* GetSpaceShipButtonPlus();
+    
+    SDL_Texture* GetSpaceShipButtonPlusPushed();
+    
+    SDL_Texture* GetSpaceShipButtonMinus();
+    
+    SDL_Texture* GetSpaceShipButtonMinusPushed();
 };
 #endif /* Controller1_Intro_hpp */

@@ -83,6 +83,12 @@ void LifeCycle:: Play()
     
     SDL_Rect rectVolumeMinusButton = createRect(1030, 630, 50, 50);
     
+    SDL_Rect rectSpaceShip = createRect(0, -500, 1280, 500);
+    
+    SDL_Rect rectSpaceShipButtonMinus = createRect(225, 400, 100, 100);
+    
+    SDL_Rect rectSpaceShipButtonPlus = createRect(970, 400, 100, 100);
+    
     // Event Object
     
     SDL_Event ev;
@@ -121,9 +127,24 @@ void LifeCycle:: Play()
     
     Intro.SetVolumeMinusButtonPushed(LoadTexture("minusButtonPushed.png"));
     
+    Intro.SetSpaceShipTexture(LoadTexture("spaceShip.png"));
+    
+    Intro.SetSpaceShipButtonPlus(LoadTexture("spaceShipButtonPlus.png"));
+    
+    Intro.SetSpaceShipButtonPlusPushed(LoadTexture("spaceShipButtonPlusPushed.png"));
+    
+    Intro.SetSpaceShipButtonMinus(LoadTexture("spaceShipButtonMinus.png"));
+    
+    Intro.SetSpaceShupButtonMinusPushed(LoadTexture("spaceShipButtonMinusPushed.png"));
+    
+    
     // Bool to quit LifeCycle
     
     bool quitCycle = false;
+    
+    // Bool SpaceShip is Hidden
+    
+    bool spaceShipHidden = true;
     
     // Counter Volume Music
     
@@ -149,14 +170,14 @@ void LifeCycle:: Play()
             SDL_GetMouseState(&xZ, &yZ);
             
             // Counter volume 0 and this code -> are same
-            
+
 //            SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
 //            
 //            SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
 //            
 //            SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
 //            
-//            SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
+//            SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditPushedTexture(), NULL, &rectInsertCredit);
 //            
 //            SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
 //            
@@ -165,6 +186,7 @@ void LifeCycle:: Play()
 //            SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
 //            
 //            SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+            
             
             // View with all buttons normal and volume MUTE
             
@@ -185,6 +207,8 @@ void LifeCycle:: Play()
                 SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
                 
                 SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                
+                
             }
             
             // View with all buttons normal and volume 1
@@ -250,6 +274,32 @@ void LifeCycle:: Play()
                 SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
             }
             
+            if((spaceShipHidden == false && counterVolume == 0) || (spaceShipHidden == false && counterVolume == 1) || (spaceShipHidden == false && counterVolume == 2) || (spaceShipHidden == false && counterVolume == 3))
+            {
+                SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditPushedTexture(), NULL, &rectInsertCredit);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipTexture(), NULL, &rectSpaceShip);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonMinus(), NULL, &rectSpaceShipButtonMinus);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonPlus(), NULL, &rectSpaceShipButtonPlus);
+            
+            }
+            
             if(ev.type == SDL_MOUSEBUTTONDOWN)
             {
                 // Button FORWARD
@@ -293,7 +343,7 @@ void LifeCycle:: Play()
                 
                 // Button INSERT CREDIT
                 
-                if(xZ >= rectInsertCredit.x && xZ <= 850 && yZ >= rectInsertCredit.y && yZ <= 460)
+                if(xZ >= rectInsertCredit.x && xZ <= 850 && yZ >= rectInsertCredit.y && yZ <= 460 && spaceShipHidden == true)
                 {
                     SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                     
@@ -328,6 +378,89 @@ void LifeCycle:: Play()
                     {
                         SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
                     }
+                    
+                    // While for Vertical LOGO effect
+                    
+                    while(rectLogo.y >= -260)
+                    {
+                        rectLogo.y -= 1;
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditPushedTexture(), NULL, &rectInsertCredit);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                        
+                        SDL_RenderPresent(rendererPtr);
+                    }
+                    
+                    // While for ZOOM IN effect
+                    
+                    while(rectBackground.h >= 250)
+                    {
+                        rectBackground.h = rectBackground.h - 1;
+                        
+                        rectBackground.w = rectBackground.w - 2;
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditPushedTexture(), NULL, &rectInsertCredit);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                        
+                        SDL_RenderPresent(rendererPtr);
+                        
+                    }
+                    
+                    // Space Ship SHOWN
+                    
+                    while(rectSpaceShip.y <= 0)
+                    {
+                        rectSpaceShip.y = rectSpaceShip.y + 1;
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditPushedTexture(), NULL, &rectInsertCredit);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipTexture(), NULL, &rectSpaceShip);
+                        
+                        SDL_RenderPresent(rendererPtr);
+                        
+                        spaceShipHidden = false;
+                    }
+                    
                 }
                 
                 // Button INFO

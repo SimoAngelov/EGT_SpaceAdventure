@@ -126,6 +126,41 @@ void Intro:: SetPushedForwardButtonTexture(SDL_Texture* texture)
 
 //
 
+void Intro:: SetSpaceShipTexture(SDL_Texture* texture)
+{
+    spaceShipTexture = texture;
+}
+
+//
+
+void Intro:: SetSpaceShipButtonPlus(SDL_Texture* texture)
+{
+    spaceShipButtonPlus = texture;
+}
+
+//
+
+void Intro:: SetSpaceShipButtonPlusPushed(SDL_Texture* texture)
+{
+    spaceShipButtonPlusPushed = texture;
+}
+
+//
+
+void Intro:: SetSpaceShipButtonMinus(SDL_Texture* texture)
+{
+    spaceShipButtonMinus = texture;
+}
+
+//
+
+void Intro:: SetSpaceShupButtonMinusPushed(SDL_Texture* texture)
+{
+    spaceShipButtonMinusPushed = texture;
+}
+
+//
+
 SDL_Texture* Intro:: GetBackgroundTexture()
 {
     return backgroundTexture;
@@ -234,5 +269,40 @@ SDL_Texture* Intro:: GetForwardButtonTexture()
 SDL_Texture* Intro:: GetPushedForwardButtonTexture()
 {
     return pushedForwardButtonTexture;
+}
+
+//
+
+SDL_Texture* Intro:: GetSpaceShipTexture()
+{
+    return spaceShipTexture;
+}
+
+//
+
+SDL_Texture* Intro:: GetSpaceShipButtonPlus()
+{
+    return spaceShipButtonPlus;
+}
+
+//
+
+SDL_Texture* Intro:: GetSpaceShipButtonPlusPushed()
+{
+    return spaceShipButtonPlusPushed;
+}
+
+//
+
+SDL_Texture* Intro:: GetSpaceShipButtonMinus()
+{
+    return spaceShipButtonMinus;
+}
+
+//
+
+SDL_Texture* Intro:: GetSpaceShipButtonMinusPushed()
+{
+    return spaceShipButtonMinusPushed;
 }
 
