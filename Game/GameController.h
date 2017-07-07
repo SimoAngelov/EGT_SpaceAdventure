@@ -13,15 +13,41 @@ class GameController
 {
 private:
 	GameModel m_baseGame;
+	static int m_iBetStep;
 	void InitRandomReels();
 	void SetSpecialFigure();
 
 
 public:
 	GameController();
-	void InitCurrentReels();
-	void InitCurrentPayLines();
 	virtual ~GameController();
+
+	//start a new game
+	void Spin();
+	//initialize the reels for the current game
+	void InitCurrentReels();
+	//set the paylines for the current game
+	void InitCurrentPaylines();
+
+	//insert credits in order to play
+	void InsertCredits(int);
+	//set the number of paylines
+	void SetNumberOfPaylines(int);
+
+	//increase, decrease and set the bet
+	void IncreaseBet();
+	void DecreaseBet();
+	void SetBetPerPayline(int);
+
+	//calculate current winnings from the paylines
+	void WinFromPaylines();
+	//calculate current winning from a single payline
+	int WinFromSinglePayline(const Payline&);
+	//calculate the winnings per Figure
+	int WinPerFigure(const Figures&, int);
+
+
+	//print functions
 	void PrintReels() const;
 	void PrintPayline(const Payline&) const;
 	void PrintPaylines() const;

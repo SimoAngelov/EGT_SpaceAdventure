@@ -24,9 +24,9 @@ class LifeCycle
     
 private:
     
-    const int m_nWidth = 1280;
+    const int m_nWidth = 1280; // Width WINDOW PROGRAM
     
-    const int m_nHeight = 720;
+    const int m_nHeight = 720; // Height WINDOW PROGRAM
     
     SDL_Window* windowPtr = NULL;
     
@@ -43,7 +43,7 @@ public:
     
     SDL_Texture* LoadTexture(string path); // To load Texture from PATH
     
-    void Play();
+    void Play(); // LifeCycle Program
     
     void QuitGame(); // To delete POINTERS and QUIT GAME
     

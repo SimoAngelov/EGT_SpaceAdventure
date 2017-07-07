@@ -16,23 +16,6 @@ using std::vector;
 using std::endl;
 using std::cout;
 
-
-
-//define a user type for a line
-typedef struct Payline
-{
-	int figure[5];
-} Payline;
-
-//number of reels
-const int GAME_REELS = 5;
-
-//number of rows
-const int GAME_ROWS = 3;
-
-//number of winning paylines
-const int MAX_PAYLINES = 25;
-
 //enumerator for the figures
 typedef enum
 {
@@ -44,7 +27,31 @@ typedef enum
 	eFigure6,
 	eFigure7,
 	eFigure8,
-	eFigure9
+	eFigure9,
+	eInvalidFigure = -1
 } Figures;
+
+//define a user type for a line
+typedef struct Payline
+{
+	Figures figure[5];
+} Payline;
+
+//number of reels
+const int GAME_REELS = 5;
+
+//number of rows
+const int GAME_ROWS = 3;
+
+//number of winning paylines
+const int MAX_PAYLINES = 25;
+
+//max amount of credits per single bet
+const int MAX_BET = 2000;
+
+//max number of betting steps
+const int MAX_BET_STEP = 15;
+
+
 
 #endif /* GLOBALS_H_ */

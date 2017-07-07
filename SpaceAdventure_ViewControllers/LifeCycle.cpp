@@ -13,7 +13,7 @@ LifeCycle::LifeCycle()
     
 }
 
-//
+// Initialize Everything and Creating WINDOW AND RENDERER
 
 void LifeCycle:: InitMedia()
 {
@@ -41,7 +41,7 @@ void LifeCycle:: InitMedia()
     }
 }
 
-//
+// To load Texture from PATH
 
 SDL_Texture* LifeCycle:: LoadTexture(string path)
 {
@@ -65,9 +65,25 @@ void LifeCycle:: Play()
     
     Intro Intro;
     
-    // Rect Background
+    // Creating objects from SDL_Rect and Custom Constructor -> createRect(int x, int y, int w, int h)
     
-    SDL_Rect rectBackground = createRect(0, 0, 1280, 720); // :)
+    SDL_Rect rectBackground = createRect(0, 0, 1280, 720);
+    
+    SDL_Rect rectForwardButton = createRect(650, 570, 200, 150);
+    
+    SDL_Rect rectLogo = createRect(400, 10, 500, 250);
+    
+    SDL_Rect rectInsertCredit = createRect(450, 330, 400, 130);
+    
+    SDL_Rect rectInfoButton = createRect(10, 650, 50, 50);
+    
+    SDL_Rect rectVolume = createRect(1100, 600, 100, 100);
+    
+    SDL_Rect rectVolumePlusButton = createRect(1210, 630, 50, 50);
+    
+    SDL_Rect rectVolumeMinusButton = createRect(1030, 630, 50, 50);
+    
+    // Event Object
     
     SDL_Event ev;
     
@@ -75,9 +91,49 @@ void LifeCycle:: Play()
     
     Intro.SetBackgroundTexture(LoadTexture("background.png"));
     
-    //
+    Intro.SetForwardButtonTexture(LoadTexture("right.png"));
+    
+    Intro.SetPushedForwardButtonTexture(LoadTexture("rightPushed.png"));
+    
+    Intro.SetLogoTexture(LoadTexture("logo.png"));
+    
+    Intro.SetInsertCreditTexture(LoadTexture("insertCredit.png"));
+    
+    Intro.SetInsertCreditPushedTextre(LoadTexture("insertCreditPushed.png"));
+    
+    Intro.SetInfoTexture(LoadTexture("infoButton.png"));
+    
+    Intro.SetInfoTexturePushed(LoadTexture("infoButtonPushed.png"));
+    
+    Intro.SetVolumeTexture(LoadTexture("volume.png"));
+    
+    Intro.SetVolumeTexture1(LoadTexture("volume1.png"));
+    
+    Intro.SetVolumeTexture2(LoadTexture("volume2.png"));
+    
+    Intro.SetVolumeTexture3(LoadTexture("volume3.png"));
+    
+    Intro.SetVolumePlusButton(LoadTexture("plusButton.png"));
+    
+    Intro.SetVolumePlusButtonPushed(LoadTexture("plusButtonPushed.png"));
+    
+    Intro.SetVolumeMinusButton(LoadTexture("minusButton.png"));
+    
+    Intro.SetVolumeMinusButtonPushed(LoadTexture("minusButtonPushed.png"));
+    
+    // Bool to quit LifeCycle
     
     bool quitCycle = false;
+    
+    // Counter Volume Music
+    
+    int counterVolume = 0;
+    
+    // Mouse Coordinates xZ, yZ
+    
+    int xZ = 0;
+    
+    int yZ = 0;
     
     while(quitCycle == false)
     {
@@ -88,13 +144,409 @@ void LifeCycle:: Play()
                 quitCycle = true;
             }
             
-            SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+            // View with all buttons normal
+            
+            SDL_GetMouseState(&xZ, &yZ);
+            
+            // Counter volume 0 and this code -> are same
+            
+//            SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+//            
+//            SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+//            
+//            SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+//            
+//            SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
+//            
+//            SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+//            
+//            SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+//            
+//            SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+//            
+//            SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+            
+            // View with all buttons normal and volume MUTE
+            
+            if(counterVolume == 0)
+            {
+                SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+            }
+            
+            // View with all buttons normal and volume 1
+            
+            if(counterVolume == 1)
+            {
+                SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+            }
+            
+            // View with all buttons normal and volume 2
+            
+            if(counterVolume == 2)
+            {
+                SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+            }
+            
+            // View with all buttons normal and volume 3
+            
+            if(counterVolume == 3)
+            {
+                SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+            }
             
             if(ev.type == SDL_MOUSEBUTTONDOWN)
             {
-                rectBackground.x += 50;
+                // Button FORWARD
                 
-                SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                if(xZ >= rectForwardButton.x && xZ <= 900 && yZ >= rectForwardButton.y && yZ <= 650)
+                {
+                    SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetPushedForwardButtonTexture(), NULL, &rectForwardButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                    
+                    if(counterVolume == 0)
+                    {
+                       SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 1)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 2)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 3)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                    }
+                }
+                
+                // Button INSERT CREDIT
+                
+                if(xZ >= rectInsertCredit.x && xZ <= 850 && yZ >= rectInsertCredit.y && yZ <= 460)
+                {
+                    SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditPushedTexture(), NULL, &rectInsertCredit);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                    
+                    if(counterVolume == 0)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 1)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 2)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 3)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                    }
+                }
+                
+                // Button INFO
+                
+                if(xZ >= rectInfoButton.x && xZ <= 60 && yZ >= rectInfoButton.y && yZ <= 700)
+                {
+                    SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetInfoTexturePushed(), NULL, &rectInfoButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                    
+                    if(counterVolume == 0)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 1)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 2)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 3)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                    }
+                }
+                
+                // Button VOLUME MINUS
+                
+                if(xZ >= rectVolumeMinusButton.x && xZ <= 1080 && yZ >= rectVolumeMinusButton.y && yZ <= 680)
+                {
+                    counterVolume = counterVolume - 1;
+                    
+                    if(counterVolume <= 0)
+                    {
+                        counterVolume = 0;
+                    }
+                    
+                    if(counterVolume == 0)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                    }
+                    
+                    if(counterVolume == 1)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButtonPushed(), NULL, &rectVolumeMinusButton);
+                    }
+                    
+                    if(counterVolume == 2)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButtonPushed(), NULL, &rectVolumeMinusButton);
+                    }
+                    
+                    if(counterVolume == 3)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButtonPushed(), NULL, &rectVolumeMinusButton);
+                    }
+                }
+                
+                // Button VOLUME PLUS
+                
+                if(xZ >= rectVolumePlusButton.x && xZ <= 1260 && yZ >= rectVolumePlusButton.y && yZ <= 680)
+                {
+                    counterVolume = counterVolume + 1;
+                    
+                    if(counterVolume >= 3)
+                    {
+                        counterVolume = 3;
+                    }
+                    
+                    if(counterVolume == 0)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButtonPushed(), NULL, &rectVolumePlusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                    }
+                    
+                    if(counterVolume == 1)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButtonPushed(), NULL, &rectVolumePlusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                    }
+                    
+                    if(counterVolume == 2)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButtonPushed(), NULL, &rectVolumePlusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                    }
+                    
+                    if(counterVolume == 3)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButtonPushed(), NULL, &rectVolumePlusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                    }
+                    
+                    
+                    
+                }
                 
             }
             
