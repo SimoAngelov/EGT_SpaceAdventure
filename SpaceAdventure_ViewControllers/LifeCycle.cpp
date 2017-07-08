@@ -143,6 +143,9 @@ void LifeCycle:: Play()
     
     Intro.SetSpaceShipButtonOkPushed(LoadTexture("okButtonPushed.png"));
     
+    // Counter VIEW CONTROLLERS
+    
+    int counterViewControllers = 1;
     
     // Bool to quit LifeCycle
     
@@ -204,7 +207,10 @@ void LifeCycle:: Play()
             {
                 SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                 
-                SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                if(okPushedSpaceShip == true)
+                {
+                    SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                }
                 
                 SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                 
@@ -227,7 +233,10 @@ void LifeCycle:: Play()
             {
                 SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                 
-                SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                if(okPushedSpaceShip == true)
+                {
+                    SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                }
                 
                 SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                 
@@ -248,7 +257,10 @@ void LifeCycle:: Play()
             {
                 SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                 
-                SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                if(okPushedSpaceShip == true)
+                {
+                    SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                }
                 
                 SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                 
@@ -269,7 +281,10 @@ void LifeCycle:: Play()
             {
                 SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                 
-                SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                if(okPushedSpaceShip == true)
+                {
+                    SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                }
                 
                 SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                 
@@ -290,7 +305,7 @@ void LifeCycle:: Play()
             {
                 SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                 
-                SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
                 
                 SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                 
@@ -336,7 +351,7 @@ void LifeCycle:: Play()
             {
                 // Button FORWARD
                 
-                if(xZ >= rectForwardButton.x && xZ <= 900 && yZ >= rectForwardButton.y && yZ <= 650 && spaceShipHidden == true)
+                if(xZ >= rectForwardButton.x && xZ <= 900 && yZ >= rectForwardButton.y && yZ <= 650 && spaceShipHidden == true && okPushedSpaceShip == true)
                 {
                     SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                     
@@ -371,15 +386,71 @@ void LifeCycle:: Play()
                     {
                         SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
                     }
+                    
+                    // Passing to View 2
+                    
+                    while(rectLogo.x >= -650)
+                    {
+                        rectLogo.x -= 5;
+                        
+                        rectInsertCredit.x -= 5;
+                        
+                        rectBackground.x += 1;
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetPushedForwardButtonTexture(), NULL, &rectForwardButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                        
+                        if(counterVolume == 0)
+                        {
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                        }
+                        
+                        if(counterVolume == 1)
+                        {
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                        }
+                        
+                        if(counterVolume == 2)
+                        {
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                        }
+                        
+                        if(counterVolume == 3)
+                        {
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                        }
+                        
+                        SDL_RenderPresent(rendererPtr);
+                    }
+                    
+                    counterViewControllers += 1;
+                    
+                    cout << counterViewControllers << endl;
                 }
                 
                 // Button INSERT CREDIT
                 
                 if(xZ >= rectInsertCredit.x && xZ <= 850 && yZ >= rectInsertCredit.y && yZ <= 590 && spaceShipHidden == true)
                 {
+                    okPushedSpaceShip = false;
+                    
                     SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                     
-                    SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                    if(okPushedSpaceShip == true)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                    }
                     
                     SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                     
@@ -419,7 +490,7 @@ void LifeCycle:: Play()
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                         
-                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                         
@@ -464,7 +535,7 @@ void LifeCycle:: Play()
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                         
-                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                         
@@ -508,7 +579,7 @@ void LifeCycle:: Play()
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                         
-                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                         
@@ -555,7 +626,7 @@ void LifeCycle:: Play()
                 {
                     SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                     
-                    SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                    //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
                     
                     SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                     
@@ -602,7 +673,7 @@ void LifeCycle:: Play()
                 {
                     SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                     
-                    SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                    //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
                     
                     SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                     
@@ -664,7 +735,7 @@ void LifeCycle:: Play()
                             
                             SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                             
-                            SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                            //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
                             
                             SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                             
@@ -714,7 +785,7 @@ void LifeCycle:: Play()
                             
                             SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                             
-                            SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                            //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
                             
                             SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                             
@@ -758,7 +829,7 @@ void LifeCycle:: Play()
                             
                             SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                             
-                            SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                            //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
                             
                             SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                             
@@ -801,7 +872,10 @@ void LifeCycle:: Play()
                 {
                     SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                     
-                    SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                    if(okPushedSpaceShip == true)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                    }
                     
                     SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                     
@@ -849,7 +923,10 @@ void LifeCycle:: Play()
                     {
                         SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                         
-                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        if(okPushedSpaceShip == true)
+                        {
+                            SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        }
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                         
@@ -868,7 +945,10 @@ void LifeCycle:: Play()
                     {
                         SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                         
-                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        if(okPushedSpaceShip == true)
+                        {
+                            SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        }
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                         
@@ -887,7 +967,10 @@ void LifeCycle:: Play()
                     {
                         SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                         
-                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        if(okPushedSpaceShip == true)
+                        {
+                            SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        }
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                         
@@ -906,7 +989,10 @@ void LifeCycle:: Play()
                     {
                         SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                         
-                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        if(okPushedSpaceShip == true)
+                        {
+                            SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        }
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                         
@@ -937,7 +1023,10 @@ void LifeCycle:: Play()
                     {
                         SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                         
-                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        if(okPushedSpaceShip == true)
+                        {
+                            SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        }
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                         
@@ -956,7 +1045,10 @@ void LifeCycle:: Play()
                     {
                         SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                         
-                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        if(okPushedSpaceShip == true)
+                        {
+                            SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        }
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                         
@@ -975,7 +1067,10 @@ void LifeCycle:: Play()
                     {
                         SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                         
-                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        if(okPushedSpaceShip == true)
+                        {
+                            SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        }
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                         
@@ -994,7 +1089,10 @@ void LifeCycle:: Play()
                     {
                         SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                         
-                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        if(okPushedSpaceShip == true)
+                        {
+                            SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        }
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &rectLogo);
                         
