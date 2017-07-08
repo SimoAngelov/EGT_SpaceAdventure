@@ -14,6 +14,7 @@ class GameController
 private:
 	GameModel m_baseGame;
 	static int m_iBetStep;
+	static vector<BET> m_vecBetPerStep;
 	void InitRandomReels();
 	void SetSpecialFigure();
 
@@ -22,6 +23,9 @@ public:
 	GameController();
 	virtual ~GameController();
 
+	//insert credits in order to play
+	void InsertCredits(int);
+
 	//start a new game
 	void Spin();
 	//initialize the reels for the current game
@@ -29,8 +33,10 @@ public:
 	//set the paylines for the current game
 	void InitCurrentPaylines();
 
-	//insert credits in order to play
-	void InsertCredits(int);
+	//increase the number of paylines
+	void IncreasePaylines();
+	//decrease the number of paylines
+	void DecreasePaylines();
 	//set the number of paylines
 	void SetNumberOfPaylines(int);
 
@@ -43,8 +49,8 @@ public:
 	void WinFromPaylines();
 	//calculate current winning from a single payline
 	int WinFromSinglePayline(const Payline&);
-	//calculate the winnings per Figure
-	int WinPerFigure(const Figures&, int);
+	//calculate the coefficient per Figure
+	int FigureCoefficient(const Figures&, int);
 
 
 	//print functions

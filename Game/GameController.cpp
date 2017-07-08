@@ -10,10 +10,36 @@
 //member field to control the number of betting steps
 int GameController::m_iBetStep = 0;
 
+//member field to hold the bets at each step
+vector<BET> GameController::m_vecBetPerStep
+{ eBet1, eBet2, eBet3, eBet4, eBet5, eBet6, eBet7, eBet8, eBet9, eBet10, eBet11,
+		eBet12, eBet13, eBet14, eBet15 };
+
+//constructor
 GameController::GameController() :
 		m_baseGame()
 {
 	// TODO Auto-generated constructor stub
+}
+
+//insert credits in order to play the game
+void GameController::InsertCredits(int iCredits)
+{
+	if (iCredits > 0)
+	{
+		int currentCredits = this->m_baseGame.GetICredits();
+		int newCredits = iCredits + currentCredits;
+		this->m_baseGame.SetICredits(newCredits);
+	}
+}
+
+void GameController::Spin()
+{
+	if (this->m_baseGame.m_iTotalBet > 0)
+	{
+		this->InitCurrentReels();
+		this->InitCurrentPaylines();
+	}
 }
 
 //intialize the reels for the currentGame
@@ -34,9 +60,8 @@ void GameController::InitRandomReels()
 		for (int iRow = 0; iRow < GAME_ROWS; iRow++)
 		{
 			//choose a figure between 1 and 8
-			int iRandomFigure = rand() % eFigure8;
-			Figures figure = (Figures) iRandomFigure;
-			GameModel::m_iGameReels[iRow][iCol] = figure;
+			Figures randomFigure = static_cast<Figures>(rand() % eFigure9);
+			GameModel::m_iGameReels[iRow][iCol] = randomFigure;
 		} //end row for
 	} // end reel for
 }
@@ -51,12 +76,11 @@ void GameController::SetSpecialFigure()
 		//traverse each element of the reel
 		for (int iRow = 0; iRow < GAME_ROWS; iRow++)
 		{
-			int iRandomFigure = 7 + rand() % eFigure9;
-			Figures figure = (Figures) iRandomFigure;
-			if (figure == eFigure9)
+			Figures randomFigure = static_cast<Figures>(rand() % eNUM_FIGURES);
+			if (randomFigure == eFigure9)
 			{
 				//if the current figure is 9 aka special, break the inner loop
-				GameModel::m_iGameReels[iRow][iCol] = figure;
+				GameModel::m_iGameReels[iRow][iCol] = randomFigure;
 				cout << "Hooray" << endl;
 				break;
 			} //end if
@@ -64,28 +88,39 @@ void GameController::SetSpecialFigure()
 	} //end reel for
 }
 
+//Function to initialize the lines
+void GameController::InitCurrentPaylines()
+{
+	InitPayline1();
+	InitPayline2();
+	InitPayline3();
+	InitPayline4();
+	InitPayline5();
+	InitPayline6();
+	InitPayline7();
+	InitPayline8();
+	InitPayline9();
+	InitPayline10();
+	InitPayline11();
+	InitPayline12();
+	InitPayline13();
+	InitPayline14();
+	InitPayline15();
+	InitPayline16();
+	InitPayline17();
+	InitPayline18();
+	InitPayline19();
+	InitPayline20();
+	InitPayline21();
+	InitPayline22();
+	InitPayline23();
+	InitPayline24();
+	InitPayline25();
+}
+
 GameController::~GameController()
 {
 	// TODO Auto-generated destructor stub
-}
-void GameController::Spin()
-{
-	if (this->m_baseGame.m_iTotalBet > 0)
-	{
-		this->InitCurrentReels();
-		this->InitCurrentPaylines();
-	}
-}
-
-//insert credits in order to play the game
-void GameController::InsertCredits(int iCredits)
-{
-	if (iCredits > 0)
-	{
-		int currentCredits = this->m_baseGame.GetICredits();
-		int newCredits = iCredits + currentCredits;
-		this->m_baseGame.SetICredits(newCredits);
-	}
 }
 
 //set the number of paylines for the current game
@@ -94,67 +129,37 @@ void GameController::SetNumberOfPaylines(int iNumberOfPaylines)
 	this->m_baseGame.SetINumberOfLines(iNumberOfPaylines);
 }
 
+//increase the number of paylines
+void GameController::IncreasePaylines()
+{
+	int iNumPayLines = this->m_baseGame.GetINumberOfLines();
+	if(iNumPayLines < MAX_PAYLINES)
+	{
+		this->m_baseGame.SetINumberOfLines(++iNumPayLines);
+	}
+}
+
+//decrease the number of paylines
+void GameController::DecreasePaylines()
+{
+	int iNumPayLines = this->m_baseGame.GetINumberOfLines();
+	if(iNumPayLines > MIN_PAYLINES)
+	{
+		this->m_baseGame.SetINumberOfLines(--iNumPayLines);
+	}
+}
+
 //set the bet per line, depending on the number of steps
 void GameController::SetBetPerPayline(int iStep)
 {
-	int iBet = 0;
-	switch (iStep)
-	{
-	case 1:
-		iBet = 2;
-		break;
-	case 2:
-		iBet = 5;
-		break;
-	case 3:
-		iBet = 10;
-		break;
-	case 4:
-		iBet = 25;
-		break;
-	case 5:
-		iBet = 50;
-		break;
-	case 6:
-		iBet = 75;
-		break;
-	case 7:
-		iBet = 100;
-		break;
-	case 8:
-		iBet = 250;
-		break;
-	case 9:
-		iBet = 500;
-		break;
-	case 10:
-		iBet = 750;
-		break;
-	case 11:
-		iBet = 1000;
-		break;
-	case 12:
-		iBet = 1250;
-		break;
-	case 13:
-		iBet = 1500;
-		break;
-	case 14:
-		iBet = 1750;
-		break;
-	case 15:
-		iBet = MAX_BET;
-		break;
-	default:
-		iBet = 1;
-		break;
-	}
+	int iBet = this->m_vecBetPerStep[iStep];
 	this->m_baseGame.SetIBetPerLine(iBet);
 }
 
 //increase the bet by 1 step
 void GameController::IncreaseBet()
 {
+
 	if (GameController::m_iBetStep <= MAX_BET_STEP)
 	{
 		GameController::m_iBetStep++;
@@ -179,7 +184,7 @@ void GameController::WinFromPaylines()
 	{
 		Payline currentPayline = this->m_baseGame.m_vecPaylines[i];
 		winFromPaylines += this->WinFromSinglePayline(currentPayline);
-		cout << "Win for line" << i << ": "
+		cout << "Win for line" << i + 1 << ": "
 				<< this->WinFromSinglePayline(currentPayline) << endl;
 	}
 	int currentWinnings = this->m_baseGame.GetIWin();
@@ -218,74 +223,47 @@ int GameController::WinFromSinglePayline(const Payline& payline)
 			iBestOccurrence = iCurrentOccurrence;
 			bestFigure = currentFigure;
 		}
-	}//end for
+	} //end for
 
 	//return the winnings from the line
-	int winningsPerLine = this->WinPerFigure(bestFigure, iBestOccurrence);
+	int iFigCoeff = this->FigureCoefficient(bestFigure, iBestOccurrence);
+	int iBet = this->m_baseGame.GetIBetPerLine();
+	int winningsPerLine = iFigCoeff * iBet;
 	return winningsPerLine;
 }
 
-//calculate the win from a figure based on its weight
-int GameController::WinPerFigure(const Figures& figure, int iOccurrences)
+//calculate the coefficient of a figure based on its weight
+int GameController::FigureCoefficient(const Figures& figure, int iOccurrences)
 {
-	int winnings = 0;
-	int coefficient = 0;
+	int iWeight = 0;
+	int iCoefficient = 0;
 	switch (iOccurrences)
 	{
 	case 0:
 	case 1:
 	case 2:
-		coefficient = 0;
-		winnings = 0;
+		iWeight = 0;
+		iCoefficient = 0;
 		break;
 	case 3:
-		coefficient = 10 * iOccurrences;
+		iWeight = 10 * iOccurrences;
 		break;
 	case 4:
-		coefficient = 20 * iOccurrences;
+		iWeight = 20 * iOccurrences;
 		break;
 	case 5:
-		coefficient = 30 * iOccurrences;
+		iWeight = 30 * iOccurrences;
 		break;
 	default:
-		coefficient = 0;
-		winnings = 0;
+		iWeight = 0;
+		iCoefficient = 0;
 		break;
 	}
 
-	winnings = (1 + figure) * coefficient;
-	return winnings;
+	iCoefficient = (1 + figure) * iWeight;
+	return iCoefficient;
 }
 
-//Function to initialize the lines
-void GameController::InitCurrentPaylines()
-{
-	InitPayline1();
-	InitPayline2();
-	InitPayline3();
-	InitPayline4();
-	InitPayline5();
-	InitPayline6();
-	InitPayline7();
-	InitPayline8();
-	InitPayline9();
-	InitPayline10();
-	InitPayline11();
-	InitPayline12();
-	InitPayline13();
-	InitPayline14();
-	InitPayline15();
-	InitPayline16();
-	InitPayline17();
-	InitPayline18();
-	InitPayline19();
-	InitPayline20();
-	InitPayline21();
-	InitPayline22();
-	InitPayline23();
-	InitPayline24();
-	InitPayline25();
-}
 
 //printing functions
 void GameController::PrintReels() const
@@ -312,6 +290,7 @@ void GameController::PrintPaylines() const
 {
 	for (int i = 0; i < this->m_baseGame.m_vecPaylines.size(); i++)
 	{
+		cout << "PayLine " << i + 1 << ":\t";
 		this->PrintPayline(this->m_baseGame.m_vecPaylines[i]);
 	}
 }
