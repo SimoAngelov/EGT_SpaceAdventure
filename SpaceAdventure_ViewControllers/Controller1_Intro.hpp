@@ -64,6 +64,10 @@ private:
     
     SDL_Texture* spaceShipButtonMinusPushed = NULL;
     
+    SDL_Texture* spaceShipButtonOk = NULL;
+    
+    SDL_Texture* spaceShipButtonOkPushed = NULL;
+    
 public:
     
     Intro();
@@ -110,7 +114,11 @@ public:
     
     void SetSpaceShipButtonMinus(SDL_Texture* texture);
     
-    void SetSpaceShupButtonMinusPushed(SDL_Texture* texture);
+    void SetSpaceShipButtonMinusPushed(SDL_Texture* texture);
+    
+    void SetSpaceShipButtonOk(SDL_Texture* texture);
+    
+    void SetSpaceShipButtonOkPushed(SDL_Texture* texture);
     
     /////
 
@@ -155,5 +163,9 @@ public:
     SDL_Texture* GetSpaceShipButtonMinus();
     
     SDL_Texture* GetSpaceShipButtonMinusPushed();
+    
+    SDL_Texture* GetSpaceShipButtonOk();
+    
+    SDL_Texture* GetSpaceShipButtonOkPushed();
 };
 #endif /* Controller1_Intro_hpp */

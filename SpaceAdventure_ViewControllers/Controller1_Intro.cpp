@@ -154,9 +154,23 @@ void Intro:: SetSpaceShipButtonMinus(SDL_Texture* texture)
 
 //
 
-void Intro:: SetSpaceShupButtonMinusPushed(SDL_Texture* texture)
+void Intro:: SetSpaceShipButtonMinusPushed(SDL_Texture* texture)
 {
     spaceShipButtonMinusPushed = texture;
+}
+
+//
+
+void Intro:: SetSpaceShipButtonOk(SDL_Texture* texture)
+{
+    spaceShipButtonOk = texture;
+}
+
+//
+
+void Intro:: SetSpaceShipButtonOkPushed(SDL_Texture* texture)
+{
+    spaceShipButtonOkPushed = texture;
 }
 
 //
@@ -304,5 +318,19 @@ SDL_Texture* Intro:: GetSpaceShipButtonMinus()
 SDL_Texture* Intro:: GetSpaceShipButtonMinusPushed()
 {
     return spaceShipButtonMinusPushed;
+}
+
+//
+
+SDL_Texture* Intro:: GetSpaceShipButtonOk()
+{
+    return spaceShipButtonOk;
+}
+
+//
+
+SDL_Texture* Intro:: GetSpaceShipButtonOkPushed()
+{
+    return spaceShipButtonOkPushed;
 }
 
