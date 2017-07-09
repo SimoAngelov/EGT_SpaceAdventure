@@ -16,6 +16,13 @@ using std::vector;
 using std::endl;
 using std::cout;
 
+//credit increment constant
+const int CREDIT_STEP = 10000;
+//minimum amount of credits
+const int MIN_CREDITS = 0;
+//maximum amount of credits
+const int MAX_CREDITS = 1000000;
+
 //enumerator for the figures
 typedef enum
 {
@@ -40,7 +47,6 @@ typedef struct Payline
 
 //number of reels
 const int GAME_REELS = 5;
-
 //number of rows
 const int GAME_ROWS = 3;
 
@@ -78,4 +84,15 @@ typedef enum
 	eBet15 = 2000
 } BET;
 
+//number of special figures for bonus game
+const int BONUS_GAME = 5;
+//enum holding two choices for the bonus game
+typedef enum
+{
+	eInvalid1 = -2,
+	eInvalid2 = -1,
+	eBlack,
+	eRed,
+	eNUM_COLORS
+}COLOR;
 #endif /* GLOBALS_H_ */

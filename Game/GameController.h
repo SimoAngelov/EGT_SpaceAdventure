@@ -9,54 +9,102 @@
 #define GAMECONTROLLER_H_
 
 #include "GameModel.h"
+#include "BonusGame.h"
 class GameController
 {
 private:
 	GameModel m_baseGame;
 	static int m_iBetStep;
 	static vector<BET> m_vecBetPerStep;
-	void InitRandomReels();
-	void SetSpecialFigure();
-
-
-public:
-	GameController();
-	virtual ~GameController();
-
+	static bool m_bFigureIsSelected[eNUM_FIGURES];
+	static int m_iBonusCounter;
+	BonusGame m_bonusGame;
+	static bool m_bPlayRound1;
+	static bool m_bPlayRound2;
+	static COLOR m_playerChoice;
 	//insert credits in order to play
 	void InsertCredits(int);
-
-	//start a new game
-	void Spin();
+	//set random values for the reels
+	void InitRandomReels();
+	//set the special figure per reel, random appearance
+	void SetSpecialFigure();
+	//set unique figures for each reel
+	void SetUniqueFigures();
 	//initialize the reels for the current game
 	void InitCurrentReels();
 	//set the paylines for the current game
 	void InitCurrentPaylines();
+	//set the totalBet
+	void SetTotalBet();
+	//calculate current winning from a single payline
+	int WinFromSinglePayline(const Payline&);
+	//calculate the coefficient per Figure
+	int FigureCoefficient(const Figures&, int);
+	//set the number of paylines
+	void SetNumberOfPaylines(int);
+	//set the bet per line
+	void SetBetPerPayline(int);
+	//check if the bet increase exceeds the current amount of credits
+	bool BetExceedsCredits(int);
+	//check if the payline increase exceeds the current amount of credits
+	bool PaylinesExceedCredits(int);
+	//bonus game round1
+	void BonusWin1(const COLOR&);
+	//bonus game round2
+	void BonusWin2(const COLOR&);
+public:
+	GameController();
+	virtual ~GameController();
+
+	//increase the credits
+	void IncreaseCredits();
+	//decrease the credits
+	void DecreaseCredits();
+
+	//spin the reels and set the paylines
+	void Spin();
 
 	//increase the number of paylines
 	void IncreasePaylines();
 	//decrease the number of paylines
 	void DecreasePaylines();
-	//set the number of paylines
-	void SetNumberOfPaylines(int);
 
-	//increase, decrease and set the bet
+	//increase, decrease the bet
 	void IncreaseBet();
 	void DecreaseBet();
-	void SetBetPerPayline(int);
 
+	//set the total winnnings from the paylines and bonus game
+	void SetTotalWin();
+	//set the win from the bonus game
+	void SetBonusWin();
 	//calculate current winnings from the paylines
 	void WinFromPaylines();
-	//calculate current winning from a single payline
-	int WinFromSinglePayline(const Payline&);
-	//calculate the coefficient per Figure
-	int FigureCoefficient(const Figures&, int);
+	//if player wants to play bonus game round 1
+	void PlayBonusRoundOne();
+	//if player wants to play bonus game round 2
+	void PlayBonusRoundTwo();
+	//if player selected a black card
+	void SelectBlackCard();
+	//if the player selected a red card
+	void SelectRedCard();
 
+	//Getters
+	int GetBetPerLine() const;
+	int GetCredits() const;
+	int GetNumberOfLines() const;
+	int GetTotalBet() const;
+	int GetWin() const;
 
 	//print functions
 	void PrintReels() const;
 	void PrintPayline(const Payline&) const;
 	void PrintPaylines() const;
+	void PrintCredits() const;
+	void PrintBetPerLine() const;
+	void PrintNumLines() const;
+	void PrintTotalBet() const;
+	void PrintWin() const;
+
 private:
 	void InitPayline1();
 	void InitPayline2();
