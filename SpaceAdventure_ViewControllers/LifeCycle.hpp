@@ -39,13 +39,13 @@ public:
     
     //
     
-    void InitMedia(); // To initialize EVERYTHING
+    void InitMedia(); // INITIALIZING EVERYTHING
     
-    SDL_Texture* LoadTexture(string path); // To load Texture from PATH
+    SDL_Texture* LoadTexture(string path); // LOADING TEXTURE FROM THE PATH
     
-    void Play(); // LifeCycle Program
+    void Play(); // LIFECYCLE PROGRAM
     
-    void QuitGame(); // To delete POINTERS and QUIT GAME
+    void QuitGame(); // DELETING POINTERS AND QUITING THE GAME
     
     //
     
@@ -53,7 +53,7 @@ public:
     
     SDL_Renderer* GetRenderer();
     
-    // OverLoad operator =
+    // OVERLOADED OPERATOR (=)
     
     SDL_Rect* operator = (SDL_Rect newObject)
     {
@@ -70,7 +70,7 @@ public:
         return object;
     }
     
-    // Func to construct rectangles
+    // FUNCTION FOR CREATING RECTANGLES
     
     SDL_Rect createRect(int x, int y, int w, int h)
     {

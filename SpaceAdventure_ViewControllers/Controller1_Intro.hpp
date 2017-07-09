@@ -21,6 +21,8 @@ class Intro
 {
     
 private:
+
+	// TEXTURES FOR THE FIRST VIEW CONTROLLER
     
     SDL_Texture* backgroundTexture = NULL;
     
@@ -73,6 +75,7 @@ public:
     Intro();
     
     /////
+    //TEXTURES SETTERS
     
     void SetBackgroundTexture(SDL_Texture* texture);
     
@@ -121,6 +124,7 @@ public:
     void SetSpaceShipButtonOkPushed(SDL_Texture* texture);
     
     /////
+    //TEXTURES GETTERS
 
     SDL_Texture* GetBackgroundTexture();
     
