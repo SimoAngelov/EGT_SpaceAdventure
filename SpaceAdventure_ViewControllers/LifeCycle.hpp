@@ -15,7 +15,11 @@
 
 #include <SDL2_image/SDL_image.h>
 
+#include <SDL2_ttf/SDL_ttf.h>
+
 #include "Controller1_Intro.hpp"
+
+#include "Controller2_GameController.hpp"
 
 using namespace std;
 
@@ -28,9 +32,21 @@ private:
     
     const int m_nHeight = 720; // Height WINDOW PROGRAM
     
+    int m_nCredit = 0; // Game Credit
+    
     SDL_Window* windowPtr = NULL;
     
     SDL_Renderer* rendererPtr = NULL;
+    
+    TTF_Font* Xanadu = NULL;
+    
+    SDL_Color color = {180,230,230,0};
+    
+    SDL_Surface* creditSurface = NULL;
+    
+    SDL_Texture* creditTexture = NULL;
+    
+    
     
     
 public:
@@ -39,21 +55,27 @@ public:
     
     //
     
-    void InitMedia(); // INITIALIZING EVERYTHING
+    void InitMedia(); // To initialize EVERYTHING
     
-    SDL_Texture* LoadTexture(string path); // LOADING TEXTURE FROM THE PATH
+    SDL_Texture* LoadTexture(string path); // To load Texture from PATH
     
-    void Play(); // LIFECYCLE PROGRAM
+    void Play(); // LifeCycle Program
     
-    void QuitGame(); // DELETING POINTERS AND QUITING THE GAME
+    void QuitGame(); // To delete POINTERS and QUIT GAME
     
     //
+    
+    void SetCredit(int credit);
+    
+    //
+    
+    int GetCredit();
     
     SDL_Window* GetWindow();
     
     SDL_Renderer* GetRenderer();
     
-    // OVERLOADED OPERATOR (=)
+    // OverLoad operator =
     
     SDL_Rect* operator = (SDL_Rect newObject)
     {
@@ -70,7 +92,7 @@ public:
         return object;
     }
     
-    // FUNCTION FOR CREATING RECTANGLES
+    // Func to construct rectangles
     
     SDL_Rect createRect(int x, int y, int w, int h)
     {
