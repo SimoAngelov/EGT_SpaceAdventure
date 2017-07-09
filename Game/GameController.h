@@ -19,9 +19,8 @@ private:
 	static bool m_bFigureIsSelected[eNUM_FIGURES];
 	static int m_iBonusCounter;
 	BonusGame m_bonusGame;
-	static bool m_bPlayRound1;
-	static bool m_bPlayRound2;
 	static COLOR m_playerChoice;
+	static bool m_bQuitBonusGame;
 	//insert credits in order to play
 	void InsertCredits(int);
 	//set random values for the reels
@@ -75,10 +74,10 @@ public:
 
 	//set the total winnnings from the paylines and bonus game
 	void SetTotalWin();
-	//set the win from the bonus game
-	void SetBonusWin();
 	//calculate current winnings from the paylines
 	void WinFromPaylines();
+	//quit the bonus game
+	bool QuitBonusGame();
 	//if player wants to play bonus game round 1
 	void PlayBonusRoundOne();
 	//if player wants to play bonus game round 2

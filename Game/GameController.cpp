@@ -22,12 +22,10 @@ bool GameController::m_bFigureIsSelected[eNUM_FIGURES] =
 //member field to keep track of the number of special figures per reel
 int GameController::m_iBonusCounter = 0;
 
-//member field to check if the player wants to play bonus game round 1
-bool GameController::m_bPlayRound1 = false;
-//member field to check if the player wants to play bonus game round 2
-bool GameController::m_bPlayRound2 = false;
 //member field to keep track of the choice the player made during the bonus game
 COLOR GameController::m_playerChoice = eInvalid1;
+//member field to keep track if the player wants to keep the bonus game
+bool GameController::m_bQuitBonusGame = false;
 //constructor
 GameController::GameController() :
 		m_baseGame()
@@ -319,21 +317,7 @@ void GameController::SetTotalWin()
 
 }
 
-//calculate the win from the bonus game
-void GameController::SetBonusWin()
-{
-	//if the player wants to play round1
-		if(GameController::m_bPlayRound1)
-		{
 
-			this->BonusWin1(GameController::m_playerChoice);
-		}
-		//if the player wants to play round2
-		if(GameController::m_bPlayRound2)
-		{
-			//this->
-		}
-}
 //calculate the win from the selected paylines
 void GameController::WinFromPaylines()
 {
@@ -424,6 +408,12 @@ int GameController::FigureCoefficient(const Figures& figure, int iOccurrences)
 	return iCoefficient;
 }
 
+//quit the bonus game
+bool GameController::QuitBonusGame()
+{
+	GameController::m_bQuitBonusGame = true;
+	return GameController::m_bQuitBonusGame;
+}
 //bonus game round1
 void GameController::BonusWin1(const COLOR& playerChoice)
 {
@@ -436,6 +426,8 @@ void GameController::BonusWin1(const COLOR& playerChoice)
 		newWin = 0;
 	}
 	this->m_baseGame.SetIWin(newWin);
+	//TODO Update Credits
+
 }
 
 //bonus game round2
@@ -450,18 +442,25 @@ void GameController::BonusWin2(const COLOR& playerChoice)
 		newWin = 0;
 	}
 	this->m_baseGame.SetIWin(newWin);
+	//TODO Update Credits
 }
 
 //if player wants to play bonus game round 1
 void GameController::PlayBonusRoundOne()
 {
-	GameController::m_bPlayRound1 = true;
+	//if the player choice is valid
+	if(GameController::m_playerChoice == eBlack
+			|| GameController::m_playerChoice == eRed)
+	{
+		this->BonusWin1(GameController::m_playerChoice);
+	}
+
 }
 
 //if player wants to play bonus game round 2
 void GameController::PlayBonusRoundTwo()
 {
-	GameController::m_bPlayRound2 = true;
+
 }
 
 //if player selected a black card

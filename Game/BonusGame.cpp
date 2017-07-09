@@ -9,6 +9,9 @@
 
 //member field to increment the seed additionally each time srand is called
 int BonusGame::m_iRandCounter = 0;
+
+//member field to check if round2 is availabe
+bool BonusGame::m_bContinueToRound2 = false;
 BonusGame::BonusGame():
 		m_playerChoice(eInvalid1),
 		m_bonusGameResult(eInvalid2)
@@ -42,7 +45,7 @@ bool BonusGame::PlayerWon() const
 	return this->m_playerChoice == this->m_bonusGameResult;
 }
 
-bool BonusGame::RoundOne(const COLOR playerChoice)
+bool BonusGame::RoundOne(const COLOR& playerChoice)
 {
 	this->SetBonusGameResult();
 	switch(playerChoice)
@@ -57,12 +60,21 @@ bool BonusGame::RoundOne(const COLOR playerChoice)
 		this->m_playerChoice = eInvalid1;
 		break;
 	}
+	//ternary operator to check if the player continues to round two
+	BonusGame::m_bContinueToRound2 =
+			(this->PlayerWon) ? true: false;
 	return this->PlayerWon();
 }
 
-bool BonusGame::RoundTwo(const COLOR playerChoice)
+bool BonusGame::RoundTwo(const COLOR& playerChoice)
 {
-	return this->RoundOne(playerChoice);
+	if(BonusGame::m_bContinueToRound2)
+	{
+		return this->RoundOne(playerChoice);
+	} else
+	{
+		return false;
+	}
 }
 
 BonusGame::~BonusGame()

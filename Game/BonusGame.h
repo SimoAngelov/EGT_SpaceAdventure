@@ -14,6 +14,7 @@ private :
 	static int m_iRandCounter;
 	COLOR m_playerChoice;
 	COLOR m_bonusGameResult;
+	static bool m_bContinueToRound2;
 public:
 	BonusGame();
 	//if 5 special figures have appeared
@@ -27,9 +28,9 @@ public:
 	//if the player won
 	bool PlayerWon() const;
 	//attempt at doubling the wins
-	bool RoundOne(const COLOR);
+	bool RoundOne(const COLOR&);
 	//attempt at try at quadrupling the wins
-	bool RoundTwo(const COLOR);
+	bool RoundTwo(const COLOR&);
 	virtual ~BonusGame();
 };
 
