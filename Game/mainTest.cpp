@@ -8,32 +8,11 @@
 
 #include <iostream>
 #include "GameController.h"
+#include "TestGameController.h"
 using namespace std;
 
 int main() {
-	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
-	GameController game;
-	cout << "EnterCredits" << endl;
-	int credits;
-	cin >> credits;
-	game.InsertCredits(credits);
-	cout << "Enter Number Of Lines: " << endl;
-	int numberOfLines;
-	cin >> numberOfLines;
-	game.SetNumberOfPaylines(numberOfLines);
-	cout << "set steps for bet" << endl;
-	int step;
-	cin >> step;
-	game.SetBetPerPayline(step);
-
-	game.Spin();
-//	game.InitCurrentReels();
-//	//game.InitCurrentPayLines();
-//	game.InitCurrentPaylines();
-	game.PrintReels();
-	cout << endl;
-	game.PrintPaylines();
-	cout << endl;
-	game.WinFromPaylines();
+	TestGameController testGame;
+	testGame.TestGame();
 	return 0;
 }

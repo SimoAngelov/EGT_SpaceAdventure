@@ -69,7 +69,7 @@ int GameModel::GetICredits() const
 //avoid Setting a negative credit ammount
 void GameModel::SetICredits(int iCredits)
 {
-	if(iCredits >= 0)
+	if(iCredits >= MIN_CREDITS && iCredits <= MAX_CREDITS)
 	{
 	m_iCredits = iCredits;
 	}

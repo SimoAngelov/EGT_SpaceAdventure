@@ -39,12 +39,7 @@ void GameController::InsertCredits(int iCredits)
 	//if the credits are within legal range
 	if (iCredits >= MIN_CREDITS && iCredits <= MAX_CREDITS)
 	{
-		//take the current credits
-		int iCurrentCredits = this->m_baseGame.GetICredits();
-		//add the new credits to the existing amount
-		int iNewCredits = iCredits + iCurrentCredits;
-		//set the new amount of credits
-		this->m_baseGame.SetICredits(iNewCredits);
+		this->m_baseGame.SetICredits(iCredits);
 	}
 }
 
@@ -76,7 +71,8 @@ void GameController::DecreaseCredits()
 void GameController::Spin()
 {
 //only spin if the total bet is above 0
-	if (this->m_baseGame.m_iTotalBet > 0)
+	if (this->GetTotalBet() > 0
+			&&this->GetTotalBet() < this->GetCredits())
 	{
 		//take the bet out of the credits
 		int iCurrCredits = this->GetCredits();
@@ -87,15 +83,18 @@ void GameController::Spin()
 		//init the reels and set the paylines
 		this->InitCurrentReels();
 		this->InitCurrentPaylines();
+
+		//Calculate the winnings from the spin
+		this->SetTotalWin();
 	} // end if
 }
 
 //intialize the reels for the currentGame
 void GameController::InitCurrentReels()
 {
-//	this->InitRandomReels();
-//	this->SetSpecialFigure();
-	this->SetUniqueFigures();
+	this->InitRandomReels();
+	this->SetSpecialFigure();
+//	this->SetUniqueFigures();
 }
 
 //initialize the game reels with random values

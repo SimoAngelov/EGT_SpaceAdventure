@@ -62,7 +62,7 @@ bool BonusGame::RoundOne(const COLOR& playerChoice)
 	}
 	//ternary operator to check if the player continues to round two
 	BonusGame::m_bContinueToRound2 =
-			(this->PlayerWon) ? true: false;
+			(this->PlayerWon()) ? true: false;
 	return this->PlayerWon();
 }
 
