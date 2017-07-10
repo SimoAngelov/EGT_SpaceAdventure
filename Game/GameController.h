@@ -29,6 +29,8 @@ private:
 	void SetSpecialFigure();
 	//set unique figures for each reel
 	void SetUniqueFigures();
+	//set the same figures on all the reels to test the win function
+	void SetTheSameFigures();
 	//initialize the reels for the current game
 	void InitCurrentReels();
 	//set the paylines for the current game

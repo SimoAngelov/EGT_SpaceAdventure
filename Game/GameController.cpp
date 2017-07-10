@@ -70,6 +70,17 @@ void GameController::DecreaseCredits()
 //spin the reels and set the paylines
 void GameController::Spin()
 {
+	//if there was a win, add it to the credits
+	if(this->GetWin() > 0)
+	{
+		//add the win to the credits
+		int iCurrCredits = this->GetCredits();
+		int iCurrWin = this->GetWin();
+		int iNewCredits = iCurrCredits + iCurrWin;
+		this->m_baseGame.SetICredits(iNewCredits);
+		//set the win to 0
+		this->m_baseGame.SetIWin(0);
+	}
 //only spin if the total bet is above 0
 	if (this->GetTotalBet() > 0
 			&&this->GetTotalBet() < this->GetCredits())
@@ -92,9 +103,11 @@ void GameController::Spin()
 //intialize the reels for the currentGame
 void GameController::InitCurrentReels()
 {
-	this->InitRandomReels();
-	this->SetSpecialFigure();
+//	this->InitRandomReels();
+//	this->SetSpecialFigure();
 //	this->SetUniqueFigures();
+
+	this->SetTheSameFigures();
 }
 
 //initialize the game reels with random values
@@ -173,9 +186,29 @@ void GameController::SetUniqueFigures()
 		} //end row for
 	} // end reel for
 }
+//set unique figures per each reel
+void GameController::SetTheSameFigures()
+{
+	//seed a random sequence of numbers
+	srand(time(0));
+	Figures randFigure = static_cast<Figures>(rand() % eNUM_FIGURES);
+//traverse each reel
+	for (int iCol = 0; iCol < GAME_REELS; iCol++)
+	{
+//traverse each element of the reel
+		for (int iRow = 0; iRow < GAME_ROWS; iRow++)
+		{
+			GameModel::m_iGameReels[iRow][iCol] = randFigure;
+		} //end row for
+	} // end reel for
+}
+
 //Function to initialize the lines
 void GameController::InitCurrentPaylines()
 {
+	//empty the vector of lines
+	this->m_baseGame.m_vecPaylines.erase(m_baseGame.m_vecPaylines.begin(),
+			m_baseGame.m_vecPaylines.end());
 	InitPayline1();
 	InitPayline2();
 	InitPayline3();
