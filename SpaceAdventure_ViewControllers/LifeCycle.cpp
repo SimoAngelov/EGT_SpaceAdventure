@@ -2438,7 +2438,7 @@ void LifeCycle:: Play()
                 
             }
             
-            // VIEW 3 REEL GAME
+            // Starting view THREE
             
             if(counterViewControllers == 3)
             {
