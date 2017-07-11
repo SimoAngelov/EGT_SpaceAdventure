@@ -21,6 +21,8 @@
 
 #include "Controller2_GameController.hpp"
 
+#include "Controller3_Slot.hpp"
+
 using namespace std;
 
 class LifeCycle

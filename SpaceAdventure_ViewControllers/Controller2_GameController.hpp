@@ -26,6 +26,18 @@ private:
     
     SDL_Texture* backButtonTexturePushed = NULL;
     
+    SDL_Texture* playButtonTexture = NULL;
+    
+    SDL_Texture* playButtonTexturePushed = NULL;
+    
+    SDL_Texture* firstRow = NULL;
+    
+    SDL_Texture* secondRow = NULL;
+    
+    SDL_Texture* thirdRow = NULL;
+    
+    SDL_Texture* fourthRow = NULL;
+    
 public:
     
     GameController();
@@ -36,11 +48,36 @@ public:
     
     void SetBackButtonTexturePushed(SDL_Texture* texture);
     
+    void SetPlayButtonTexture(SDL_Texture* texture);
+    
+    void SetPlayButtonTexturePushed(SDL_Texture* texture);
+    
+    void SetFirstRow(SDL_Texture* texture);
+    
+    void SetSecondRow(SDL_Texture* texture);
+    
+    void SetThirdRow(SDL_Texture* texture);
+    
+    void SetFourthRow(SDL_Texture* texture);
+    
+    
     //////
     
     SDL_Texture* GetBackButtonTexture();
     
     SDL_Texture* GetBackButtonTexturePushed();
+    
+    SDL_Texture* GetPlayButtonTexture();
+    
+    SDL_Texture* GetPlayButtonTexturePushed();
+    
+    SDL_Texture* GetFirstRow();
+    
+    SDL_Texture* GetSecondRow();
+    
+    SDL_Texture* GetThirdRow();
+    
+    SDL_Texture* GetFourthRow();
     
     
     

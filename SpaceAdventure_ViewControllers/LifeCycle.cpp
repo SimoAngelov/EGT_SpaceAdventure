@@ -80,6 +80,10 @@ void LifeCycle:: Play()
     
     GameController GameController;
     
+    // Create Object from Controller3_Slot
+    
+    Slot Slot;
+    
     // Creating objects from SDL_Rect and Custom Constructor -> createRect(int x, int y, int w, int h)
     
     SDL_Rect rectBackground = createRect(0, 0, 1280, 720);
@@ -94,11 +98,11 @@ void LifeCycle:: Play()
     
     SDL_Rect rectInfoButton = createRect(10, 650, 50, 50);
     
-    SDL_Rect rectVolume = createRect(1100, 600, 100, 100);
+    SDL_Rect rectVolume = createRect(1200, 670, 50, 50);
     
-    SDL_Rect rectVolumePlusButton = createRect(1210, 630, 50, 50);
+    SDL_Rect rectVolumePlusButton = createRect(1250, 685, 25, 25);
     
-    SDL_Rect rectVolumeMinusButton = createRect(1030, 630, 50, 50);
+    SDL_Rect rectVolumeMinusButton = createRect(1170, 685, 25, 25);
     
     SDL_Rect rectSpaceShip = createRect(0, -500, 1280, 500);
     
@@ -109,6 +113,20 @@ void LifeCycle:: Play()
     SDL_Rect rectSpaceShipButtonOk = createRect(570, 360, 150, 150);
     
     SDL_Rect rectTextCredit = createRect(365, 75, 550, 150);
+    
+    SDL_Rect rectTextCreditController2 = createRect(1290 , 650, 200, 50);
+    
+    SDL_Rect rectFirstLine = createRect(100, -150, 1080, 150);
+    
+    SDL_Rect rectSecondLine = createRect(110, -150, 1060, 170);
+    
+    SDL_Rect rectThirdLine = createRect(90, -150, 1110, 170);
+    
+    SDL_Rect rectFourthLine = createRect(320, -150, 650, 170);
+    
+    SDL_Rect rectButtonPlay = createRect(860, 580, 140, 140);
+    
+    SDL_Rect rectSlot = createRect(720, 720, 1280, 650);
     
     // Event Object
     
@@ -165,6 +183,24 @@ void LifeCycle:: Play()
     // Load Textures Controller 2 - Game Controller
     
     GameController.SetBackButtonTexture(LoadTexture("left.png"));
+    
+    GameController.SetFirstRow(LoadTexture("linesFirstLine.png"));
+    
+    GameController.SetSecondRow(LoadTexture("linesSecondLine.png"));
+    
+    GameController.SetThirdRow(LoadTexture("linesThirdLine.png"));
+    
+    GameController.SetFourthRow(LoadTexture("linesFourthLine.png"));
+    
+    GameController.SetPlayButtonTexture(LoadTexture("play.png"));
+    
+    GameController.SetPlayButtonTexturePushed(LoadTexture("playPushed.png"));
+    
+    // Load Textures Controller 3 - Slot Controller
+    
+    Slot.SetSlotTexture(LoadTexture("slot.png"));
+    
+    
     
     // Counter VIEW CONTROLLERS
     
@@ -240,7 +276,7 @@ void LifeCycle:: Play()
 //            SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
             
             
-            // View 1 with all buttons normal and volume MUTE
+            // VIEW 1 INTRO
             
             if(counterViewControllers == 1)
             {
@@ -456,7 +492,7 @@ void LifeCycle:: Play()
                 {
                     // Button FORWARD
                     
-                    if(xZ >= rectForwardButton.x && xZ <= 900 && yZ >= rectForwardButton.y && yZ <= 650 && spaceShipHidden == true && okPushedSpaceShip == true)
+                    if(xZ >= rectForwardButton.x && xZ <= 850 && yZ >= rectForwardButton.y && yZ <= 650 && spaceShipHidden == true && okPushedSpaceShip == true)
                     {
                         SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                         
@@ -768,7 +804,7 @@ void LifeCycle:: Play()
                             
                             SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonMinus(), NULL, &rectSpaceShipButtonMinus);
                             
-                            SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonPlus(), NULL, &rectSpaceShipButtonPlus);
+                            SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonPlusPushed(), NULL, &rectSpaceShipButtonPlus);
                             
                             SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCredit);
                             
@@ -816,7 +852,7 @@ void LifeCycle:: Play()
                             
                             SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonMinus(), NULL, &rectSpaceShipButtonMinus);
                             
-                            SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonPlus(), NULL, &rectSpaceShipButtonPlus);
+                            SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonPlusPushed(), NULL, &rectSpaceShipButtonPlus);
                             
                             SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonOk(), NULL, &rectSpaceShipButtonOk);
                             
@@ -882,7 +918,7 @@ void LifeCycle:: Play()
                             
                             SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipTexture(), NULL, &rectSpaceShip);
                             
-                            SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonMinus(), NULL, &rectSpaceShipButtonMinus);
+                            SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonMinusPushed(), NULL, &rectSpaceShipButtonMinus);
                             
                             SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonPlus(), NULL, &rectSpaceShipButtonPlus);
                             
@@ -930,7 +966,7 @@ void LifeCycle:: Play()
                             
                             SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipTexture(), NULL, &rectSpaceShip);
                             
-                            SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonMinus(), NULL, &rectSpaceShipButtonMinus);
+                            SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonMinusPushed(), NULL, &rectSpaceShipButtonMinus);
                             
                             SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonPlus(), NULL, &rectSpaceShipButtonPlus);
                             
@@ -1156,7 +1192,7 @@ void LifeCycle:: Play()
                     
                     // Button VOLUME MINUS
                     
-                    if(xZ >= rectVolumeMinusButton.x && xZ <= 1080 && yZ >= rectVolumeMinusButton.y && yZ <= 680 && spaceShipHidden == true)
+                    if(xZ >= rectVolumeMinusButton.x && xZ <= 1195 && yZ >= rectVolumeMinusButton.y && yZ <= 710 && spaceShipHidden == true)
                     {
                         counterVolume = counterVolume - 1;
                         
@@ -1256,7 +1292,7 @@ void LifeCycle:: Play()
                     
                     // Button VOLUME PLUS
                     
-                    if(xZ >= rectVolumePlusButton.x && xZ <= 1260 && yZ >= rectVolumePlusButton.y && yZ <= 680 && spaceShipHidden == true)
+                    if(xZ >= rectVolumePlusButton.x && xZ <= 1275 && yZ >= rectVolumePlusButton.y && yZ <= 710 && spaceShipHidden == true)
                     {
                         counterVolume = counterVolume + 1;
                         
@@ -1360,13 +1396,251 @@ void LifeCycle:: Play()
                 }
             }
             
-            // View 2 Game Controller
+            // View 2 GAME CONTROLLER
             
             if(counterViewControllers == 2)
             {
+                // Effect Left to Right Texture
+                
+                while(rectTextCreditController2.x >= 120)
+                {
+                    rectTextCreditController2.x -= 3;
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                    
+                    //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                    
+                    SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexture(), NULL, &rectBackButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                    
+                    SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                    
+                    if(counterVolume == 0)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 1)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 2)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 3)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                    }
+                    
+                    SDL_RenderPresent(rendererPtr);
+                    
+                }
+                
+                // Effect Up to Down Lines Texture
+                
+                // Effect First Line
+                
+                while(rectFirstLine.y <= 0)
+                {
+                    rectFirstLine.y += 3;
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                    
+                    //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                    
+                    SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexture(), NULL, &rectBackButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                    
+                    SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                    
+                    SDL_RenderCopy(rendererPtr, GameController.GetFirstRow(), NULL, &rectFirstLine);
+                    
+                    if(counterVolume == 0)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 1)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 2)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 3)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                    }
+                    
+                    SDL_RenderPresent(rendererPtr);
+                }
+                
+                // Effect Second Line
+                
+                while(rectSecondLine.y <= 120)
+                {
+                    rectSecondLine.y += 3;
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                    
+                    //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                    
+                    SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexture(), NULL, &rectBackButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                    
+                    SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                    
+                    SDL_RenderCopy(rendererPtr, GameController.GetFirstRow(), NULL, &rectFirstLine);
+                    
+                    SDL_RenderCopy(rendererPtr, GameController.GetSecondRow(), NULL, &rectSecondLine);
+                    
+                    if(counterVolume == 0)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 1)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 2)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 3)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                    }
+                    
+                    SDL_RenderPresent(rendererPtr);
+                }
+                
+                // Effect Third Line
+                
+                while(rectThirdLine.y <= 280)
+                {
+                    rectThirdLine.y += 3;
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                    
+                    //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                    
+                    SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexture(), NULL, &rectBackButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                    
+                    SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                    
+                    SDL_RenderCopy(rendererPtr, GameController.GetFirstRow(), NULL, &rectFirstLine);
+                    
+                    SDL_RenderCopy(rendererPtr, GameController.GetSecondRow(), NULL, &rectSecondLine);
+                    
+                    SDL_RenderCopy(rendererPtr, GameController.GetThirdRow(), NULL, &rectThirdLine);
+                    
+                    if(counterVolume == 0)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 1)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 2)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 3)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                    }
+                    
+                    SDL_RenderPresent(rendererPtr);
+                }
+                
+                // Effect Fourth Line
+                
+                while(rectFourthLine.y <= 420)
+                {
+                    rectFourthLine.y += 3;
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                    
+                    //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                    
+                    SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexture(), NULL, &rectBackButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                    
+                    SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                    
+                    SDL_RenderCopy(rendererPtr, GameController.GetFirstRow(), NULL, &rectFirstLine);
+                    
+                    SDL_RenderCopy(rendererPtr, GameController.GetSecondRow(), NULL, &rectSecondLine);
+                    
+                    SDL_RenderCopy(rendererPtr, GameController.GetThirdRow(), NULL, &rectThirdLine);
+                    
+                    SDL_RenderCopy(rendererPtr, GameController.GetFourthRow(), NULL, &rectFourthLine);
+                    
+                    if(counterVolume == 0)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 1)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 2)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 3)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                    }
+                    
+                    SDL_RenderPresent(rendererPtr);
+                }
+                
                 SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                 
-                SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
                 
                 SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexture(), NULL, &rectBackButton);
                 
@@ -1375,6 +1649,18 @@ void LifeCycle:: Play()
                 SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
                 
                 SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                
+                SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                
+                SDL_RenderCopy(rendererPtr, GameController.GetFirstRow(), NULL, &rectFirstLine);
+                
+                SDL_RenderCopy(rendererPtr, GameController.GetSecondRow(), NULL, &rectSecondLine);
+                
+                SDL_RenderCopy(rendererPtr, GameController.GetThirdRow(), NULL, &rectThirdLine);
+                
+                SDL_RenderCopy(rendererPtr, GameController.GetFourthRow(), NULL, &rectFourthLine);
+                
+                SDL_RenderCopy(rendererPtr, GameController.GetPlayButtonTexture(), NULL, &rectButtonPlay);
                 
                 if(counterVolume == 0)
                 {
@@ -1395,6 +1681,7 @@ void LifeCycle:: Play()
                 {
                     SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
                 }
+    
                 
                 // MOUSE CLICK
                 
@@ -1406,7 +1693,7 @@ void LifeCycle:: Play()
                     {
                         SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                         
-                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                       // SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
                         
                         SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexture(), NULL, &rectBackButton);
                         
@@ -1415,6 +1702,18 @@ void LifeCycle:: Play()
                         SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetFirstRow(), NULL, &rectFirstLine);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetSecondRow(), NULL, &rectSecondLine);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetThirdRow(), NULL, &rectThirdLine);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetFourthRow(), NULL, &rectFourthLine);
+                        
+                        SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetPlayButtonTexture(), NULL, &rectButtonPlay);
                         
                         if(counterVolume == 0)
                         {
@@ -1439,7 +1738,7 @@ void LifeCycle:: Play()
                     
                     // Button VOLUME MINUS
                     
-                    if(xZ >= rectVolumeMinusButton.x && xZ <= 1080 && yZ >= rectVolumeMinusButton.y && yZ <= 680)
+                    if(xZ >= rectVolumeMinusButton.x && xZ <= 1195 && yZ >= rectVolumeMinusButton.y && yZ <= 710)
                     {
                         counterVolume = counterVolume - 1;
                         
@@ -1450,7 +1749,7 @@ void LifeCycle:: Play()
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                         
-                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                      //  SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
                         
                         SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexture(), NULL, &rectBackButton);
                         
@@ -1459,6 +1758,18 @@ void LifeCycle:: Play()
                         SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButtonPushed(), NULL, &rectVolumeMinusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetFirstRow(), NULL, &rectFirstLine);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetSecondRow(), NULL, &rectSecondLine);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetThirdRow(), NULL, &rectThirdLine);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetFourthRow(), NULL, &rectFourthLine);
+                        
+                        SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetPlayButtonTexture(), NULL, &rectButtonPlay);
                         
                         if(counterVolume == 0)
                         {
@@ -1485,7 +1796,7 @@ void LifeCycle:: Play()
                     
                     // Button VOLUME PLUS
                     
-                    if(xZ >= rectVolumePlusButton.x && xZ <= 1260 && yZ >= rectVolumePlusButton.y && yZ <= 680)
+                    if(xZ >= rectVolumePlusButton.x && xZ <= 1275 && yZ >= rectVolumePlusButton.y && yZ <= 710)
                     {
                         counterVolume = counterVolume + 1;
                         
@@ -1496,7 +1807,7 @@ void LifeCycle:: Play()
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                         
-                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                      //  SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
                         
                         SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexture(), NULL, &rectBackButton);
                         
@@ -1505,6 +1816,18 @@ void LifeCycle:: Play()
                         SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButtonPushed(), NULL, &rectVolumePlusButton);
                         
                         SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetFirstRow(), NULL, &rectFirstLine);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetSecondRow(), NULL, &rectSecondLine);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetThirdRow(), NULL, &rectThirdLine);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetFourthRow(), NULL, &rectFourthLine);
+                        
+                        SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetPlayButtonTexture(), NULL, &rectButtonPlay);
                         
                         if(counterVolume == 0)
                         {
@@ -1527,13 +1850,264 @@ void LifeCycle:: Play()
                         }
                     }
                     
+                    // Button PLAY
+                    
+                    if(xZ >= rectButtonPlay.x && xZ <= 1000 && yZ >= rectButtonPlay.y && yZ <= 720)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                        
+                        //  SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexture(), NULL, &rectBackButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetFirstRow(), NULL, &rectFirstLine);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetSecondRow(), NULL, &rectSecondLine);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetThirdRow(), NULL, &rectThirdLine);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetFourthRow(), NULL, &rectFourthLine);
+                        
+                        SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                        
+                        SDL_RenderCopy(rendererPtr, GameController.GetPlayButtonTexturePushed(), NULL, &rectButtonPlay);
+                        
+                        if(counterVolume == 0)
+                        {
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                        }
+                        
+                        if(counterVolume == 1)
+                        {
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                        }
+                        
+                        if(counterVolume == 2)
+                        {
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                        }
+                        
+                        if(counterVolume == 3)
+                        {
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                        }
+                        
+                        // Effect UP Line 1
+                        
+                        while(rectFirstLine.y >= -150)
+                        {
+                            rectFirstLine.y -= 3;
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                            
+                            //  SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexture(), NULL, &rectBackButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetFirstRow(), NULL, &rectFirstLine);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetSecondRow(), NULL, &rectSecondLine);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetThirdRow(), NULL, &rectThirdLine);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetFourthRow(), NULL, &rectFourthLine);
+                            
+                            SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetPlayButtonTexturePushed(), NULL, &rectButtonPlay);
+                            
+                            if(counterVolume == 0)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 1)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 2)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 3)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                            }
+                            
+                            SDL_RenderPresent(rendererPtr);
+                        }
+                        
+                        // Effect DOWN Line 4
+                        
+                        while(rectFourthLine.y <= 730)
+                        {
+                            rectFourthLine.y += 3;
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                            
+                            //  SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexture(), NULL, &rectBackButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetFirstRow(), NULL, &rectFirstLine);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetSecondRow(), NULL, &rectSecondLine);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetThirdRow(), NULL, &rectThirdLine);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetFourthRow(), NULL, &rectFourthLine);
+                            
+                            SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetPlayButtonTexturePushed(), NULL, &rectButtonPlay);
+                            
+                            if(counterVolume == 0)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 1)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 2)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 3)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                            }
+                            
+                            SDL_RenderPresent(rendererPtr);
+                        }
+                        
+                        // Effect Lines 2 and 3
+                        
+                        while(rectSecondLine.x >= -1190)
+                        {
+                            rectSecondLine.x -= 3;
+                            
+                            rectThirdLine.x += 3;
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                            
+                            //  SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexture(), NULL, &rectBackButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetFirstRow(), NULL, &rectFirstLine);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetSecondRow(), NULL, &rectSecondLine);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetThirdRow(), NULL, &rectThirdLine);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetFourthRow(), NULL, &rectFourthLine);
+                            
+                            SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetPlayButtonTexturePushed(), NULL, &rectButtonPlay);
+                            
+                            if(counterVolume == 0)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 1)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 2)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 3)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                            }
+                            
+                            SDL_RenderPresent(rendererPtr);
+                        }
+                        
+                        // Effect PASSING TO CONTROLLER 3 SLOT
+                        
+                        while(rectBackground.x <= 1150)
+                        {
+                            rectBackground.x += 3;
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                            
+                            if(counterVolume == 0)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 1)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 2)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 3)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                            }
+                            
+                            SDL_RenderPresent(rendererPtr);
+                        }
+                        
+                        counterViewControllers = counterViewControllers + 1;
+                        
+                        cout << counterViewControllers << endl;
+                    }
+                    
                     // Button BACK
                     
                     if(xZ >= rectBackButton.x && xZ <= 600 && yZ >= rectBackButton.y && yZ <= 720)
                     {
                         SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
                         
-                        SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                        //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
                         
                         SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexturePushed(), NULL, &rectBackButton);
                         
@@ -1565,6 +2139,242 @@ void LifeCycle:: Play()
                         
                         // Back to Controller 1
                         
+                        // Effect Fourth Line Back
+                        
+                        while(rectFourthLine.y >= -150)
+                        {
+                            rectFourthLine.y -= 3;
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                            
+                            //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexture(), NULL, &rectBackButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                            
+                            SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetFirstRow(), NULL, &rectFirstLine);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetSecondRow(), NULL, &rectSecondLine);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetThirdRow(), NULL, &rectThirdLine);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetFourthRow(), NULL, &rectFourthLine);
+                            
+                            if(counterVolume == 0)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 1)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 2)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 3)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                            }
+                            
+                            SDL_RenderPresent(rendererPtr);
+                        }
+                        
+                        // Effect Third Line Back
+                        
+                        while(rectThirdLine.y >= -150)
+                        {
+                            rectThirdLine.y -= 3;
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                            
+                            //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexture(), NULL, &rectBackButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                            
+                            SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetFirstRow(), NULL, &rectFirstLine);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetSecondRow(), NULL, &rectSecondLine);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetThirdRow(), NULL, &rectThirdLine);
+                            
+                            if(counterVolume == 0)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 1)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 2)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 3)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                            }
+                            
+                            SDL_RenderPresent(rendererPtr);
+                        }
+                        
+                        // Effect Second Line Back
+                        
+                        while(rectSecondLine.y >= -150)
+                        {
+                            rectSecondLine.y -= 3;
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                            
+                            //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexture(), NULL, &rectBackButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                            
+                            SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetFirstRow(), NULL, &rectFirstLine);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetSecondRow(), NULL, &rectSecondLine);
+                            
+                            if(counterVolume == 0)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 1)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 2)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 3)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                            }
+                            
+                            SDL_RenderPresent(rendererPtr);
+                        }
+                        
+                        // Effect First Line Back
+                        
+                        while(rectFirstLine.y >= -150)
+                        {
+                            rectFirstLine.y -= 3;
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                            
+                            //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexture(), NULL, &rectBackButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                            
+                            SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetFirstRow(), NULL, &rectFirstLine);
+                            
+                            if(counterVolume == 0)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 1)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 2)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 3)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                            }
+                            
+                            SDL_RenderPresent(rendererPtr);
+                        }
+                        
+                        // Effect Text Credit Left to Right
+                        
+                        while(rectTextCreditController2.x <= 1290)
+                        {
+                            rectTextCreditController2.x += 3;
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                            
+                            //SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &rectForwardButton);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexturePushed(), NULL, &rectBackButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                            
+                            SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                            
+                            SDL_RenderCopy(rendererPtr, creditTexture, NULL, &rectTextCreditController2);
+                            
+                            if(counterVolume == 0)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 1)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 2)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                            }
+                            
+                            if(counterVolume == 3)
+                            {
+                                SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                            }
+                            
+                            SDL_RenderPresent(rendererPtr);
+                            
+                        }
+                        
                         while(rectLogo.x <= 400)
                         {
                             rectLogo.x += 5;
@@ -1580,6 +2390,8 @@ void LifeCycle:: Play()
                             SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &rectInsertCredit);
                             
                             SDL_RenderCopy(rendererPtr, Intro.GetPushedForwardButtonTexture(), NULL, &rectForwardButton);
+                            
+                            SDL_RenderCopy(rendererPtr, GameController.GetBackButtonTexturePushed(), NULL, &rectBackButton);
                             
                             SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
                             
@@ -1625,6 +2437,87 @@ void LifeCycle:: Play()
                 
                 
             }
+            
+            // VIEW 3 REEL GAME
+            
+            if(counterViewControllers == 3)
+            {
+                // Coming SLOT Effect
+                
+                while(rectSlot.x >= 0)
+                {
+                    if(rectSlot.y > 0)
+                    {
+                        rectSlot.y -= 3;
+                    }
+                    
+                    rectSlot.x -= 3;
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                    
+                    SDL_RenderCopy(rendererPtr,Slot.GetSlotTexture(), NULL, &rectSlot);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                    
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                    
+                    if(counterVolume == 0)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 1)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 2)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                    }
+                    
+                    if(counterVolume == 3)
+                    {
+                        SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                    }
+                    
+                    SDL_RenderPresent(rendererPtr);
+                }
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &rectBackground, NULL);
+                
+                SDL_RenderCopy(rendererPtr, Slot.GetSlotTexture(), NULL, &rectSlot);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &rectInfoButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &rectVolumePlusButton);
+                
+                SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(), NULL, &rectVolumeMinusButton);
+                
+                if(counterVolume == 0)
+                {
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(), NULL, &rectVolume);
+                }
+                
+                if(counterVolume == 1)
+                {
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(), NULL, &rectVolume);
+                }
+                
+                if(counterVolume == 2)
+                {
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(), NULL, &rectVolume);
+                }
+                
+                if(counterVolume == 3)
+                {
+                    SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(), NULL, &rectVolume);
+                }
+                
+            }
+            
             
             SDL_RenderPresent(rendererPtr);
             
