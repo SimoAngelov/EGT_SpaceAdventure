@@ -99,6 +99,9 @@ public:
 	//if the player selected a red card
 	void SelectRedCard();
 
+	//set the bet per line and number of lines to their maximum values
+	void MaxBet();
+
 	//Getters
 	int GetBetPerLine() const;
 	int GetCredits() const;

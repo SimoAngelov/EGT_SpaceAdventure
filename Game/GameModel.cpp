@@ -40,19 +40,6 @@ void GameModel::InitDefaultReels()
 		}
 		this->m_matrixGameReels.push_back(vecCurrentReel);
 	}
-	cout << "Number of columns: " << this->m_matrixGameReels.size() << endl;
-	cout << "Number of rows: " << this->m_matrixGameReels[0].size() << endl;
-	cout << "Printing..." << endl;
-
-	for (int iRow = 0; iRow < GAME_ROWS; iRow++)
-	{
-		for (int iCol = 0; iCol < GAME_REELS; iCol++)
-		{
-			cout << this->m_matrixGameReels[iRow][iCol] << "\t";
-		}
-		cout << endl;
-	}
-	cout << "End Printing XP\n" << endl;
 
 }
 //initialize the game lines with default values
@@ -118,6 +105,8 @@ void GameModel::SetIBetPerLine(int iBetPerLine)
 	if (iBetPerLine >= 1 && iBetPerLine <= MAX_BET)
 	{
 		m_iBetPerLine = iBetPerLine;
+		//update the total bet
+		this->SetITotalBet();
 	}
 }
 
@@ -146,6 +135,8 @@ void GameModel::SetINumberOfLines(int iNumberOfLines)
 	if (iNumberOfLines >= 1 && iNumberOfLines <= MAX_PAYLINES)
 	{
 		m_iNumberOfLines = iNumberOfLines;
+		//update the total bet
+		this->SetITotalBet();
 	}
 }
 

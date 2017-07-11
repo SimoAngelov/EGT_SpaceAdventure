@@ -20,6 +20,7 @@ public:
 	void TestCreditInsert();
 	void TestBetIncrement();
 	void TestLineIncrement();
+	void TestMaxBet();
 	void TestSpin();
 
 	void TestGame();

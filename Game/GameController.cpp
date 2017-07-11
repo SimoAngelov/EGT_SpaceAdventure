@@ -546,6 +546,16 @@ void GameController::SelectRedCard()
 	GameController::m_playerChoice = eRed;
 }
 
+//set the bet per line and number of lines to their maximum values
+void GameController::MaxBet()
+{
+	if(this->GetCredits() >= MAX_TOTAL_BET)
+	{
+		this->SetBetPerPayline(MAX_BET_STEP - 1);
+		this->SetNumberOfPaylines(MAX_PAYLINES);
+	}
+}
+
 //Getters
 int GameController::GetBetPerLine() const
 {

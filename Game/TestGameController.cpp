@@ -113,6 +113,15 @@ void TestGameController::TestLineIncrement()
 		}
 }
 
+void TestGameController::TestMaxBet()
+{
+	cout << "totalBet before MaxSpin: " << this->m_gameController.GetTotalBet()
+			<< endl;
+	this->m_gameController.MaxBet();
+	cout << "totalBet before MaxSpin: " << this->m_gameController.GetTotalBet()
+			<< endl;
+}
+
 void TestGameController::TestSpin()
 {
 	if(!(this->m_gameController.TotalBetExceedsCredits()))
@@ -136,7 +145,8 @@ void TestGameController::TestGame()
 		cout << "\n1 - Insert Credits" << endl;
 			cout << "2 - Toggle Bet per Line" << endl;
 			cout << "3 - Toggle number of paylines" << endl;
-			cout << "4 - Print reels\n" << endl;
+			cout << "4 - Toggle max bet" << endl;
+			cout << "5 - Print reels\n" << endl;
 			int iChoice = 0;
 			cin >> iChoice;
 			switch(iChoice)
@@ -144,7 +154,8 @@ void TestGameController::TestGame()
 			case 1: this->TestCreditInsert(); break;
 			case 2: this->TestBetIncrement(); break;
 			case 3: this->TestLineIncrement(); break;
-			case 4: this->TestSpin(); break;
+			case 4: this->TestMaxBet(); break;
+			case 5: this->TestSpin(); break;
 			default: bQuit = true; break;
 			}
 	}
