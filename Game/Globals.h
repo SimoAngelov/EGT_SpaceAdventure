@@ -94,8 +94,7 @@ const int BONUS_GAME = 5;
 //enum holding two choices for the bonus game
 typedef enum
 {
-	eInvalid1 = -2,
-	eInvalid2 = -1,
+	eInvalidColor = -1,
 	eBlack,
 	eRed,
 	eNUM_COLORS

@@ -13,8 +13,8 @@ int BonusGame::m_iRandCounter = 0;
 //member field to check if round2 is availabe
 bool BonusGame::m_bContinueToRound2 = false;
 BonusGame::BonusGame():
-		m_playerChoice(eInvalid1),
-		m_bonusGameResult(eInvalid2)
+		m_playerChoice(eInvalidColor),
+		m_bonusGameResult(eInvalidColor)
 {
 	// TODO Auto-generated constructor stub
 }
@@ -42,7 +42,9 @@ void BonusGame::PlayerSelectedRed()
 
 bool BonusGame::PlayerWon() const
 {
-	return this->m_playerChoice == this->m_bonusGameResult;
+	bool bWinCondition1 = this->m_playerChoice == this->m_bonusGameResult;
+	bool bWinCondition2 = this->m_bonusGameResult != eInvalidColor;
+	return bWinCondition1 && bWinCondition2;
 }
 
 bool BonusGame::RoundOne(const COLOR& playerChoice)
@@ -57,7 +59,7 @@ bool BonusGame::RoundOne(const COLOR& playerChoice)
 		this->PlayerSelectedRed();
 		break;
 	default:
-		this->m_playerChoice = eInvalid1;
+		this->m_playerChoice = eInvalidColor;
 		break;
 	}
 	//ternary operator to check if the player continues to round two

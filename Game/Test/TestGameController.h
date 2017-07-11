@@ -9,7 +9,7 @@
 #define TESTGAMECONTROLLER_H_
 #include <iostream>
 using std::cin;
-#include "GameController.h"
+#include "..\Controller\GameController\GameController.h"
 class TestGameController
 {
 private:

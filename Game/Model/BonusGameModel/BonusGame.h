@@ -7,7 +7,7 @@
 
 #ifndef BONUSGAME_H_
 #define BONUSGAME_H_
-#include "Globals.h"
+#include "..\..\Globals.h"
 class BonusGame
 {
 private :

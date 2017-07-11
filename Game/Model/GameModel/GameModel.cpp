@@ -35,8 +35,6 @@ void GameModel::InitDefaultReels()
 		for (int iCol = 0; iCol < GAME_REELS; iCol++)
 		{
 			vecCurrentReel.push_back(eInvalidFigure);
-			cout << "Element [" << iRow << "][" << iCol << "] = "
-					<< vecCurrentReel[iRow] << endl;
 		}
 		this->m_matrixGameReels.push_back(vecCurrentReel);
 	}
@@ -118,10 +116,7 @@ int GameModel::GetICredits() const
 //avoid Setting a negative credit ammount
 void GameModel::SetICredits(int iCredits)
 {
-	if (iCredits >= MIN_CREDITS && iCredits <= MAX_CREDITS)
-	{
 		m_iCredits = iCredits;
-	}
 }
 
 int GameModel::GetINumberOfLines() const

@@ -8,7 +8,7 @@
 #ifndef GAMEMODEL_H_
 #define GAMEMODEL_H_
 
-#include "Globals.h"
+#include "..\..\Globals.h"
 class GameModel
 {
 	friend class GameController;

@@ -8,8 +8,8 @@
 #ifndef GAMECONTROLLER_H_
 #define GAMECONTROLLER_H_
 
-#include "GameModel.h"
-#include "BonusGame.h"
+#include "..\..\Model\GameModel\GameModel.h"
+#include "..\..\Model\BonusGameModel\BonusGame.h"
 class GameController
 {
 private:
@@ -42,6 +42,8 @@ private:
 	void SetTotalBet();
 	//subtract the total bet from the credits
 	void AddTotalBetToCredits();
+	//set the total winnnings from the paylines and bonus game
+	void SetTotalWin();
 	//calculate current winning from a single payline
 	int WinFromSinglePayline(const Payline&);
 	//calculate the coefficient per Figure
@@ -84,8 +86,7 @@ public:
 	void IncreaseBet();
 	void DecreaseBet();
 
-	//set the total winnnings from the paylines and bonus game
-	void SetTotalWin();
+
 	//calculate current winnings from the paylines
 	void WinFromPaylines();
 	//quit the bonus game
