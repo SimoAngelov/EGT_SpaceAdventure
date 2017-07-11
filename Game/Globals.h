@@ -16,6 +16,8 @@ using std::vector;
 using std::endl;
 using std::cout;
 
+//constant zero
+const int ZERO = 0;
 //credit increment constant
 const int CREDIT_STEP = 10000;
 //minimum amount of credits

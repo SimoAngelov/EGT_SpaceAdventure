@@ -14,6 +14,7 @@ class GameController
 {
 private:
 	GameModel m_baseGame;
+	vector<vector<int> > m_matrixGameReels;
 	static int m_iBetStep;
 	static vector<BET> m_vecBetPerStep;
 	static bool m_bFigureIsSelected[eNUM_FIGURES];
@@ -21,6 +22,8 @@ private:
 	BonusGame m_bonusGame;
 	static COLOR m_playerChoice;
 	static bool m_bQuitBonusGame;
+	//set default values for the member fields
+	void SetDefault();
 	//insert credits in order to play
 	void InsertCredits(int);
 	//set random values for the reels
@@ -37,10 +40,14 @@ private:
 	void InitCurrentPaylines();
 	//set the totalBet
 	void SetTotalBet();
+	//subtract the total bet from the credits
+	void AddTotalBetToCredits();
 	//calculate current winning from a single payline
 	int WinFromSinglePayline(const Payline&);
 	//calculate the coefficient per Figure
 	int FigureCoefficient(const Figures&, int);
+	//add the win from the paylines to the credit
+	void AddWinToCredits();
 	//set the number of paylines
 	void SetNumberOfPaylines(int);
 	//set the bet per line
@@ -64,6 +71,9 @@ public:
 
 	//spin the reels and set the paylines
 	void Spin();
+	//check if the total credit doesn't fall in range of the current
+	//amount of credits
+	bool TotalBetExceedsCredits();
 
 	//increase the number of paylines
 	void IncreasePaylines();
@@ -107,6 +117,7 @@ public:
 	void PrintWin() const;
 
 private:
+	void ErasePaylines();
 	void InitPayline1();
 	void InitPayline2();
 	void InitPayline3();

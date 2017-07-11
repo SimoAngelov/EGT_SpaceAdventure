@@ -13,6 +13,7 @@ class GameModel
 {
 	friend class GameController;
 private:
+
 	int m_iNumberOfLines;
 	int m_iBetPerLine;
 	int m_iWin;

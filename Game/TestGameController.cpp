@@ -115,6 +115,8 @@ void TestGameController::TestLineIncrement()
 
 void TestGameController::TestSpin()
 {
+	if(!(this->m_gameController.TotalBetExceedsCredits()))
+	{
 	this->m_gameController.Spin();
 	this->m_gameController.PrintReels();
 	cout << endl;
@@ -122,6 +124,7 @@ void TestGameController::TestSpin()
 	cout << "Total Bet: " << this->m_gameController.GetTotalBet() << endl;
 	cout << "Credits: " << this->m_gameController.GetCredits() << endl;
 	cout << "Win: " << this->m_gameController.GetWin() << endl;
+	}
 }
 
 void TestGameController::TestGame()

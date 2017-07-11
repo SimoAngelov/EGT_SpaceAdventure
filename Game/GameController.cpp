@@ -26,11 +26,19 @@ int GameController::m_iBonusCounter = 0;
 COLOR GameController::m_playerChoice = eInvalid1;
 //member field to keep track if the player wants to keep the bonus game
 bool GameController::m_bQuitBonusGame = false;
+
 //constructor
 GameController::GameController() :
 		m_baseGame()
 {
 	// TODO Auto-generated constructor stub
+}
+
+//set default values for the member fields
+void GameController::SetDefault()
+{
+	this->SetTotalBet();
+	this->m_baseGame.m_iWin = 0;
 }
 
 //insert credits in order to play the game
@@ -70,44 +78,32 @@ void GameController::DecreaseCredits()
 //spin the reels and set the paylines
 void GameController::Spin()
 {
-	//if there was a win, add it to the credits
-	if(this->GetWin() > 0)
-	{
-		//add the win to the credits
-		int iCurrCredits = this->GetCredits();
-		int iCurrWin = this->GetWin();
-		int iNewCredits = iCurrCredits + iCurrWin;
-		this->m_baseGame.SetICredits(iNewCredits);
-		//set the win to 0
-		this->m_baseGame.SetIWin(0);
-	}
+	//set the total bet and the win to default
+	this->SetDefault();
 //only spin if the total bet is above 0
-	if (this->GetTotalBet() > 0
-			&&this->GetTotalBet() < this->GetCredits())
+	if (!(this->TotalBetExceedsCredits()))
 	{
-		//take the bet out of the credits
-		int iCurrCredits = this->GetCredits();
-		int iCurrTotalBet = this->GetTotalBet();
-		int iNewCredits = iCurrCredits - iCurrTotalBet;
-		this->m_baseGame.SetICredits(iNewCredits);
-
+		//subtract the current bet from the credits
+		this->AddTotalBetToCredits();
 		//init the reels and set the paylines
 		this->InitCurrentReels();
 		this->InitCurrentPaylines();
-
 		//Calculate the winnings from the spin
 		this->SetTotalWin();
+		//test cout
+		cout << "VALID SPIN" << endl;
 	} // end if
 }
 
 //intialize the reels for the currentGame
 void GameController::InitCurrentReels()
 {
-//	this->InitRandomReels();
-//	this->SetSpecialFigure();
+	this->InitRandomReels();
+	this->SetSpecialFigure();
+
 //	this->SetUniqueFigures();
 
-	this->SetTheSameFigures();
+//	this->SetTheSameFigures();
 }
 
 //initialize the game reels with random values
@@ -144,6 +140,7 @@ void GameController::SetSpecialFigure()
 			{
 				//if the current figure is 9 aka special, break the inner loop
 				GameModel::m_iGameReels[iRow][iCol] = randomFigure;
+				//test cout
 				cout << "Hooray" << endl;
 				GameController::m_iBonusCounter++;
 				break;
@@ -175,13 +172,13 @@ void GameController::SetUniqueFigures()
 					GameModel::m_iGameReels[iRow][iCol] = randomFigure;
 					m_bFigureIsSelected[randomFigure] = true;
 					//if the selected figure is Special
-					if(randomFigure == eFigure9)
+					if (randomFigure == eFigure9)
 					{
 						GameController::m_iBonusCounter++;
 					}
 				}
 			} //end while
-			//set the figureIsSelected to false for the next reel
+			  //set the figureIsSelected to false for the next reel
 			GameController::m_bFigureIsSelected[eNUM_FIGURES] = false;
 		} //end row for
 	} // end reel for
@@ -206,9 +203,9 @@ void GameController::SetTheSameFigures()
 //Function to initialize the lines
 void GameController::InitCurrentPaylines()
 {
-	//empty the vector of lines
-	this->m_baseGame.m_vecPaylines.erase(m_baseGame.m_vecPaylines.begin(),
-			m_baseGame.m_vecPaylines.end());
+	//empty the vector of the old lines
+	ErasePaylines();
+	//initialize the new lines
 	InitPayline1();
 	InitPayline2();
 	InitPayline3();
@@ -245,6 +242,20 @@ GameController::~GameController()
 void GameController::SetTotalBet()
 {
 	this->m_baseGame.SetITotalBet();
+}
+
+//subtract the total bet from the credits
+void GameController::AddTotalBetToCredits()
+{
+	if (!(this->TotalBetExceedsCredits()))
+	{
+		//take the bet out of the credits
+		int iCurrCredits = this->GetCredits();
+		int iCurrTotalBet = this->GetTotalBet();
+		int iNewCredits = iCurrCredits - iCurrTotalBet;
+		this->m_baseGame.SetICredits(iNewCredits);
+	}
+
 }
 
 //set the number of paylines for the current game
@@ -342,13 +353,21 @@ bool GameController::PaylinesExceedCredits(int iNextStep)
 	return iNewBet > iAvailableCredits;
 }
 
-//set the total winnnings from the paylines and bonus game
+//check if the total credit doesn't fall in range of the current
+//amount of credits
+bool GameController::TotalBetExceedsCredits()
+{
+	bool bExceedsMin = this->GetTotalBet() < 0;
+	bool bExceedsMax = this->GetTotalBet() > this->GetCredits();
+	return bExceedsMin || bExceedsMax;
+}
+
+//set the total winnings from the paylines and add it to the credits
 void GameController::SetTotalWin()
 {
 	this->WinFromPaylines();
-
+	this->AddWinToCredits();
 }
-
 
 //calculate the win from the selected paylines
 void GameController::WinFromPaylines()
@@ -358,6 +377,7 @@ void GameController::WinFromPaylines()
 	{
 		Payline currentPayline = this->m_baseGame.m_vecPaylines[i];
 		winFromPaylines += this->WinFromSinglePayline(currentPayline);
+		//test cout
 		cout << "Win for line" << i + 1 << ": "
 				<< this->WinFromSinglePayline(currentPayline) << endl;
 	}
@@ -365,8 +385,6 @@ void GameController::WinFromPaylines()
 	int newWinnings = currentWinnings + winFromPaylines;
 	this->m_baseGame.SetIWin(newWinnings);
 }
-
-
 
 //calculate the win from a single line based on the figures
 int GameController::WinFromSinglePayline(const Payline& payline)
@@ -440,6 +458,22 @@ int GameController::FigureCoefficient(const Figures& figure, int iOccurrences)
 	return iCoefficient;
 }
 
+//Add the win from the paylines to the credits
+void GameController::AddWinToCredits()
+{
+	//if there was a win, add it to the credits
+	if (this->GetWin() > 0)
+	{
+		//test cout
+		cout << "THERE IS A WIN" << endl;
+		//add the win to the credits
+		int iCurrCredits = this->GetCredits();
+		int iCurrWin = this->GetWin();
+		int iNewCredits = iCurrCredits + iCurrWin;
+		this->m_baseGame.SetICredits(iNewCredits);
+	}
+}
+
 //quit the bonus game
 bool GameController::QuitBonusGame()
 {
@@ -450,10 +484,11 @@ bool GameController::QuitBonusGame()
 void GameController::BonusWin1(const COLOR& playerChoice)
 {
 	int newWin = -1;
-	if(this->m_bonusGame.RoundOne(playerChoice))
+	if (this->m_bonusGame.RoundOne(playerChoice))
 	{
 		newWin = 2 * this->GetWin();
-	} else
+	}
+	else
 	{
 		newWin = 0;
 	}
@@ -466,10 +501,11 @@ void GameController::BonusWin1(const COLOR& playerChoice)
 void GameController::BonusWin2(const COLOR& playerChoice)
 {
 	int newWin = -1;
-	if(this->m_bonusGame.RoundTwo(playerChoice))
+	if (this->m_bonusGame.RoundTwo(playerChoice))
 	{
 		newWin = 2 * this->GetWin();
-	} else
+	}
+	else
 	{
 		newWin = 0;
 	}
@@ -481,7 +517,7 @@ void GameController::BonusWin2(const COLOR& playerChoice)
 void GameController::PlayBonusRoundOne()
 {
 	//if the player choice is valid
-	if(GameController::m_playerChoice == eBlack
+	if (GameController::m_playerChoice == eBlack
 			|| GameController::m_playerChoice == eRed)
 	{
 		this->BonusWin1(GameController::m_playerChoice);
@@ -576,7 +612,8 @@ void GameController::PrintBetPerLine() const
 
 void GameController::PrintNumLines() const
 {
-	cout << "Number of Paylines: " << this->m_baseGame.GetINumberOfLines() << endl;
+	cout << "Number of Paylines: " << this->m_baseGame.GetINumberOfLines()
+			<< endl;
 }
 
 void GameController::PrintTotalBet() const
@@ -588,6 +625,24 @@ void GameController::PrintWin() const
 {
 	cout << "Win: " << this->m_baseGame.GetIWin() << endl;
 }
+
+//erase the contents from the vector, holding the paylines
+void GameController::ErasePaylines()
+{
+	//check if the vector is empty
+	if (!this->m_baseGame.m_vecPaylines.empty())
+	{
+		//iterator pointing to the first element of the payline vector
+		vector<Payline>::iterator paylinesBegin =
+				this->m_baseGame.m_vecPaylines.begin();
+		//iterator pointing to the one after last element of payline vector
+		vector<Payline>::iterator paylinesEnd =
+				this->m_baseGame.m_vecPaylines.end();
+		//erase the contents of the vector
+		this->m_baseGame.m_vecPaylines.erase(paylinesBegin, paylinesEnd);
+	}
+}
+
 //initialize each payline individually
 void GameController::InitPayline1()
 {
