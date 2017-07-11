@@ -7,30 +7,54 @@
 
 #include "GameModel.h"
 
-Figures GameModel::m_iGameReels[3][5] =
-{ eInvalidFigure };
 vector<Payline> GameModel::m_vecPaylines;
 
 GameModel::GameModel(int iNumberOfLines, int iBetPerLine, int iWin,
 		int iCredits, int iTotalBet) :
-		m_iNumberOfLines(iNumberOfLines), m_iBetPerLine(iBetPerLine),
-		m_iWin(iWin), m_iCredits(iCredits), m_iTotalBet(iTotalBet)
+		m_iNumberOfLines(iNumberOfLines), m_iBetPerLine(iBetPerLine), m_iWin(
+				iWin), m_iCredits(iCredits), m_iTotalBet(iTotalBet)
 {
 	this->SetITotalBet();
+	this->InitDefaultReels();
 }
 
 //initialize the game reels with default values
-void GameModel::InitReels()
+void GameModel::InitDefaultReels()
 {
+	//vector to hold the current reel
+	vector<Figures> vecCurrentReel;
+	//if the vector is not empty, erase its contents
+	if (!vecCurrentReel.empty())
+	{
+		cout << "Vector is not empty" << endl;
+		vecCurrentReel.erase(vecCurrentReel.begin(), vecCurrentReel.end());
+	}
+
 	for (int iRow = 0; iRow < GAME_ROWS; iRow++)
 	{
 		for (int iCol = 0; iCol < GAME_REELS; iCol++)
 		{
-			GameModel::m_iGameReels[iRow][iCol] = eInvalidFigure;
+			vecCurrentReel.push_back(eInvalidFigure);
+			cout << "Element [" << iRow << "][" << iCol << "] = "
+					<< vecCurrentReel[iRow] << endl;
 		}
+		this->m_matrixGameReels.push_back(vecCurrentReel);
 	}
-}
+	cout << "Number of columns: " << this->m_matrixGameReels.size() << endl;
+	cout << "Number of rows: " << this->m_matrixGameReels[0].size() << endl;
+	cout << "Printing..." << endl;
 
+	for (int iRow = 0; iRow < GAME_ROWS; iRow++)
+	{
+		for (int iCol = 0; iCol < GAME_REELS; iCol++)
+		{
+			cout << this->m_matrixGameReels[iRow][iCol] << "\t";
+		}
+		cout << endl;
+	}
+	cout << "End Printing XP\n" << endl;
+
+}
 //initialize the game lines with default values
 void GameModel::InitVecPaylines()
 {
@@ -47,6 +71,42 @@ GameModel::~GameModel()
 	// TODO Auto-generated destructor stub
 }
 
+//return an element of the game reel
+const Figures GameModel::GetReelElement(int iRow, int iCol) const
+{
+	//if the iRow is valid
+	bool bValidRow = iRow >= 0 && iRow < GAME_ROWS;
+	//if the iCol argument is valid
+	bool bValidCol = iCol >= 0 && iCol < GAME_REELS;
+	//if both are valid get the current element
+	if(bValidRow && bValidCol)
+	{
+		return this->m_matrixGameReels[iRow][iCol];
+	} else
+	{
+		return eInvalidFigure;
+	}
+}
+
+//function to set a single element of the game reel
+//takes 3 parameters: a Figure, an int Row and int Col
+void GameModel::SetReelElement(const Figures& figure, int iRow, int iCol)
+{
+	//if the iRow is valid
+	bool bValidRow = iRow >= 0 && iRow < GAME_ROWS;
+	//if the iCol argument is valid
+	bool bValidCol = iCol >= 0 && iCol < GAME_REELS;
+	//if both are valid set the current element
+	if(bValidRow && bValidCol)
+	{
+		this->m_matrixGameReels[iRow][iCol] = figure;
+	}
+}
+const vector<vector<Figures> >& GameModel::GetMatrixGameReels() const
+{
+	return m_matrixGameReels;
+}
+
 int GameModel::GetIBetPerLine() const
 {
 	return m_iBetPerLine;
@@ -55,9 +115,9 @@ int GameModel::GetIBetPerLine() const
 //the bet perLine must have a value between 1 and 2000
 void GameModel::SetIBetPerLine(int iBetPerLine)
 {
-	if(iBetPerLine >= 1 && iBetPerLine <= MAX_BET)
+	if (iBetPerLine >= 1 && iBetPerLine <= MAX_BET)
 	{
-	m_iBetPerLine = iBetPerLine;
+		m_iBetPerLine = iBetPerLine;
 	}
 }
 
@@ -69,9 +129,9 @@ int GameModel::GetICredits() const
 //avoid Setting a negative credit ammount
 void GameModel::SetICredits(int iCredits)
 {
-	if(iCredits >= MIN_CREDITS && iCredits <= MAX_CREDITS)
+	if (iCredits >= MIN_CREDITS && iCredits <= MAX_CREDITS)
 	{
-	m_iCredits = iCredits;
+		m_iCredits = iCredits;
 	}
 }
 
@@ -83,9 +143,9 @@ int GameModel::GetINumberOfLines() const
 //the lines must have a value between 1 and 25
 void GameModel::SetINumberOfLines(int iNumberOfLines)
 {
-	if(iNumberOfLines >= 1 && iNumberOfLines <= MAX_PAYLINES)
+	if (iNumberOfLines >= 1 && iNumberOfLines <= MAX_PAYLINES)
 	{
-	m_iNumberOfLines = iNumberOfLines;
+		m_iNumberOfLines = iNumberOfLines;
 	}
 }
 
@@ -107,8 +167,23 @@ int GameModel::GetIWin() const
 
 void GameModel::SetIWin(int iWin)
 {
-	if(iWin >= 0)
+	if (iWin >= 0)
 	{
-	m_iWin = iWin;
+		m_iWin = iWin;
 	}
+}
+
+//print
+void GameModel::PrintReels() const
+{
+	cout << "Printing Get()\n";
+	for (int iRow = 0; iRow < GAME_ROWS; iRow++)
+	{
+		for (int iCol = 0; iCol < GAME_REELS; iCol++)
+		{
+			cout << this->GetMatrixGameReels()[iRow][iCol] << "\t";
+		}
+		cout << endl;
+	}
+	cout << "End Print Get() XO\n\n";
 }

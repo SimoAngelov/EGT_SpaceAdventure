@@ -63,7 +63,7 @@ const int MIN_BET = 1;
 const int MAX_BET = 2000;
 
 //max number of betting steps
-const int MAX_BET_STEP = 15;
+const int MAX_BET_STEP = 16;
 
 //betting amount for each step
 typedef enum

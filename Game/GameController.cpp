@@ -12,7 +12,7 @@ int GameController::m_iBetStep = 0;
 
 //member field to hold the bets at each step
 vector<BET> GameController::m_vecBetPerStep
-{ eBet1, eBet2, eBet3, eBet4, eBet5, eBet6, eBet7, eBet8, eBet9, eBet10, eBet11,
+{ eBet0, eBet1, eBet2, eBet3, eBet4, eBet5, eBet6, eBet7, eBet8, eBet9, eBet10, eBet11,
 		eBet12, eBet13, eBet14, eBet15 };
 
 //member field to keep track of which figures are selected at each reel
@@ -119,7 +119,8 @@ void GameController::InitRandomReels()
 		{
 			//choose a figure between 1 and 8
 			Figures randomFigure = static_cast<Figures>(rand() % eFigure9);
-			GameModel::m_iGameReels[iRow][iCol] = randomFigure;
+			//GameModel::m_iGameReels[iRow][iCol] = randomFigure;
+			this->m_baseGame.SetReelElement(randomFigure, iRow, iCol);
 		} //end row for
 	} // end reel for
 }
@@ -139,7 +140,8 @@ void GameController::SetSpecialFigure()
 			if (randomFigure == eFigure9)
 			{
 				//if the current figure is 9 aka special, break the inner loop
-				GameModel::m_iGameReels[iRow][iCol] = randomFigure;
+				//GameModel::m_iGameReels[iRow][iCol] = randomFigure;
+				this->m_baseGame.SetReelElement(randomFigure, iRow, iCol);
 				//test cout
 				cout << "Hooray" << endl;
 				GameController::m_iBonusCounter++;
@@ -161,7 +163,8 @@ void GameController::SetUniqueFigures()
 		for (int iRow = 0; iRow < GAME_ROWS; iRow++)
 		{
 			//while the current element has an invalid value
-			while (GameModel::m_iGameReels[iRow][iCol] == eInvalidFigure)
+			while (this->m_baseGame.GetReelElement(iRow, iCol)
+					== eInvalidFigure)
 			{
 				//pick a random figure
 				Figures randomFigure = static_cast<Figures>(rand() % eFigure9);
@@ -169,7 +172,7 @@ void GameController::SetUniqueFigures()
 				if (m_bFigureIsSelected[randomFigure] == false)
 				{
 					//if it hasn't been selected, set the bool value to true
-					GameModel::m_iGameReels[iRow][iCol] = randomFigure;
+					this->m_baseGame.SetReelElement(randomFigure, iRow, iCol);
 					m_bFigureIsSelected[randomFigure] = true;
 					//if the selected figure is Special
 					if (randomFigure == eFigure9)
@@ -195,7 +198,7 @@ void GameController::SetTheSameFigures()
 //traverse each element of the reel
 		for (int iRow = 0; iRow < GAME_ROWS; iRow++)
 		{
-			GameModel::m_iGameReels[iRow][iCol] = randFigure;
+			this->m_baseGame.SetReelElement(randFigure, iRow, iCol);
 		} //end row for
 	} // end reel for
 }
@@ -572,11 +575,13 @@ int GameController::GetWin() const
 //printing functions
 void GameController::PrintReels() const
 {
+	this->m_baseGame.PrintReels();
 	for (int iRow = 0; iRow < GAME_ROWS; iRow++)
 	{
 		for (int iCol = 0; iCol < GAME_REELS; iCol++)
 		{
-			cout << GameModel::m_iGameReels[iRow][iCol] << "\t";
+			//cout << GameModel::m_iGameReels[iRow][iCol] << "\t";
+			cout << this->m_baseGame.GetMatrixGameReels()[iRow][iCol] << "\t";
 		}
 		cout << endl;
 	}
@@ -647,249 +652,249 @@ void GameController::ErasePaylines()
 void GameController::InitPayline1()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[1][0], this->m_baseGame.m_iGameReels[1][1],
-			this->m_baseGame.m_iGameReels[1][2],
-			this->m_baseGame.m_iGameReels[1][3],
-			this->m_baseGame.m_iGameReels[1][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[1][0], this->m_baseGame.GetMatrixGameReels()[1][1],
+			this->m_baseGame.GetMatrixGameReels()[1][2],
+			this->m_baseGame.GetMatrixGameReels()[1][3],
+			this->m_baseGame.GetMatrixGameReels()[1][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline2()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[0][0], this->m_baseGame.m_iGameReels[0][1],
-			this->m_baseGame.m_iGameReels[0][2],
-			this->m_baseGame.m_iGameReels[0][3],
-			this->m_baseGame.m_iGameReels[0][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[0][0], this->m_baseGame.GetMatrixGameReels()[0][1],
+			this->m_baseGame.GetMatrixGameReels()[0][2],
+			this->m_baseGame.GetMatrixGameReels()[0][3],
+			this->m_baseGame.GetMatrixGameReels()[0][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline3()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[2][0], this->m_baseGame.m_iGameReels[2][1],
-			this->m_baseGame.m_iGameReels[2][2],
-			this->m_baseGame.m_iGameReels[2][3],
-			this->m_baseGame.m_iGameReels[2][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[2][0], this->m_baseGame.GetMatrixGameReels()[2][1],
+			this->m_baseGame.GetMatrixGameReels()[2][2],
+			this->m_baseGame.GetMatrixGameReels()[2][3],
+			this->m_baseGame.GetMatrixGameReels()[2][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline4()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[0][0], this->m_baseGame.m_iGameReels[1][1],
-			this->m_baseGame.m_iGameReels[2][2],
-			this->m_baseGame.m_iGameReels[1][3],
-			this->m_baseGame.m_iGameReels[0][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[0][0], this->m_baseGame.GetMatrixGameReels()[1][1],
+			this->m_baseGame.GetMatrixGameReels()[2][2],
+			this->m_baseGame.GetMatrixGameReels()[1][3],
+			this->m_baseGame.GetMatrixGameReels()[0][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline5()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[2][0], this->m_baseGame.m_iGameReels[1][1],
-			this->m_baseGame.m_iGameReels[0][2],
-			this->m_baseGame.m_iGameReels[1][3],
-			this->m_baseGame.m_iGameReels[2][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[2][0], this->m_baseGame.GetMatrixGameReels()[1][1],
+			this->m_baseGame.GetMatrixGameReels()[0][2],
+			this->m_baseGame.GetMatrixGameReels()[1][3],
+			this->m_baseGame.GetMatrixGameReels()[2][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline6()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[0][2], this->m_baseGame.m_iGameReels[0][1],
-			this->m_baseGame.m_iGameReels[1][2],
-			this->m_baseGame.m_iGameReels[0][3],
-			this->m_baseGame.m_iGameReels[0][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[0][2], this->m_baseGame.GetMatrixGameReels()[0][1],
+			this->m_baseGame.GetMatrixGameReels()[1][2],
+			this->m_baseGame.GetMatrixGameReels()[0][3],
+			this->m_baseGame.GetMatrixGameReels()[0][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline7()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[2][0], this->m_baseGame.m_iGameReels[2][1],
-			this->m_baseGame.m_iGameReels[1][2],
-			this->m_baseGame.m_iGameReels[2][3],
-			this->m_baseGame.m_iGameReels[2][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[2][0], this->m_baseGame.GetMatrixGameReels()[2][1],
+			this->m_baseGame.GetMatrixGameReels()[1][2],
+			this->m_baseGame.GetMatrixGameReels()[2][3],
+			this->m_baseGame.GetMatrixGameReels()[2][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline8()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[1][0], this->m_baseGame.m_iGameReels[0][1],
-			this->m_baseGame.m_iGameReels[0][2],
-			this->m_baseGame.m_iGameReels[0][3],
-			this->m_baseGame.m_iGameReels[1][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[1][0], this->m_baseGame.GetMatrixGameReels()[0][1],
+			this->m_baseGame.GetMatrixGameReels()[0][2],
+			this->m_baseGame.GetMatrixGameReels()[0][3],
+			this->m_baseGame.GetMatrixGameReels()[1][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline9()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[1][0], this->m_baseGame.m_iGameReels[2][1],
-			this->m_baseGame.m_iGameReels[2][2],
-			this->m_baseGame.m_iGameReels[2][3],
-			this->m_baseGame.m_iGameReels[1][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[1][0], this->m_baseGame.GetMatrixGameReels()[2][1],
+			this->m_baseGame.GetMatrixGameReels()[2][2],
+			this->m_baseGame.GetMatrixGameReels()[2][3],
+			this->m_baseGame.GetMatrixGameReels()[1][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline10()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[1][0], this->m_baseGame.m_iGameReels[0][1],
-			this->m_baseGame.m_iGameReels[1][2],
-			this->m_baseGame.m_iGameReels[0][3],
-			this->m_baseGame.m_iGameReels[1][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[1][0], this->m_baseGame.GetMatrixGameReels()[0][1],
+			this->m_baseGame.GetMatrixGameReels()[1][2],
+			this->m_baseGame.GetMatrixGameReels()[0][3],
+			this->m_baseGame.GetMatrixGameReels()[1][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline11()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[1][0], this->m_baseGame.m_iGameReels[2][1],
-			this->m_baseGame.m_iGameReels[1][2],
-			this->m_baseGame.m_iGameReels[2][3],
-			this->m_baseGame.m_iGameReels[1][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[1][0], this->m_baseGame.GetMatrixGameReels()[2][1],
+			this->m_baseGame.GetMatrixGameReels()[1][2],
+			this->m_baseGame.GetMatrixGameReels()[2][3],
+			this->m_baseGame.GetMatrixGameReels()[1][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline12()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[0][0], this->m_baseGame.m_iGameReels[1][1],
-			this->m_baseGame.m_iGameReels[0][2],
-			this->m_baseGame.m_iGameReels[1][3],
-			this->m_baseGame.m_iGameReels[0][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[0][0], this->m_baseGame.GetMatrixGameReels()[1][1],
+			this->m_baseGame.GetMatrixGameReels()[0][2],
+			this->m_baseGame.GetMatrixGameReels()[1][3],
+			this->m_baseGame.GetMatrixGameReels()[0][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline13()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[2][0], this->m_baseGame.m_iGameReels[1][1],
-			this->m_baseGame.m_iGameReels[2][2],
-			this->m_baseGame.m_iGameReels[1][3],
-			this->m_baseGame.m_iGameReels[2][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[2][0], this->m_baseGame.GetMatrixGameReels()[1][1],
+			this->m_baseGame.GetMatrixGameReels()[2][2],
+			this->m_baseGame.GetMatrixGameReels()[1][3],
+			this->m_baseGame.GetMatrixGameReels()[2][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline14()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[1][0], this->m_baseGame.m_iGameReels[1][1],
-			this->m_baseGame.m_iGameReels[0][2],
-			this->m_baseGame.m_iGameReels[1][3],
-			this->m_baseGame.m_iGameReels[1][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[1][0], this->m_baseGame.GetMatrixGameReels()[1][1],
+			this->m_baseGame.GetMatrixGameReels()[0][2],
+			this->m_baseGame.GetMatrixGameReels()[1][3],
+			this->m_baseGame.GetMatrixGameReels()[1][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline15()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[1][0], this->m_baseGame.m_iGameReels[1][1],
-			this->m_baseGame.m_iGameReels[2][2],
-			this->m_baseGame.m_iGameReels[1][3],
-			this->m_baseGame.m_iGameReels[1][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[1][0], this->m_baseGame.GetMatrixGameReels()[1][1],
+			this->m_baseGame.GetMatrixGameReels()[2][2],
+			this->m_baseGame.GetMatrixGameReels()[1][3],
+			this->m_baseGame.GetMatrixGameReels()[1][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline16()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[0][0], this->m_baseGame.m_iGameReels[1][1],
-			this->m_baseGame.m_iGameReels[1][2],
-			this->m_baseGame.m_iGameReels[1][3],
-			this->m_baseGame.m_iGameReels[0][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[0][0], this->m_baseGame.GetMatrixGameReels()[1][1],
+			this->m_baseGame.GetMatrixGameReels()[1][2],
+			this->m_baseGame.GetMatrixGameReels()[1][3],
+			this->m_baseGame.GetMatrixGameReels()[0][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline17()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[2][0], this->m_baseGame.m_iGameReels[1][1],
-			this->m_baseGame.m_iGameReels[1][2],
-			this->m_baseGame.m_iGameReels[1][3],
-			this->m_baseGame.m_iGameReels[2][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[2][0], this->m_baseGame.GetMatrixGameReels()[1][1],
+			this->m_baseGame.GetMatrixGameReels()[1][2],
+			this->m_baseGame.GetMatrixGameReels()[1][3],
+			this->m_baseGame.GetMatrixGameReels()[2][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline18()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[0][0], this->m_baseGame.m_iGameReels[1][1],
-			this->m_baseGame.m_iGameReels[2][2],
-			this->m_baseGame.m_iGameReels[2][3],
-			this->m_baseGame.m_iGameReels[2][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[0][0], this->m_baseGame.GetMatrixGameReels()[1][1],
+			this->m_baseGame.GetMatrixGameReels()[2][2],
+			this->m_baseGame.GetMatrixGameReels()[2][3],
+			this->m_baseGame.GetMatrixGameReels()[2][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline19()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[2][0], this->m_baseGame.m_iGameReels[1][1],
-			this->m_baseGame.m_iGameReels[0][2],
-			this->m_baseGame.m_iGameReels[0][3],
-			this->m_baseGame.m_iGameReels[0][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[2][0], this->m_baseGame.GetMatrixGameReels()[1][1],
+			this->m_baseGame.GetMatrixGameReels()[0][2],
+			this->m_baseGame.GetMatrixGameReels()[0][3],
+			this->m_baseGame.GetMatrixGameReels()[0][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline20()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[0][0], this->m_baseGame.m_iGameReels[2][1],
-			this->m_baseGame.m_iGameReels[0][2],
-			this->m_baseGame.m_iGameReels[2][3],
-			this->m_baseGame.m_iGameReels[0][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[0][0], this->m_baseGame.GetMatrixGameReels()[2][1],
+			this->m_baseGame.GetMatrixGameReels()[0][2],
+			this->m_baseGame.GetMatrixGameReels()[2][3],
+			this->m_baseGame.GetMatrixGameReels()[0][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline21()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[2][0], this->m_baseGame.m_iGameReels[0][1],
-			this->m_baseGame.m_iGameReels[2][2],
-			this->m_baseGame.m_iGameReels[0][3],
-			this->m_baseGame.m_iGameReels[2][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[2][0], this->m_baseGame.GetMatrixGameReels()[0][1],
+			this->m_baseGame.GetMatrixGameReels()[2][2],
+			this->m_baseGame.GetMatrixGameReels()[0][3],
+			this->m_baseGame.GetMatrixGameReels()[2][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline22()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[1][0], this->m_baseGame.m_iGameReels[0][1],
-			this->m_baseGame.m_iGameReels[2][2],
-			this->m_baseGame.m_iGameReels[0][3],
-			this->m_baseGame.m_iGameReels[1][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[1][0], this->m_baseGame.GetMatrixGameReels()[0][1],
+			this->m_baseGame.GetMatrixGameReels()[2][2],
+			this->m_baseGame.GetMatrixGameReels()[0][3],
+			this->m_baseGame.GetMatrixGameReels()[1][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline23()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[1][0], this->m_baseGame.m_iGameReels[2][1],
-			this->m_baseGame.m_iGameReels[0][2],
-			this->m_baseGame.m_iGameReels[2][3],
-			this->m_baseGame.m_iGameReels[1][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[1][0], this->m_baseGame.GetMatrixGameReels()[2][1],
+			this->m_baseGame.GetMatrixGameReels()[0][2],
+			this->m_baseGame.GetMatrixGameReels()[2][3],
+			this->m_baseGame.GetMatrixGameReels()[1][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline24()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[0][0], this->m_baseGame.m_iGameReels[0][1],
-			this->m_baseGame.m_iGameReels[1][2],
-			this->m_baseGame.m_iGameReels[2][3],
-			this->m_baseGame.m_iGameReels[2][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[0][0], this->m_baseGame.GetMatrixGameReels()[0][1],
+			this->m_baseGame.GetMatrixGameReels()[1][2],
+			this->m_baseGame.GetMatrixGameReels()[2][3],
+			this->m_baseGame.GetMatrixGameReels()[2][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
 
 void GameController::InitPayline25()
 {
 	Payline line =
-	{ this->m_baseGame.m_iGameReels[2][0], this->m_baseGame.m_iGameReels[2][1],
-			this->m_baseGame.m_iGameReels[1][2],
-			this->m_baseGame.m_iGameReels[0][3],
-			this->m_baseGame.m_iGameReels[0][4] };
+	{ this->m_baseGame.GetMatrixGameReels()[2][0], this->m_baseGame.GetMatrixGameReels()[2][1],
+			this->m_baseGame.GetMatrixGameReels()[1][2],
+			this->m_baseGame.GetMatrixGameReels()[0][3],
+			this->m_baseGame.GetMatrixGameReels()[0][4] };
 	this->m_baseGame.m_vecPaylines.push_back(line);
 }
