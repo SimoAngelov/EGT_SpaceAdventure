@@ -91,6 +91,10 @@ typedef enum
 
 //number of special figures for bonus game
 const int BONUS_GAME = 5;
+
+//counter to keep track of the number of special figures at each game
+int gBonusCounter = 0;
+
 //enum holding two choices for the bonus game
 typedef enum
 {
