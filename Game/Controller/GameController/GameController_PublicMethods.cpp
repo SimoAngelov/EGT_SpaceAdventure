@@ -19,9 +19,8 @@ vector<BET> GameController::m_vecBetPerStep
 bool GameController::m_bFigureIsSelected[eNUM_FIGURES] =
 { false };
 
-//member field to keep track of the number of special figures per reel
-int GameController::m_iBonusCounter = 0;
-
+//initialize the bonus counter
+int gBonusCounter = 0;
 //member field to keep track of the choice the player made during the bonus game
 COLOR GameController::m_playerChoice = eInvalidColor;
 //member field to keep track if the player wants to keep the bonus game

@@ -9,6 +9,7 @@
 //set default values for the member fields
 void GameController::SetDefault()
 {
+	gBonusCounter = 0;
 	this->SetTotalBet();
 	this->m_baseGame.m_iWin = 0;
 }
@@ -47,7 +48,6 @@ void GameController::InitRandomReels()
 		{
 			//choose a figure between 1 and 8
 			Figures randomFigure = static_cast<Figures>(rand() % eFigure9);
-			//GameModel::m_iGameReels[iRow][iCol] = randomFigure;
 			this->m_baseGame.SetReelElement(randomFigure, iRow, iCol);
 		} //end row for
 	} // end reel for
@@ -72,7 +72,7 @@ void GameController::SetSpecialFigure()
 				this->m_baseGame.SetReelElement(randomFigure, iRow, iCol);
 				//test cout
 				cout << "Hooray" << endl;
-				GameController::m_iBonusCounter++;
+				gBonusCounter++;
 				break;
 			} //end if
 		} //end row for
@@ -105,7 +105,7 @@ void GameController::SetUniqueFigures()
 					//if the selected figure is Special
 					if (randomFigure == eFigure9)
 					{
-						GameController::m_iBonusCounter++;
+						gBonusCounter++;
 					}
 				}
 			} //end while

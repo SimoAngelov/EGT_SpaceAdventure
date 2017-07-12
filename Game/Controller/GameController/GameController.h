@@ -17,7 +17,6 @@ private:
 	static int m_iBetStep;
 	static vector<BET> m_vecBetPerStep;
 	static bool m_bFigureIsSelected[eNUM_FIGURES];
-	static int m_iBonusCounter;
 	BonusGame m_bonusGame;
 	static COLOR m_playerChoice;
 	static bool m_bQuitBonusGame;
