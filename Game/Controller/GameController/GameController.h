@@ -14,7 +14,6 @@ class GameController
 {
 private:
 	GameModel m_baseGame;
-	vector<vector<int> > m_matrixGameReels;
 	static int m_iBetStep;
 	static vector<BET> m_vecBetPerStep;
 	static bool m_bFigureIsSelected[eNUM_FIGURES];
@@ -104,6 +103,7 @@ public:
 	void MaxBet();
 
 	//Getters
+	const vector<vector<Figures> >& GetGameReels() const;
 	int GetBetPerLine() const;
 	int GetCredits() const;
 	int GetNumberOfLines() const;

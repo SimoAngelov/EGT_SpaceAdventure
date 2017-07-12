@@ -12,8 +12,8 @@ int GameController::m_iBetStep = 0;
 
 //member field to hold the bets at each step
 vector<BET> GameController::m_vecBetPerStep
-{ eBet0, eBet1, eBet2, eBet3, eBet4, eBet5, eBet6, eBet7, eBet8, eBet9, eBet10, eBet11,
-		eBet12, eBet13, eBet14, eBet15 };
+{ eBet0, eBet1, eBet2, eBet3, eBet4, eBet5, eBet6, eBet7, eBet8, eBet9, eBet10,
+		eBet11, eBet12, eBet13, eBet14, eBet15 };
 
 //member field to keep track of which figures are selected at each reel
 bool GameController::m_bFigureIsSelected[eNUM_FIGURES] =
@@ -33,7 +33,6 @@ GameController::GameController() :
 {
 	// TODO Auto-generated constructor stub
 }
-
 
 //Increase the credits
 void GameController::IncreaseCredits()
@@ -79,12 +78,10 @@ void GameController::Spin()
 	} // end if
 }
 
-
 GameController::~GameController()
 {
 // TODO Auto-generated destructor stub
 }
-
 
 //increase the number of paylines
 void GameController::IncreasePaylines()
@@ -117,8 +114,6 @@ void GameController::DecreasePaylines()
 	}
 }
 
-
-
 //increase the bet by 1 step
 void GameController::IncreaseBet()
 {
@@ -150,8 +145,6 @@ void GameController::DecreaseBet()
 
 }
 
-
-
 //check if the total credit doesn't fall in range of the current
 //amount of credits
 bool GameController::TotalBetExceedsCredits()
@@ -167,8 +160,6 @@ void GameController::SetTotalWin()
 	this->WinFromPaylines();
 	this->AddWinToCredits();
 }
-
-
 
 //quit the bonus game
 bool GameController::QuitBonusGame()
@@ -242,7 +233,7 @@ void GameController::SelectRedCard()
 //set the bet per line and number of lines to their maximum values
 void GameController::MaxBet()
 {
-	if(this->GetCredits() >= MAX_TOTAL_BET)
+	if (this->GetCredits() >= MAX_TOTAL_BET)
 	{
 		this->SetBetPerPayline(MAX_BET_STEP - 1);
 		this->SetNumberOfPaylines(MAX_PAYLINES);
@@ -250,6 +241,11 @@ void GameController::MaxBet()
 }
 
 //Getters
+const vector<vector<Figures> >& GameController::GetGameReels() const
+{
+	return this->m_baseGame.GetMatrixGameReels();
+}
+
 int GameController::GetBetPerLine() const
 {
 	return this->m_baseGame.GetIBetPerLine();
@@ -301,7 +297,7 @@ void GameController::PrintPayline(const Payline& payline) const
 
 void GameController::PrintPaylines() const
 {
-	for (int i = 0; i < (int)this->m_baseGame.m_vecPaylines.size(); i++)
+	for (int i = 0; i < (int) this->m_baseGame.m_vecPaylines.size(); i++)
 	{
 		cout << "PayLine " << i + 1 << ":\t";
 		this->PrintPayline(this->m_baseGame.m_vecPaylines[i]);
@@ -350,7 +346,4 @@ void GameController::ErasePaylines()
 		this->m_baseGame.m_vecPaylines.erase(paylinesBegin, paylinesEnd);
 	}
 }
-
-
-
 
