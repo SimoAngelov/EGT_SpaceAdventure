@@ -147,6 +147,14 @@ void LifeCycle::Play()
 
 	SDL_Rect startSpinButton = createRect(1100, 540, 120, 120);
 
+	// Rectangles for slot figures
+
+	SDL_Rect rectFigure1Slot1 = createRect(170, 123, 105, 110);
+
+	SDL_Rect rectFigure2Slot1 = createRect(170, 270, 105, 110);
+
+	SDL_Rect rectFigure3Slot1 = createRect(170, 413, 105, 110);
+
 	// Event Object
 
 	SDL_Event ev;
@@ -248,6 +256,35 @@ void LifeCycle::Play()
 	Slot.SetStartSpinButton(LoadTexture("startSpin1.png"));
 
 	Slot.SetStartSpinButtonPushed(LoadTexture("startSpinpUSHED.png"));
+
+	//Loading slot figures
+
+	Slot.SetFigure1(LoadTexture("figure1.png"));
+
+	Slot.SetFigure2(LoadTexture("figure2.png"));
+
+	Slot.SetFigure3(LoadTexture("figure3.png"));
+
+	Slot.SetFigure4(LoadTexture("figure4.png"));
+
+	Slot.SetFigure5(LoadTexture("figure5.png"));
+
+	Slot.SetFigure6(LoadTexture("figure6.png"));
+
+	Slot.SetFigure7(LoadTexture("figure7.png"));
+
+	Slot.SetFigure8(LoadTexture("figure8.png"));
+
+	Slot.SetFigure9(LoadTexture("figure9.png"));
+
+	// initializing vector
+
+	m_vecSlotFigures =
+	{	Slot.GetFigure1(), Slot.GetFigure2(), Slot.GetFigure3(), Slot.GetFigure4(),
+		Slot.GetFigure5(), Slot.GetFigure6(), Slot.GetFigure7(),
+		Slot.GetFigure8(), Slot.GetFigure9()
+
+	};
 
 	// Counter VIEW CONTROLLERS
 
@@ -3509,6 +3546,21 @@ void LifeCycle::Play()
 				SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(),
 						&rectBackground, NULL);
 
+				// Figure1
+
+				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[0], NULL,
+						&rectFigure1Slot1);
+
+				//Figure 2
+
+				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[1], NULL,
+						&rectFigure2Slot1);
+
+				//FIGURE 3
+
+				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[2], NULL,
+						&rectFigure3Slot1);
+
 				SDL_RenderCopy(rendererPtr, Slot.GetSlotTexture(), NULL,
 						&rectSlot);
 
@@ -3914,6 +3966,10 @@ void LifeCycle::Play()
 				if (xZ >= startSpinButton.x && xZ <= 1200
 						&& yZ >= startSpinButton.y && yZ <= 660)
 				{
+
+					int spinCounter = 0;
+
+
 					SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(),
 							&rectBackground, NULL);
 
@@ -3971,6 +4027,129 @@ void LifeCycle::Play()
 					{
 						SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(),
 						NULL, &rectVolume);
+					}
+
+
+					while (rectFigure1Slot1.y <= 520)
+					{
+						rectFigure1Slot1.y += 3;
+
+						rectFigure2Slot1.y += 3;
+
+						rectFigure3Slot1.y += 3;
+
+						if (rectFigure3Slot1.y >= 520)
+						{
+							rectFigure3Slot1.y = 13;
+
+						}
+
+						if (rectFigure2Slot1.y >= 520)
+						{
+							rectFigure2Slot1.y = 13;
+
+						}
+
+						if (rectFigure1Slot1.y >= 520)
+						{
+							rectFigure1Slot1.y = 13;
+
+						}
+						//counting 3 spins for figures
+
+						spinCounter++;
+
+						// presenting after SPIN
+
+						SDL_RenderCopy(rendererPtr,
+								Intro.GetBackgroundTexture(), &rectBackground,
+								NULL);
+
+						SDL_RenderCopy(rendererPtr, m_vecSlotFigures[spinCounter], NULL,
+								&rectFigure1Slot1);
+
+						SDL_RenderCopy(rendererPtr, m_vecSlotFigures[spinCounter], NULL,
+								&rectFigure2Slot1);
+
+						SDL_RenderCopy(rendererPtr, m_vecSlotFigures[spinCounter], NULL,
+								&rectFigure3Slot1);
+
+
+
+						SDL_RenderCopy(rendererPtr, Slot.GetSlotTexture(), NULL,
+								&rectSlot);
+
+						SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(),
+						NULL, &rectInfoButton);
+
+						SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(),
+						NULL, &rectVolumePlusButton);
+
+						SDL_RenderCopy(rendererPtr,
+								Intro.GetVolumeMinusButton(),
+								NULL, &rectVolumeMinusButton);
+
+						// addding buttons to reel
+
+						SDL_RenderCopy(rendererPtr, Slot.GetMinusButtonLines(),
+						NULL, &minusButtonLines);
+
+						SDL_RenderCopy(rendererPtr, Slot.GetPlusLinesButton(),
+						NULL, &plusButtonLines);
+
+						SDL_RenderCopy(rendererPtr, Slot.GetMinusButtonBet(),
+						NULL, &minusBetButton);
+
+						SDL_RenderCopy(rendererPtr, Slot.GetPlusButtonBet(),
+						NULL, &plusBetButton);
+
+						SDL_RenderCopy(rendererPtr, Slot.GetMaxBetButton(),
+						NULL, &maxBetButton);
+
+						SDL_RenderCopy(rendererPtr,
+								Slot.GetStartSpinButtonPushed(),
+								NULL, &startSpinButton);
+
+						if (counterVolume == 0)
+						{
+							SDL_RenderCopy(rendererPtr,
+									Intro.GetVolumeTexture(),
+									NULL, &rectVolume);
+						}
+
+						if (counterVolume == 1)
+						{
+							SDL_RenderCopy(rendererPtr,
+									Intro.GetVolumeTexture1(),
+									NULL, &rectVolume);
+						}
+
+						if (counterVolume == 2)
+						{
+							SDL_RenderCopy(rendererPtr,
+									Intro.GetVolumeTexture2(),
+									NULL, &rectVolume);
+						}
+
+						if (counterVolume == 3)
+						{
+							SDL_RenderCopy(rendererPtr,
+									Intro.GetVolumeTexture3(),
+									NULL, &rectVolume);
+						}
+
+						SDL_RenderPresent(rendererPtr);
+
+						if(spinCounter == 8)
+						{
+
+							//killing while loop
+							//TODO:
+
+							spinCounter = 0;
+
+						}
+
 					}
 
 				}

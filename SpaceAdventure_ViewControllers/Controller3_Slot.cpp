@@ -81,6 +81,51 @@ void Slot::SetPlusButtonBetPushed(SDL_Texture* texture)
 	plusButtonBetPushed = texture;
 }
 
+void Slot:: SetFigure1(SDL_Texture* texture)
+{
+    eFigure1 = texture;
+}
+
+void Slot::SetFigure2(SDL_Texture* texture)
+{
+	eFigure2 = texture;
+}
+
+void Slot::SetFigure3(SDL_Texture* texture)
+{
+	eFigure3 = texture;
+}
+
+void Slot::SetFigure4(SDL_Texture* texture)
+{
+	eFigure4 = texture;
+}
+
+void Slot::SetFigure5(SDL_Texture* texture)
+{
+	eFigure5 = texture;
+}
+
+void Slot::SetFigure6(SDL_Texture* texture)
+{
+	eFigure6 = texture;
+}
+
+void Slot::SetFigure7(SDL_Texture* texture)
+{
+	eFigure7 = texture;
+}
+
+void Slot::SetFigure8(SDL_Texture* texture)
+{
+	eFigure8 = texture;
+}
+
+void Slot::SetFigure9(SDL_Texture* texture)
+{
+	eFigure9 = texture;
+}
+
 // Get Methods;
 
 SDL_Texture* Slot::GetSlotTexture()
@@ -146,4 +191,51 @@ SDL_Texture* Slot::GetPlusButtonBet()
 SDL_Texture* Slot::GetPlusButtonBetPushed()
 {
 	return plusButtonBetPushed;
+}
+
+
+
+SDL_Texture* Slot:: GetFigure1()
+{
+    return eFigure1;
+}
+
+SDL_Texture* Slot::GetFigure2()
+{
+	return eFigure2;
+}
+
+SDL_Texture* Slot::GetFigure3()
+{
+	return eFigure3;
+}
+
+SDL_Texture* Slot::GetFigure4()
+{
+	return eFigure4;
+}
+
+SDL_Texture* Slot::GetFigure5()
+{
+	return eFigure5;
+}
+
+SDL_Texture* Slot::GetFigure6()
+{
+	return eFigure6;
+}
+
+SDL_Texture* Slot::GetFigure7()
+{
+	return eFigure7;
+}
+
+SDL_Texture* Slot::GetFigure8()
+{
+	return eFigure8;
+}
+
+SDL_Texture* Slot::GetFigure9()
+{
+	return eFigure9;
 }
