@@ -16,8 +16,8 @@ using std::vector;
 using std::endl;
 using std::cout;
 
-//constant zero
-const int ZERO = 0;
+
+
 //credit increment constant
 const int CREDIT_STEP = 10000;
 //minimum amount of credits
@@ -92,9 +92,13 @@ typedef enum
 //number of special figures for bonus game
 const int BONUS_GAME = 5;
 
-//counter to keep track of the number of special figures at each game
-int gBonusCounter = 0;
-
+//enum holding the number for each round
+typedef enum
+{
+	eRound1,
+	eRound2,
+	eNUM_ROUNDS
+} ROUND;
 //enum holding two choices for the bonus game
 typedef enum
 {

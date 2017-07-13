@@ -8,8 +8,8 @@
 #ifndef GAMECONTROLLER_H_
 #define GAMECONTROLLER_H_
 
-#include "..\..\Model\GameModel\GameModel.h"
-#include "..\..\Model\BonusGameModel\BonusGame.h"
+#include "..\..\Model\GameModel.h"
+#include "..\..\Controller\BonusGameController\BonusGame.h"
 class GameController
 {
 private:
@@ -17,9 +17,10 @@ private:
 	static int m_iBetStep;
 	static vector<BET> m_vecBetPerStep;
 	static bool m_bFigureIsSelected[eNUM_FIGURES];
-	BonusGame m_bonusGame;
 	static COLOR m_playerChoice;
 	static bool m_bQuitBonusGame;
+	static int m_iBonusCounter;
+
 	//set default values for the member fields
 	void SetDefault();
 	//insert credits in order to play
@@ -56,10 +57,6 @@ private:
 	bool BetExceedsCredits(int);
 	//check if the payline increase exceeds the current amount of credits
 	bool PaylinesExceedCredits(int);
-	//bonus game round1
-	void BonusWin1(const COLOR&);
-	//bonus game round2
-	void BonusWin2(const COLOR&);
 public:
 	GameController();
 	virtual ~GameController();
@@ -75,6 +72,8 @@ public:
 	//amount of credits
 	bool TotalBetExceedsCredits();
 
+	//set the bet per line and number of lines to their maximum values
+	void MaxBet();
 	//increase the number of paylines
 	void IncreasePaylines();
 	//decrease the number of paylines
@@ -84,22 +83,10 @@ public:
 	void IncreaseBet();
 	void DecreaseBet();
 
-
 	//calculate current winnings from the paylines
 	void WinFromPaylines();
-	//quit the bonus game
-	bool QuitBonusGame();
-	//if player wants to play bonus game round 1
-	void PlayBonusRoundOne();
-	//if player wants to play bonus game round 2
-	void PlayBonusRoundTwo();
-	//if player selected a black card
-	void SelectBlackCard();
-	//if the player selected a red card
-	void SelectRedCard();
 
-	//set the bet per line and number of lines to their maximum values
-	void MaxBet();
+
 
 	//Getters
 	const vector<vector<Figures> >& GetGameReels() const;
