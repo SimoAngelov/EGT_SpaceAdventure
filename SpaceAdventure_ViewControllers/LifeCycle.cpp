@@ -145,7 +145,7 @@ void LifeCycle::Play()
 
 	SDL_Rect maxBetButton = createRect(730, 585, 60, 60);
 
-	SDL_Rect startSpinButton = createRect(1100, 535, 120, 120);
+	SDL_Rect startSpinButton = createRect(1100, 540, 120, 120);
 
 	// Event Object
 
@@ -3912,7 +3912,7 @@ void LifeCycle::Play()
 				//START SPIN BUTTON pushed
 
 				if (xZ >= startSpinButton.x && xZ <= 1200
-						&& yZ >= startSpinButton.y && yZ <= 655)
+						&& yZ >= startSpinButton.y && yZ <= 660)
 				{
 					SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(),
 							&rectBackground, NULL);
