@@ -3967,8 +3967,13 @@ void LifeCycle::Play()
 						&& yZ >= startSpinButton.y && yZ <= 660)
 				{
 
-					int spinCounter = 0;
+					int spinCounter1 = 0; // 0-1-2 figures
 
+					int spinCounter2 = 3; // 3-4-5 figures
+
+					int spinCounter3 = 6; // 6-7-8 figures
+
+					int spinRolls = 1; // counting spins for each roll
 
 					SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(),
 							&rectBackground, NULL);
@@ -4029,18 +4034,31 @@ void LifeCycle::Play()
 						NULL, &rectVolume);
 					}
 
+					//Spining figures loop
 
 					while (rectFigure1Slot1.y <= 520)
 					{
-						rectFigure1Slot1.y += 3;
+						rectFigure1Slot1.y += 5; // speed in pixels
 
-						rectFigure2Slot1.y += 3;
+						rectFigure2Slot1.y += 5;
 
-						rectFigure3Slot1.y += 3;
+						rectFigure3Slot1.y += 5;
 
 						if (rectFigure3Slot1.y >= 520)
 						{
 							rectFigure3Slot1.y = 13;
+
+							spinRolls++;
+
+							//counting 3 spins for figure
+
+							spinCounter3++;
+
+							if (spinCounter3 > 8)
+							{
+								spinCounter3 = 6;
+
+							}
 
 						}
 
@@ -4048,16 +4066,28 @@ void LifeCycle::Play()
 						{
 							rectFigure2Slot1.y = 13;
 
+							spinCounter2++;
+
+							if (spinCounter2 > 5)
+							{
+								spinCounter2 = 3;
+
+							}
+
 						}
 
 						if (rectFigure1Slot1.y >= 520)
 						{
 							rectFigure1Slot1.y = 13;
 
-						}
-						//counting 3 spins for figures
+							spinCounter1++;
 
-						spinCounter++;
+							if (spinCounter1 > 2)
+							{
+								spinCounter1 = 0;
+
+							}
+						}
 
 						// presenting after SPIN
 
@@ -4065,16 +4095,17 @@ void LifeCycle::Play()
 								Intro.GetBackgroundTexture(), &rectBackground,
 								NULL);
 
-						SDL_RenderCopy(rendererPtr, m_vecSlotFigures[spinCounter], NULL,
-								&rectFigure1Slot1);
-
-						SDL_RenderCopy(rendererPtr, m_vecSlotFigures[spinCounter], NULL,
-								&rectFigure2Slot1);
-
-						SDL_RenderCopy(rendererPtr, m_vecSlotFigures[spinCounter], NULL,
+						SDL_RenderCopy(rendererPtr,
+								m_vecSlotFigures[spinCounter3], NULL,
 								&rectFigure3Slot1);
 
+						SDL_RenderCopy(rendererPtr,
+								m_vecSlotFigures[spinCounter2], NULL,
+								&rectFigure2Slot1);
 
+						SDL_RenderCopy(rendererPtr,
+								m_vecSlotFigures[spinCounter1], NULL,
+								&rectFigure1Slot1);
 
 						SDL_RenderCopy(rendererPtr, Slot.GetSlotTexture(), NULL,
 								&rectSlot);
@@ -4140,13 +4171,12 @@ void LifeCycle::Play()
 
 						SDL_RenderPresent(rendererPtr);
 
-						if(spinCounter == 8)
+						if (spinRolls > 9)
 						{
 
 							//killing while loop
-							//TODO:
 
-							spinCounter = 0;
+							break;
 
 						}
 
