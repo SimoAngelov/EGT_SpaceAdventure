@@ -20,38 +20,43 @@ void Bonus_Game::SetBackgroundTexture(SDL_Texture* texture) {
 	backgroundTexture = texture;
 }
 
-SDL_Texture* Bonus_Game::GetBackgroundTexture(){
+SDL_Texture* Bonus_Game::GetBackgroundTexture() {
 	return backgroundTexture;
 }
 
-void Bonus_Game::SetRedButtonTexture(SDL_Texture* texture){
+void Bonus_Game::SetRedButtonTexture(SDL_Texture* texture) {
 	redButtonTexture = texture;
 }
 
-SDL_Texture* Bonus_Game::GetRedButtonTexture(){
+SDL_Texture* Bonus_Game::GetRedButtonTexture() {
 	return redButtonTexture;
 }
 
-void Bonus_Game::SetBlackButtonTexture(SDL_Texture* texture){
+void Bonus_Game::SetBlackButtonTexture(SDL_Texture* texture) {
 	blackButtonTexture = texture;
 }
 
-SDL_Texture* Bonus_Game::GetBlackButtonTexture(){
+SDL_Texture* Bonus_Game::GetBlackButtonTexture() {
 	return blackButtonTexture;
 }
 
-void Bonus_Game::SetFacingDownCardTexture(SDL_Texture* texture) {
-	facingDownCardTexture = texture;
+void Bonus_Game::SetFacingDownCardRedTexture(SDL_Texture* texture) {
+	facingDownCardRedTexture = texture;
 }
 
-SDL_Texture* Bonus_Game::GetFacingDownCardTexture() {
-	return facingDownCardTexture;
+SDL_Texture* Bonus_Game::GetFacingDownCardRedTexture() {
+	return facingDownCardRedTexture;
+}
+
+void Bonus_Game::SetFacingDownCardBlackTexture(SDL_Texture* texture) {
+	facingDownCardBlackTexture = texture;
+}
+
+SDL_Texture* Bonus_Game::GetFacingDownCardBlackTexture() {
+	return facingDownCardBlackTexture;
 }
 
 //SDL_Texture* Bonus_Game::
-
-
-
 
 void Bonus_Game::InitMedia() {
 	//Initialization flag
@@ -77,11 +82,11 @@ void Bonus_Game::InitMedia() {
 			if (rendererPtr == NULL) {
 				cout << "Unable to CREATE RENDERER!\n";
 			}
-			//TTF_Init();
+			TTF_Init();
 
-			//Xanadu = TTF_OpenFont("Xanadu.ttf", 30);
+			StarJedi = TTF_OpenFont("StarJedi.ttf", 30);
 
-			if(Xanadu == NULL){
+			if (StarJedi == NULL) {
 				cout << "Unable to OPEN FONT!\n";
 			}
 		}
@@ -103,22 +108,39 @@ void Bonus_Game::PlayBonusGame() {
 
 	Bonus_Game Bonus_Game;
 
-	SDL_Rect rectBackground = createRect(0, 0, 1920, 1200);
+	SDL_Rect rectBackground = createRect(0, 0, 2880, 1800);
 
-	SDL_Rect rectRedButton = createRect(150, 380, 100, 100);
+	SDL_Rect rectRedButton = createRect(150, 350, 100, 100);
 
-	SDL_Rect rectBlackButton = createRect(550, 380, 100, 100);
+	SDL_Rect rectBlackButton = createRect(550, 350, 100, 100);
 
-	SDL_Rect rectFacingDownCard = createRect(350, 300, 100, 200);
+	SDL_Rect rectFacingDownCardRed = createRect(350, 300, 110, 180);
+
+	SDL_Rect rectFacingDownCardBlack = createRect(320, 300, 100, 200);
+
+	//
+
+	SDL_Rect rectTextGamble1 = createRect(100, 250, 200, 50); // "GAMBLE AMOUNT"
+
+	SDL_Rect rectTextGamble2 = createRect(500, 250, 200, 50); // "GAMBLE TO WIN";
+
+	SDL_Rect rectTextGamble3 = createRect(320, 200, 200, 50); // "GAMBLE ATTEMPTS LEFT: "
+
+	SDL_Rect rectTextGamble4 = createRect(320, 30, 200, 50); // "HISTORY"
+
+
 
 	//Load Textures
-	Bonus_Game.SetBackgroundTexture(LoadTexture("BlackBackground.png"));
+	Bonus_Game.SetBackgroundTexture(LoadTexture("Background.png"));
 
 	Bonus_Game.SetRedButtonTexture(LoadTexture("Rebellion logo.png"));
 
 	Bonus_Game.SetBlackButtonTexture(LoadTexture("Galactic Empire logo.png"));
 
-	Bonus_Game.SetFacingDownCardTexture(LoadTexture("FacingDownCard_Star Wars.png"));
+	Bonus_Game.SetFacingDownCardRedTexture(
+			LoadTexture("FacingDownCard_Star Wars.png"));
+
+	Bonus_Game.SetFacingDownCardBlackTexture(LoadTexture(""));
 
 	int xZ = 0;
 
@@ -130,7 +152,25 @@ void Bonus_Game::PlayBonusGame() {
 	//Event handler
 	SDL_Event e;
 
-	//TTF_Init();
+	string gambleText1 = "GAMBLE AMOUNT";
+
+	string gambleText2 = "GAMBLE TO WIN";
+
+	string gambleText3 = "GAMBLE ATTEMPTS LEFT: ";
+
+	string gambleText4 = "HISTORY";
+
+	TTF_Init();
+
+	gambleSurface = TTF_RenderText_Solid(StarJedi, gambleText1.c_str(), color);
+
+	gambleSurface = TTF_RenderText_Solid(StarJedi, gambleText2.c_str(), color);
+
+	gambleSurface = TTF_RenderText_Solid(StarJedi, gambleText3.c_str(), color);
+
+	gambleSurface = TTF_RenderText_Solid(StarJedi, gambleText4.c_str(), color);
+
+	gambleTexture = SDL_CreateTextureFromSurface(rendererPtr, gambleSurface);
 
 	//While application is running
 	while (!quit) {
@@ -142,14 +182,28 @@ void Bonus_Game::PlayBonusGame() {
 			}
 			SDL_GetMouseState(&xZ, &yZ);
 
-			SDL_RenderCopy(rendererPtr, Bonus_Game.GetBackgroundTexture(), &rectBackground, NULL);
+			SDL_RenderCopy(rendererPtr, Bonus_Game.GetBackgroundTexture(),
+					&rectBackground, NULL);
 
-			SDL_RenderCopy(rendererPtr, Bonus_Game.GetRedButtonTexture(), NULL, &rectRedButton);
+			SDL_RenderCopy(rendererPtr, Bonus_Game.GetRedButtonTexture(), NULL,
+					&rectRedButton);
 
-			SDL_RenderCopy(rendererPtr, Bonus_Game.GetBlackButtonTexture(), NULL, &rectBlackButton);
+			SDL_RenderCopy(rendererPtr, Bonus_Game.GetBlackButtonTexture(),
+					NULL, &rectBlackButton);
 
-			SDL_RenderCopy(rendererPtr, Bonus_Game.GetFacingDownCardTexture(), NULL, &rectFacingDownCard);
+			SDL_RenderCopy(rendererPtr,
+					Bonus_Game.GetFacingDownCardRedTexture(), NULL,
+					&rectFacingDownCardRed);
 
+			//SDL_RenderCopy(rendererPtr, Bonus_Game.GetFacingDownCardBlackTexture(), NULL, &rectFacingDownCardBlack);
+
+			SDL_RenderCopy(rendererPtr, gambleTexture, NULL, &rectTextGamble1);
+
+			SDL_RenderCopy(rendererPtr, gambleTexture, NULL, &rectTextGamble2);
+
+			SDL_RenderCopy(rendererPtr, gambleTexture, NULL, &rectTextGamble3);
+
+			SDL_RenderCopy(rendererPtr, gambleTexture, NULL, &rectTextGamble4);
 		}
 		//Update screen
 		SDL_RenderPresent(rendererPtr);
@@ -158,6 +212,10 @@ void Bonus_Game::PlayBonusGame() {
 }
 
 void Bonus_Game::QuitBonusGame() {
+
+	TTF_Quit();
+	IMG_Quit();
+	SDL_Quit();
 
 }
 

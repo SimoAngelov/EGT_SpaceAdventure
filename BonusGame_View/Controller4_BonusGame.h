@@ -27,7 +27,9 @@ private:
 
 	SDL_Texture* blackButtonTexture = NULL;
 
-	SDL_Texture* facingDownCardTexture = NULL;
+	SDL_Texture* facingDownCardRedTexture = NULL;
+
+	SDL_Texture* facingDownCardBlackTexture = NULL;
 
 	SDL_Window* windowPtr = NULL;
 
@@ -47,9 +49,13 @@ private:
 
 	//Mix_Chunck* g = NULL;
 
-	TTF_Font* Xanadu = NULL;
+	TTF_Font* StarJedi = NULL;
 
-	SDL_Color color = {160, 1, 1, 0};
+	SDL_Color color = {252, 252, 252, 0};
+
+	SDL_Surface* gambleSurface = NULL;
+
+	SDL_Texture* gambleTexture = NULL;
 
 
 
@@ -65,7 +71,9 @@ public:
 
 	void SetBlackButtonTexture(SDL_Texture* texture);
 
-	void SetFacingDownCardTexture(SDL_Texture* texture);
+	void SetFacingDownCardRedTexture(SDL_Texture* texture);
+
+	void SetFacingDownCardBlackTexture(SDL_Texture* texture);
 
 	//Get Methods
 
@@ -75,7 +83,9 @@ public:
 
 	SDL_Texture* GetBlackButtonTexture();
 
-	SDL_Texture* GetFacingDownCardTexture();
+	SDL_Texture* GetFacingDownCardRedTexture();
+
+	SDL_Texture* GetFacingDownCardBlackTexture();
 
 	//
 
