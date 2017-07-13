@@ -11,17 +11,17 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-#include "BonusGame.h"
-#include "LifeCycleBonusGame.h"
+
+#include "Controller4_BonusGame.h"
 using namespace std;
 
 int main(int argc, char* args[]) {
 
-	LifeCycle_BonusGame lifeCycleBonusGame;
+	Bonus_Game BonusGame;
 
-	lifeCycleBonusGame.InitMedia();
+	BonusGame.InitMedia();
 
-	lifeCycleBonusGame.PlayBonusGame();
+	BonusGame.PlayBonusGame();
 
 
 	return 0;
