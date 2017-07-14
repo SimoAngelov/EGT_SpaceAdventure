@@ -29,6 +29,8 @@ private:
 	void InitRandomReels();
 	//set the special figure per reel, random appearance
 	void SetSpecialFigure();
+	//hardcode a special figure at each reel to test the bonus game
+	void StartBonusGame();
 	//set unique figures for each reel
 	void SetUniqueFigures();
 	//set the same figures on all the reels to test the win function
@@ -86,6 +88,8 @@ public:
 	//calculate current winnings from the paylines
 	void WinFromPaylines();
 
+	//check if bonus game, if yes - initialize it
+	bool IsBonusGame();
 
 
 	//Getters

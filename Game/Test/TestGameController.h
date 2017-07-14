@@ -10,19 +10,20 @@
 #include <iostream>
 using std::cin;
 #include "..\Controller\GameController\GameController.h"
+#include "TestBonusGame.h"
 class TestGameController
 {
+	friend class TestBonusGame;
 private:
-	GameController m_gameController;
+	static GameController m_gameController;
 public:
 	TestGameController();
 	virtual ~TestGameController();
-	void TestCreditInsert();
-	void TestBetIncrement();
-	void TestLineIncrement();
-	void TestMaxBet();
-	void TestSpin();
-
+	static void TestCreditInsert();
+	static void TestBetIncrement();
+	static void TestLineIncrement();
+	static void TestMaxBet();
+	static void TestSpin();
 	void TestGame();
 };
 
