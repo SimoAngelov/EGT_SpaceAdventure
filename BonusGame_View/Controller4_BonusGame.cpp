@@ -40,23 +40,25 @@ SDL_Texture* Bonus_Game::GetBlackButtonTexture() {
 	return blackButtonTexture;
 }
 
-void Bonus_Game::SetFacingDownCardRedTexture(SDL_Texture* texture) {
-	facingDownCardRedTexture = texture;
-}
+//void Bonus_Game::SetFaceDownCardTexture(SDL_Texture* texture) {
+//	faceDownCardTexture = texture;
+//}
+//
+//SDL_Texture* Bonus_Game::GetFaceDownCardTexture() {
+//	return faceDownCardTexture;
+//}
+//
+//void Bonus_Game::SetFaceUpCardTexture(SDL_Texture* texture) {
+//	faceUpCardTexture = texture;
+//}
+//
+//SDL_Texture* Bonus_Game::GetFaceUpCardTexture() {
+//	return faceUpCardTexture;
+//}
 
-SDL_Texture* Bonus_Game::GetFacingDownCardRedTexture() {
-	return facingDownCardRedTexture;
-}
+void Bonus_Game::LoadFromFile(string path) {
 
-void Bonus_Game::SetFacingDownCardBlackTexture(SDL_Texture* texture) {
-	facingDownCardBlackTexture = texture;
 }
-
-SDL_Texture* Bonus_Game::GetFacingDownCardBlackTexture() {
-	return facingDownCardBlackTexture;
-}
-
-//SDL_Texture* Bonus_Game::
 
 void Bonus_Game::InitMedia() {
 	//Initialization flag
@@ -84,9 +86,9 @@ void Bonus_Game::InitMedia() {
 			}
 			TTF_Init();
 
-			StarJedi = TTF_OpenFont("StarJedi.ttf", 30);
+			conthrax = TTF_OpenFont("conthrax.ttf", 30);
 
-			if (StarJedi == NULL) {
+			if (conthrax == NULL) {
 				cout << "Unable to OPEN FONT!\n";
 			}
 		}
@@ -108,39 +110,51 @@ void Bonus_Game::PlayBonusGame() {
 
 	Bonus_Game Bonus_Game;
 
-	SDL_Rect rectBackground = createRect(0, 0, 2880, 1800);
+	SDL_Rect rectBackground = createRect(0, 0, 2880, 1800);  // Background
 
-	SDL_Rect rectRedButton = createRect(150, 350, 100, 100);
+	SDL_Rect rectRedButton = createRect(100, 350, 130, 100);  // Red Button
 
-	SDL_Rect rectBlackButton = createRect(550, 350, 100, 100);
+	SDL_Rect rectBlackButton = createRect(560, 350, 130, 100);  // Black Button
 
-	SDL_Rect rectFacingDownCardRed = createRect(350, 300, 110, 180);
+	//SDL_Rect rectFaceDownCard = createRect(330, 300, 110, 180); // Face Down Card
 
-	SDL_Rect rectFacingDownCardBlack = createRect(320, 300, 100, 200);
+	//SDL_Rect rectFaceUpCard = createRect(350, 300, 110, 180);  // Face Up Card
 
 	//
 
-	SDL_Rect rectTextGamble1 = createRect(100, 250, 200, 50); // "GAMBLE AMOUNT"
+	SDL_Rect rectTextGamble1 = createRect(50, 250, 200, 40); // "GAMBLE AMOUNT"
 
-	SDL_Rect rectTextGamble2 = createRect(500, 250, 200, 50); // "GAMBLE TO WIN";
+	SDL_Rect rectTextGamble2 = createRect(500, 250, 200, 40); // "GAMBLE TO WIN";
 
-	SDL_Rect rectTextGamble3 = createRect(320, 200, 200, 50); // "GAMBLE ATTEMPTS LEFT: "
+	SDL_Rect rectTextGamble3 = createRect(250, 180, 290, 40); // "GAMBLE ATTEMPTS LEFT: "
 
-	SDL_Rect rectTextGamble4 = createRect(320, 30, 200, 50); // "HISTORY"
-
-
+	//SDL_Rect rectTextGamble4 = createRect(320, 30, 200, 50); // "HISTORY"
 
 	//Load Textures
+
 	Bonus_Game.SetBackgroundTexture(LoadTexture("Background.png"));
 
-	Bonus_Game.SetRedButtonTexture(LoadTexture("Rebellion logo.png"));
+	Bonus_Game.SetRedButtonTexture(LoadTexture("Red Button.png"));
 
-	Bonus_Game.SetBlackButtonTexture(LoadTexture("Galactic Empire logo.png"));
+	Bonus_Game.SetRedButtonTexture(LoadTexture("Red Button_Dark.png"));
 
-	Bonus_Game.SetFacingDownCardRedTexture(
-			LoadTexture("FacingDownCard_Star Wars.png"));
+	Bonus_Game.SetBlackButtonTexture(LoadTexture("Black Button.png"));
 
-	Bonus_Game.SetFacingDownCardBlackTexture(LoadTexture(""));
+	Bonus_Game.SetBlackButtonTexture(LoadTexture("Black Button_Blue.png"));
+
+//	Bonus_Game.SetFaceDownCardTexture(
+//			LoadTexture("FacingDownCard_Star Wars.png"));
+
+	//Bonus_Game.SetFaceUpCardTexture(LoadTexture(""));
+
+	SDL_Surface* image;
+	SDL_RWops* rwop;
+	rwop = SDL_RWFromFile("graphics star wars.gif", "rb");
+	image = IMG_LoadGIF_RW(rwop);
+	if (!image) {
+		printf("IMG_LoadGif_RW: %s/n", IMG_GetError());
+
+	}
 
 	int xZ = 0;
 
@@ -152,25 +166,29 @@ void Bonus_Game::PlayBonusGame() {
 	//Event handler
 	SDL_Event e;
 
-	string gambleText1 = "GAMBLE AMOUNT";
+	string gambleText1 = "GAMBLE AMOUNT:";
 
-	string gambleText2 = "GAMBLE TO WIN";
+	string gambleText2 = "GAMBLE TO WIN:";
 
 	string gambleText3 = "GAMBLE ATTEMPTS LEFT: ";
 
-	string gambleText4 = "HISTORY";
+	//string gambleText4 = "HISTORY";
 
 	TTF_Init();
 
-	gambleSurface = TTF_RenderText_Solid(StarJedi, gambleText1.c_str(), color);
+	gambleSurface1 = TTF_RenderText_Solid(conthrax, gambleText1.c_str(), color);
 
-	gambleSurface = TTF_RenderText_Solid(StarJedi, gambleText2.c_str(), color);
+	gambleSurface2 = TTF_RenderText_Solid(conthrax, gambleText2.c_str(), color);
 
-	gambleSurface = TTF_RenderText_Solid(StarJedi, gambleText3.c_str(), color);
+	gambleSurface3 = TTF_RenderText_Solid(conthrax, gambleText3.c_str(), color);
 
-	gambleSurface = TTF_RenderText_Solid(StarJedi, gambleText4.c_str(), color);
+	//gambleSurface = TTF_RenderText_Solid(conthrax, gambleText4.c_str(), color);
 
-	gambleTexture = SDL_CreateTextureFromSurface(rendererPtr, gambleSurface);
+	gambleTexture1 = SDL_CreateTextureFromSurface(rendererPtr, gambleSurface1);
+
+	gambleTexture2 = SDL_CreateTextureFromSurface(rendererPtr, gambleSurface2);
+
+	gambleTexture3 = SDL_CreateTextureFromSurface(rendererPtr, gambleSurface3);
 
 	//While application is running
 	while (!quit) {
@@ -189,21 +207,23 @@ void Bonus_Game::PlayBonusGame() {
 					&rectRedButton);
 
 			SDL_RenderCopy(rendererPtr, Bonus_Game.GetBlackButtonTexture(),
-					NULL, &rectBlackButton);
+			NULL, &rectBlackButton);
 
-			SDL_RenderCopy(rendererPtr,
-					Bonus_Game.GetFacingDownCardRedTexture(), NULL,
-					&rectFacingDownCardRed);
+			//SDL_RenderCopy(rendererPtr, Bonus_Game.GetFaceDownCardTexture(),
+			//NULL, &rectFaceDownCard);
 
-			//SDL_RenderCopy(rendererPtr, Bonus_Game.GetFacingDownCardBlackTexture(), NULL, &rectFacingDownCardBlack);
+			//SDL_RenderCopy(rendererPtr, Bonus_Game.GetFaceUpCardTexture(), NULL, &rectFaceUpCard);
 
-			SDL_RenderCopy(rendererPtr, gambleTexture, NULL, &rectTextGamble1);
+			SDL_RenderCopy(rendererPtr, gambleTexture1, NULL, &rectTextGamble1);
 
-			SDL_RenderCopy(rendererPtr, gambleTexture, NULL, &rectTextGamble2);
+			SDL_RenderCopy(rendererPtr, gambleTexture2, NULL, &rectTextGamble2);
 
-			SDL_RenderCopy(rendererPtr, gambleTexture, NULL, &rectTextGamble3);
+			SDL_RenderCopy(rendererPtr, gambleTexture3, NULL, &rectTextGamble3);
 
-			SDL_RenderCopy(rendererPtr, gambleTexture, NULL, &rectTextGamble4);
+			//SDL_RenderCopy(rendererPtr, gambleTexture, NULL, &rectTextGamble4);
+
+			//if(!gSpriteSheetTexture->loadFromFile("")){
+
 		}
 		//Update screen
 		SDL_RenderPresent(rendererPtr);

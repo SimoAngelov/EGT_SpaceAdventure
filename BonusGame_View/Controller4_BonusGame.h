@@ -27,9 +27,15 @@ private:
 
 	SDL_Texture* blackButtonTexture = NULL;
 
-	SDL_Texture* facingDownCardRedTexture = NULL;
+	//SDL_Texture* faceDownCardTexture = NULL;
 
-	SDL_Texture* facingDownCardBlackTexture = NULL;
+	SDL_Surface* image = NULL;
+
+	SDL_RWops* rwop = NULL;
+
+	SDL_Texture* faceUpCardTexture = NULL;
+
+	//
 
 	SDL_Window* windowPtr = NULL;
 
@@ -49,15 +55,29 @@ private:
 
 	//Mix_Chunck* g = NULL;
 
-	TTF_Font* StarJedi = NULL;
+	TTF_Font* conthrax = NULL;
 
-	SDL_Color color = {252, 252, 252, 0};
+	SDL_Color color = { 252, 252, 252, 0 };
 
-	SDL_Surface* gambleSurface = NULL;
+	SDL_Surface* gambleSurface1 = NULL;
 
-	SDL_Texture* gambleTexture = NULL;
+	SDL_Surface* gambleSurface2 = NULL;
 
+	SDL_Surface* gambleSurface3 = NULL;
 
+	//
+
+	SDL_Texture* gambleTexture1 = NULL;
+
+	SDL_Texture* gambleTexture2 = NULL;
+
+	SDL_Texture* gambleTexture3 = NULL;
+
+	//
+
+	SDL_Rect gSpriteClips[12];
+
+	SDL_Texture* gSpriteSheetTexture;
 
 public:
 	Bonus_Game();
@@ -71,9 +91,9 @@ public:
 
 	void SetBlackButtonTexture(SDL_Texture* texture);
 
-	void SetFacingDownCardRedTexture(SDL_Texture* texture);
+	//void SetFaceDownCardTexture(SDL_Texture* texture);
 
-	void SetFacingDownCardBlackTexture(SDL_Texture* texture);
+	//void SetFaceUpCardTexture(SDL_Texture* texture);
 
 	//Get Methods
 
@@ -83,15 +103,17 @@ public:
 
 	SDL_Texture* GetBlackButtonTexture();
 
-	SDL_Texture* GetFacingDownCardRedTexture();
+	//SDL_Texture* GetFaceDownCardTexture();
 
-	SDL_Texture* GetFacingDownCardBlackTexture();
+	//SDL_Texture* GetFaceUpCardTexture();
 
 	//
 
 	void InitMedia();
 
 	SDL_Texture* LoadTexture(string path);
+
+	void LoadFromFile(string path); // Load sprite sheet texture
 
 	void PlayBonusGame();
 
@@ -100,8 +122,6 @@ public:
 	SDL_Window* GetWindow();
 
 	SDL_Renderer* GetRenderer();
-
-
 
 	SDL_Rect* operator =(SDL_Rect newObject) {
 		SDL_Rect* object;
@@ -122,9 +142,6 @@ public:
 
 		return object;
 	}
-
-
-
 
 };
 
