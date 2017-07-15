@@ -27,6 +27,7 @@ public:
 	GameModel(int iNumberOfLines = 1, int iBetPerLine = 1, int iWin = 0,
 			int iCredits = 0, int iTotalBet = 1);
 	void InitDefaultReels();
+	//getters and setteres
 	void SetReelElement(const Figures&, int, int);
 	const Figures GetReelElement(int, int) const;
 	static void InitVecPaylines();

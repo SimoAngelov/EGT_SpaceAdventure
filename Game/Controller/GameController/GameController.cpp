@@ -405,8 +405,10 @@ void GameController::SetTotalWin()
 	//TODO save the win and credits to XML
 
 //TODO bonus game
-	if(BonusGame::IsBonusGame(this->m_iBonusCounter))
+	if(this->IsBonusGame())
 	{
+		//test cout
+		cout << "GameController:: This is Bonus Game" << endl;
 		//start the bonus game by passing the win and credits as arguments
 		BonusGame::InitBonusGame(&this->m_baseGame);
 	}
@@ -524,12 +526,6 @@ bool GameController::IsBonusGame()
 {
 	//pass the bonus counter to the bonus game
 	bool result = BonusGame::IsBonusGame(GameController::m_iBonusCounter);
-	//if bonus game, initialize it
-	if(result)
-	{
-		//pass the address of the current game controller
-		BonusGame::InitBonusGame(&this->m_baseGame);
-	}
 	//return the result
 	return result;
 }

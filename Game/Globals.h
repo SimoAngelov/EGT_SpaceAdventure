@@ -95,9 +95,9 @@ const int BONUS_GAME = 5;
 //enum holding the number for each round
 typedef enum
 {
-	eRound1,
+	eRound1 = 1,
 	eRound2,
-	eNUM_ROUNDS
+	eNUM_ROUNDS = 2
 } ROUND;
 //enum holding two choices for the bonus game
 typedef enum

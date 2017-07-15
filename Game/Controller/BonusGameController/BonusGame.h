@@ -22,6 +22,7 @@ private:
 	static int m_iGameWin;
 	static int m_iBonusWin;
 	static bool m_bIsRound[eNUM_ROUNDS];
+	static int m_iRound;
 	static bool m_bQuitBonusGame;
 
 public:
@@ -50,16 +51,21 @@ private:
 	//update the win and credits in case of a win
 	//if the player won
 	static bool PlayerWon();
+	//update the win and credits of the bonus game and game model
+	//parameter is a boolean value to check for a win
+	static void UpdateGameModel();
 	//set a value for the bonus game result
 	static void UpdateIfWin();
 	//update the win and credits in case of a loss
 	static void UpdateIfLoss();
+	//check if the bet is valid
+	static bool IsValidBet();
 	//attempt at doubling the wins
 	static void RoundOne();
 	//attempt at try at quadrupling the wins
 	static void RoundTwo();
-	//check if the bet is valid
-	static bool IsValidBet();
+	//try to double up the wins from the game controller
+	static void DoubleUpWins();
 	//update the win and credits
 	static void UpdateWinAndCredits();
 };
