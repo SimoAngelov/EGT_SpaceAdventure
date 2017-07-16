@@ -9,12 +9,7 @@
 #define CONTROLLER_GAMERECOVERY_GAMERECOVERY_H_
 
 #include "XML/pugixml.hpp"
-#include <iostream>
-using std::cout;
-using std::cin;
-using std::endl;
-using std::string;
-
+#include "../../Globals/Globals.h"
 class GameRecovery
 {
 private:
@@ -32,6 +27,23 @@ public:
 	static void UpdateView(int);
 	//update the volume
 	static void UpdateVolume(int);
+	//update the reels
+	static void UpdateReels(const vector<vector <Figures> >&);
+	//update the paylines
+	static void UpdatePaylines(const vector<Payline> &);
+	//update the number of paylines
+	static void UpdateNumberOfPaylines(int);
+	//update the bet per payline
+	static void UpdateBetPerPayline(int);
+	//update the total bet
+	static void UpdateTotalBet(int);
+	//update the win
+	static void UpdateWin(int);
+	//update the credits
+	static void UpdateCredits(int);
+	//update the bonus game
+	static void UpdateBonusGameResult(const COLOR&);
+	static void UpdateBonusPlayerChoice(const COLOR&);
 	virtual ~GameRecovery();
 private:
 	//add view node to root node
