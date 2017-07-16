@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Game>
-	<View Value="1" />
-	<Volume Value="1" />
+	<View Value="56" />
+	<Volume Value="31542" />
 	<Reels>
 		<Reel Index="0">
 			<Figure Index="0" Value="-1" />

@@ -15,6 +15,7 @@ using std::vector;
 #include <iostream>
 using std::endl;
 using std::cout;
+using std::cerr;
 using std::string;
 
 

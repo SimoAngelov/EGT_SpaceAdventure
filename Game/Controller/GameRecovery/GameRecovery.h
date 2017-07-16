@@ -24,8 +24,14 @@ public:
 	GameRecovery();
 	//creates a blank save
 	static void CreateBlankSave();
+	//loads the document
+	static void LoadDoc();
 	//updates the document
-	static bool Update();
+	static void UpdateDoc();
+	//update the view
+	static void UpdateView(int);
+	//update the volume
+	static void UpdateVolume(int);
 	virtual ~GameRecovery();
 private:
 	//add view node to root node

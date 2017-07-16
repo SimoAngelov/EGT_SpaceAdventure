@@ -37,8 +37,8 @@ void GameRecovery::CreateBlankSave()
 	GameRecovery::AddBonusGameToRoot();
 	// test cout
 	//save document to file
-	std::cout << "Saving result: " << GameRecovery::Update()
-			<< std::endl;
+	std::cout << "Saving result... ";
+	GameRecovery::UpdateDoc();
 	// end::code[]
 }
 
@@ -113,8 +113,8 @@ void GameRecovery::AddPaylinesToRoot()
 void GameRecovery::AddNumberOfPaylinesToRoot()
 {
 	//append number of paylines to the root node
-	pugi::xml_node numberOfPaylinesNode =
-			m_rootNode.append_child("Number_Of_Paylines");
+	pugi::xml_node numberOfPaylinesNode = m_rootNode.append_child(
+			"Number_Of_Paylines");
 	//append value attribute for number of paylines node
 	numberOfPaylinesNode.append_attribute("Value") = MIN_PAYLINES;
 }
@@ -171,11 +171,79 @@ void GameRecovery::AddBonusGameToRoot()
 	playerChoiceNode.append_attribute("Value") = COLOR::eInvalidColor;
 }
 
-//updates the document
-bool GameRecovery::Update()
+
+//load the document
+void GameRecovery::LoadDoc()
 {
-	return m_doc.save_file(XML_FILE_PATH.c_str());
+	//open the document
+	if (!(m_doc.load_file(XML_FILE_PATH.c_str())))
+	{
+		cerr << "Failed to open " << XML_FILE_PATH.c_str() << endl;
+	}	//end update if
 }
+
+//updates the document
+void GameRecovery::UpdateDoc()
+{
+	//save the document
+	if (!(m_doc.save_file(XML_FILE_PATH.c_str())))
+	{
+		cerr << "Failed to update " << XML_FILE_PATH.c_str() << endl;
+	}	//end update if
+}
+
+//update the view
+void GameRecovery::UpdateView(int iView)
+{
+	//test cout
+	cout << "GameRecovery::UpdateView" << endl;
+	//open the file
+	GameRecovery::LoadDoc();
+	//create a view node
+	pugi::xml_node viewNode = m_doc.child("Game").child("View");
+	//take the attribute of the view node
+	pugi::xml_attribute valueAttribute = viewNode.attribute("Value");
+	//test cout
+	cout << "before view update: " << valueAttribute.as_int() << endl;
+	//update the attribute
+	if (!valueAttribute.set_value(iView))
+	{
+		cerr << "Failed to update the view!" << endl;
+	} //end attribute if
+
+	//update the document
+	GameRecovery::UpdateDoc();
+	//test cout
+	cout << "after view update: " << valueAttribute.as_int() << endl;
+}
+
+//update the volume
+void GameRecovery::UpdateVolume(int iVolume)
+{
+	//test cout
+	cout << "GameRecovery::UpdateVolume" << endl;
+	//load the document
+	GameRecovery::LoadDoc();
+
+	//create a volume node
+	pugi::xml_node viewNode = m_doc.child("Game").child("Volume");
+	//take the attribute of the volume node
+	pugi::xml_attribute valueAttribute = viewNode.attribute("Value");
+	//test cout
+	cout << "before volume update: " << valueAttribute.as_int() << endl;
+	//update the attribute
+	if (!valueAttribute.set_value(iVolume))
+	{
+		cerr << "Failed to update the view!" << endl;
+	}	// end attribute if
+
+	//update the document
+	GameRecovery::UpdateDoc();
+
+	//test cout
+	cout << "after volume update: " << valueAttribute.as_int() << endl;
+}
+
 GameRecovery::~GameRecovery()
 {
 	// TODO Auto-generated destructor stub
