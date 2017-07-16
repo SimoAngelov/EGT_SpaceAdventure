@@ -420,7 +420,7 @@ void GameController::WinFromPaylines()
 	int winFromPaylines = 0;
 	for (int i = 0; i < this->GetNumberOfLines(); i++)
 	{
-		Payline currentPayline = this->m_baseGame.m_vecPaylines[i];
+		Payline currentPayline = this->m_baseGame.GetVecPaylines()[i];
 		winFromPaylines += this->WinFromSinglePayline(currentPayline);
 		//test cout
 		if (this->WinFromSinglePayline(currentPayline) > 0)
@@ -562,18 +562,31 @@ int GameController::GetWin() const
 }
 
 //printing functions
+
+void GameController::PrintInfo() const
+{
+	cout << "==GameController==" << endl;
+	this->PrintReels();
+	this->PrintPaylines();
+	this->PrintNumLines();
+	this->PrintBetPerLine();
+	this->PrintTotalBet();
+	this->PrintWin();
+	this->PrintCredits();
+}
+
 void GameController::PrintReels() const
 {
 	this->m_baseGame.PrintReels();
-	for (int iRow = 0; iRow < GAME_ROWS; iRow++)
-	{
-		for (int iCol = 0; iCol < GAME_REELS; iCol++)
-		{
-			//cout << GameModel::m_iGameReels[iRow][iCol] << "\t";
-			cout << this->m_baseGame.GetMatrixGameReels()[iRow][iCol] << "\t";
-		}
-		cout << endl;
-	}
+//	for (int iRow = 0; iRow < GAME_ROWS; iRow++)
+//	{
+//		for (int iCol = 0; iCol < GAME_REELS; iCol++)
+//		{
+//			//cout << GameModel::m_iGameReels[iRow][iCol] << "\t";
+//			cout << this->m_baseGame.GetMatrixGameReels()[iRow][iCol] << "\t";
+//		}
+//		cout << endl;
+//	}
 }
 
 void GameController::PrintPayline(const Payline& payline) const
@@ -587,10 +600,10 @@ void GameController::PrintPayline(const Payline& payline) const
 
 void GameController::PrintPaylines() const
 {
-	for (int i = 0; i < (int) this->m_baseGame.m_vecPaylines.size(); i++)
+	for (int i = 0; i < (int) this->m_baseGame.GetVecPaylines().size(); i++)
 	{
 		cout << "PayLine " << i + 1 << ":\t";
-		this->PrintPayline(this->m_baseGame.m_vecPaylines[i]);
+		this->PrintPayline(this->m_baseGame.GetVecPaylines()[i]);
 	}
 }
 
@@ -624,16 +637,16 @@ void GameController::PrintWin() const
 void GameController::ErasePaylines()
 {
 	//check if the vector is empty
-	if (!this->m_baseGame.m_vecPaylines.empty())
+	if (!this->m_baseGame.GetVecPaylines().empty())
 	{
 		//iterator pointing to the first element of the payline vector
 		vector<Payline>::iterator paylinesBegin =
-				this->m_baseGame.m_vecPaylines.begin();
+				this->m_baseGame.GetVecPaylines().begin();
 		//iterator pointing to the one after last element of payline vector
 		vector<Payline>::iterator paylinesEnd =
-				this->m_baseGame.m_vecPaylines.end();
+				this->m_baseGame.GetVecPaylines().end();
 		//erase the contents of the vector
-		this->m_baseGame.m_vecPaylines.erase(paylinesBegin, paylinesEnd);
+		this->m_baseGame.GetVecPaylines().erase(paylinesBegin, paylinesEnd);
 	}
 }
 
@@ -646,7 +659,7 @@ void GameController::InitPayline1()
 			this->m_baseGame.GetMatrixGameReels()[1][2],
 			this->m_baseGame.GetMatrixGameReels()[1][3],
 			this->m_baseGame.GetMatrixGameReels()[1][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline2()
@@ -657,7 +670,7 @@ void GameController::InitPayline2()
 			this->m_baseGame.GetMatrixGameReels()[0][2],
 			this->m_baseGame.GetMatrixGameReels()[0][3],
 			this->m_baseGame.GetMatrixGameReels()[0][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline3()
@@ -668,7 +681,7 @@ void GameController::InitPayline3()
 			this->m_baseGame.GetMatrixGameReels()[2][2],
 			this->m_baseGame.GetMatrixGameReels()[2][3],
 			this->m_baseGame.GetMatrixGameReels()[2][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline4()
@@ -679,7 +692,7 @@ void GameController::InitPayline4()
 			this->m_baseGame.GetMatrixGameReels()[2][2],
 			this->m_baseGame.GetMatrixGameReels()[1][3],
 			this->m_baseGame.GetMatrixGameReels()[0][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline5()
@@ -690,7 +703,7 @@ void GameController::InitPayline5()
 			this->m_baseGame.GetMatrixGameReels()[0][2],
 			this->m_baseGame.GetMatrixGameReels()[1][3],
 			this->m_baseGame.GetMatrixGameReels()[2][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline6()
@@ -701,7 +714,7 @@ void GameController::InitPayline6()
 			this->m_baseGame.GetMatrixGameReels()[1][2],
 			this->m_baseGame.GetMatrixGameReels()[0][3],
 			this->m_baseGame.GetMatrixGameReels()[0][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline7()
@@ -712,7 +725,7 @@ void GameController::InitPayline7()
 			this->m_baseGame.GetMatrixGameReels()[1][2],
 			this->m_baseGame.GetMatrixGameReels()[2][3],
 			this->m_baseGame.GetMatrixGameReels()[2][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline8()
@@ -723,7 +736,7 @@ void GameController::InitPayline8()
 			this->m_baseGame.GetMatrixGameReels()[0][2],
 			this->m_baseGame.GetMatrixGameReels()[0][3],
 			this->m_baseGame.GetMatrixGameReels()[1][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline9()
@@ -734,7 +747,7 @@ void GameController::InitPayline9()
 			this->m_baseGame.GetMatrixGameReels()[2][2],
 			this->m_baseGame.GetMatrixGameReels()[2][3],
 			this->m_baseGame.GetMatrixGameReels()[1][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline10()
@@ -745,7 +758,7 @@ void GameController::InitPayline10()
 			this->m_baseGame.GetMatrixGameReels()[1][2],
 			this->m_baseGame.GetMatrixGameReels()[0][3],
 			this->m_baseGame.GetMatrixGameReels()[1][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline11()
@@ -756,7 +769,7 @@ void GameController::InitPayline11()
 			this->m_baseGame.GetMatrixGameReels()[1][2],
 			this->m_baseGame.GetMatrixGameReels()[2][3],
 			this->m_baseGame.GetMatrixGameReels()[1][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline12()
@@ -767,7 +780,7 @@ void GameController::InitPayline12()
 			this->m_baseGame.GetMatrixGameReels()[0][2],
 			this->m_baseGame.GetMatrixGameReels()[1][3],
 			this->m_baseGame.GetMatrixGameReels()[0][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline13()
@@ -778,7 +791,7 @@ void GameController::InitPayline13()
 			this->m_baseGame.GetMatrixGameReels()[2][2],
 			this->m_baseGame.GetMatrixGameReels()[1][3],
 			this->m_baseGame.GetMatrixGameReels()[2][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline14()
@@ -789,7 +802,7 @@ void GameController::InitPayline14()
 			this->m_baseGame.GetMatrixGameReels()[0][2],
 			this->m_baseGame.GetMatrixGameReels()[1][3],
 			this->m_baseGame.GetMatrixGameReels()[1][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline15()
@@ -800,7 +813,7 @@ void GameController::InitPayline15()
 			this->m_baseGame.GetMatrixGameReels()[2][2],
 			this->m_baseGame.GetMatrixGameReels()[1][3],
 			this->m_baseGame.GetMatrixGameReels()[1][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline16()
@@ -811,7 +824,7 @@ void GameController::InitPayline16()
 			this->m_baseGame.GetMatrixGameReels()[1][2],
 			this->m_baseGame.GetMatrixGameReels()[1][3],
 			this->m_baseGame.GetMatrixGameReels()[0][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline17()
@@ -822,7 +835,7 @@ void GameController::InitPayline17()
 			this->m_baseGame.GetMatrixGameReels()[1][2],
 			this->m_baseGame.GetMatrixGameReels()[1][3],
 			this->m_baseGame.GetMatrixGameReels()[2][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline18()
@@ -833,7 +846,7 @@ void GameController::InitPayline18()
 			this->m_baseGame.GetMatrixGameReels()[2][2],
 			this->m_baseGame.GetMatrixGameReels()[2][3],
 			this->m_baseGame.GetMatrixGameReels()[2][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline19()
@@ -844,7 +857,7 @@ void GameController::InitPayline19()
 			this->m_baseGame.GetMatrixGameReels()[0][2],
 			this->m_baseGame.GetMatrixGameReels()[0][3],
 			this->m_baseGame.GetMatrixGameReels()[0][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline20()
@@ -855,7 +868,7 @@ void GameController::InitPayline20()
 			this->m_baseGame.GetMatrixGameReels()[0][2],
 			this->m_baseGame.GetMatrixGameReels()[2][3],
 			this->m_baseGame.GetMatrixGameReels()[0][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline21()
@@ -866,7 +879,7 @@ void GameController::InitPayline21()
 			this->m_baseGame.GetMatrixGameReels()[2][2],
 			this->m_baseGame.GetMatrixGameReels()[0][3],
 			this->m_baseGame.GetMatrixGameReels()[2][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline22()
@@ -877,7 +890,7 @@ void GameController::InitPayline22()
 			this->m_baseGame.GetMatrixGameReels()[2][2],
 			this->m_baseGame.GetMatrixGameReels()[0][3],
 			this->m_baseGame.GetMatrixGameReels()[1][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline23()
@@ -888,7 +901,7 @@ void GameController::InitPayline23()
 			this->m_baseGame.GetMatrixGameReels()[0][2],
 			this->m_baseGame.GetMatrixGameReels()[2][3],
 			this->m_baseGame.GetMatrixGameReels()[1][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline24()
@@ -899,7 +912,7 @@ void GameController::InitPayline24()
 			this->m_baseGame.GetMatrixGameReels()[1][2],
 			this->m_baseGame.GetMatrixGameReels()[2][3],
 			this->m_baseGame.GetMatrixGameReels()[2][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 
 void GameController::InitPayline25()
@@ -910,6 +923,6 @@ void GameController::InitPayline25()
 			this->m_baseGame.GetMatrixGameReels()[1][2],
 			this->m_baseGame.GetMatrixGameReels()[0][3],
 			this->m_baseGame.GetMatrixGameReels()[0][4] };
-	this->m_baseGame.m_vecPaylines.push_back(line);
+	this->m_baseGame.AddPayline(line);
 }
 

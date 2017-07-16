@@ -54,30 +54,21 @@ void TestBonusGame::Round(bool win)
 	}
 }
 
-void TestBonusGame::TestWinRound1()
+void TestBonusGame::TestWinRound()
 {
-	cout << "TestBonusGame::Welcome to round 1 " << endl;
+	cout << "TestBonusGame::Welcome to bonus round " << endl;
 	TestBonusGame::Round(true);
 }
 
-void TestBonusGame::TestWinRound2()
-{
-	cout << "TestBonusGame::Welcome to round 2 " << endl;
-	TestBonusGame::Round(true);
-}
 
-void TestBonusGame::TestRound1()
+void TestBonusGame::TestRound()
 {
-	cout << "TestBonusGame::Welcome to round 1 " << endl;
+	cout << "TestBonusGame::Welcome to bonus round " << endl;
 	TestBonusGame::Round(false);
 
 }
 
-void TestBonusGame::TestRound2()
-{
-	cout << "TestBonusGame::Welcome to round 2 of the bonus game" << endl;
-	TestBonusGame::Round(false);
-}
+
 
 void TestBonusGame::Quit()
 {
@@ -87,25 +78,17 @@ void TestBonusGame::Quit()
 void TestBonusGame::PlayBonusGame()
 {
 	cout << "TestBonusGame::Welcome to the bonus game.\n";
-	cout << "TestBonusGame::1 - Play Round 1" << endl;
-	cout << "TestBonusGame::XP 2 - Play winning round 1" << endl;
-	cout << "TestBonusGame::3 - Play Round 2" << endl;
-	cout << "TestBonusGame::XP 4 - Play winning round 2" << endl;
+	cout << "TestBonusGame::1 - Play Round " << endl;
+	cout << "TestBonusGame::XP 2 - Play winning round " << endl;
 	cout << "TestBonusGame::Default - Quit " << endl;
 	int iChoice = 0;
 	cin >> iChoice;
 	switch(iChoice){
 	case 1:
-		TestBonusGame::TestRound1();
+		TestBonusGame::TestRound();
 		break;
 	case 2:
-		TestBonusGame::TestWinRound1();
-		break;
-	case 3:
-		TestBonusGame::TestRound2();
-		break;
-	case 4:
-		TestBonusGame::TestWinRound2();
+		TestBonusGame::TestWinRound();
 		break;
 	default:
 		TestBonusGame::Quit();

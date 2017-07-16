@@ -7,12 +7,15 @@
 //============================================================================
 
 #include <iostream>
-#include "GameController.h"
-#include "TestGameController.h"
+
+#include "Test\TestGameController.h"
+#include "Controller\GameRecovery\GameRecovery.h"
 using namespace std;
 
 int main() {
-	TestGameController testGame;
-	testGame.TestGame();
+	//TestGameController testGame;
+	//testGame.TestGame();
+	GameRecovery ob;
+	ob.CreateBlankSave();
 	return 0;
 }

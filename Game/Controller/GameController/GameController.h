@@ -101,6 +101,7 @@ public:
 	int GetWin() const;
 
 	//print functions
+	void PrintInfo() const;
 	void PrintReels() const;
 	void PrintPayline(const Payline&) const;
 	void PrintPaylines() const;

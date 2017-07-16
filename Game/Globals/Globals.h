@@ -15,7 +15,7 @@ using std::vector;
 #include <iostream>
 using std::endl;
 using std::cout;
-
+using std::string;
 
 
 //credit increment constant
@@ -107,4 +107,8 @@ typedef enum
 	eRed,
 	eNUM_COLORS
 }COLOR;
+
+//xml file path
+string const XML_FILE_PATH = "src/Controller/GameRecovery/Save/GameSave.xml";
+
 #endif /* GLOBALS_H_ */

@@ -30,16 +30,18 @@ void GameModel::InitDefaultReels()
 		vecCurrentReel.erase(vecCurrentReel.begin(), vecCurrentReel.end());
 	}
 
-	for (int iRow = 0; iRow < GAME_ROWS; iRow++)
+	//vector, holding 5 vectors(reels), each holding 3 elements(figures)
+	for (int iCol = 0; iCol < GAME_REELS; iCol++)
 	{
-		for (int iCol = 0; iCol < GAME_REELS; iCol++)
+		for (int iRow = 0; iRow < GAME_ROWS; iRow++)
 		{
+
 			vecCurrentReel.push_back(eInvalidFigure);
 		}
 		this->m_matrixGameReels.push_back(vecCurrentReel);
 	}
-
 }
+
 //initialize the game lines with default values
 void GameModel::InitVecPaylines()
 {
@@ -64,10 +66,11 @@ const Figures GameModel::GetReelElement(int iRow, int iCol) const
 	//if the iCol argument is valid
 	bool bValidCol = iCol >= 0 && iCol < GAME_REELS;
 	//if both are valid get the current element
-	if(bValidRow && bValidCol)
+	if (bValidRow && bValidCol)
 	{
 		return this->m_matrixGameReels[iRow][iCol];
-	} else
+	}
+	else
 	{
 		return eInvalidFigure;
 	}
@@ -82,7 +85,7 @@ void GameModel::SetReelElement(const Figures& figure, int iRow, int iCol)
 	//if the iCol argument is valid
 	bool bValidCol = iCol >= 0 && iCol < GAME_REELS;
 	//if both are valid set the current element
-	if(bValidRow && bValidCol)
+	if (bValidRow && bValidCol)
 	{
 		this->m_matrixGameReels[iRow][iCol] = figure;
 	}
@@ -116,7 +119,7 @@ int GameModel::GetICredits() const
 //avoid Setting a negative credit ammount
 void GameModel::SetICredits(int iCredits)
 {
-		m_iCredits = iCredits;
+	m_iCredits = iCredits;
 }
 
 int GameModel::GetINumberOfLines() const
@@ -157,6 +160,18 @@ void GameModel::SetIWin(int iWin)
 	{
 		m_iWin = iWin;
 	}
+}
+
+//add a payline to the vector of paylines
+void GameModel::AddPayline(const Payline& payline)
+{
+	this->m_vecPaylines.push_back(payline);
+}
+
+//return the vector of paylines
+vector<Payline>& GameModel::GetVecPaylines() const
+{
+	return this->m_vecPaylines;
 }
 
 //print

@@ -8,10 +8,9 @@
 #ifndef GAMEMODEL_H_
 #define GAMEMODEL_H_
 
-#include "..\Globals.h"
+#include "..\Globals\Globals.h"
 class GameModel
 {
-	friend class GameController;
 private:
 	//vector of vectors to hold the reels
 	vector<vector<Figures> > m_matrixGameReels;
@@ -20,9 +19,7 @@ private:
 	int m_iWin;
 	int m_iCredits;
 	int m_iTotalBet;
-protected:
 	static vector<Payline> m_vecPaylines;
-
 public:
 	GameModel(int iNumberOfLines = 1, int iBetPerLine = 1, int iWin = 0,
 			int iCredits = 0, int iTotalBet = 1);
@@ -43,7 +40,8 @@ public:
 	void SetITotalBet();
 	int GetIWin() const;
 	void SetIWin(int iWin);
-
+	void AddPayline(const Payline&);
+	vector<Payline>& GetVecPaylines() const;
 	//print
 	void PrintReels() const;
 

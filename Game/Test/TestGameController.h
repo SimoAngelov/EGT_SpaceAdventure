@@ -24,6 +24,7 @@ public:
 	static void TestLineIncrement();
 	static void TestMaxBet();
 	static void TestSpin();
+	static void PrintInfo();
 	void TestGame();
 };
 

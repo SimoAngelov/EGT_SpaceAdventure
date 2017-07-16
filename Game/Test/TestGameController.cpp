@@ -148,6 +148,11 @@ void TestGameController::TestSpin()
 	}
 }
 
+void TestGameController::PrintInfo()
+{
+	m_gameController.PrintInfo();
+}
+
 void TestGameController::TestGame()
 {
 
@@ -158,7 +163,8 @@ void TestGameController::TestGame()
 			cout << "2 - Toggle Bet per Line" << endl;
 			cout << "3 - Toggle number of paylines" << endl;
 			cout << "4 - Toggle max bet" << endl;
-			cout << "5 - Print reels\n" << endl;
+			cout << "5 - Test spin" << endl;
+			cout << "6 - Print GameCOntroller info\n" << endl;
 			int iChoice = 0;
 			cin >> iChoice;
 			switch(iChoice)
@@ -168,6 +174,7 @@ void TestGameController::TestGame()
 			case 3: TestLineIncrement(); break;
 			case 4: TestMaxBet(); break;
 			case 5: TestSpin(); break;
+			case 6: PrintInfo(); break;
 			default: bQuit = true; break;
 			}
 	}

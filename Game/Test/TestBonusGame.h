@@ -15,10 +15,8 @@ class TestBonusGame
 public:
 	TestBonusGame();
 	static void Round(bool );
-	static void TestWinRound1();
-	static void TestWinRound2();
-	static void TestRound1();
-	static void TestRound2();
+	static void TestWinRound();
+	static void TestRound();
 	static void Quit();
 	static void PlayBonusGame();
 	virtual ~TestBonusGame();

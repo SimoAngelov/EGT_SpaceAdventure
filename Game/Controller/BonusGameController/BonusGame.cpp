@@ -199,6 +199,8 @@ void BonusGame::DoubleUpWins()
 		}//end if valid bet
 	}//end if round
 }
+
+//play bonus round
 void BonusGame::PlayBonusRound()
 {
 	//test cout
