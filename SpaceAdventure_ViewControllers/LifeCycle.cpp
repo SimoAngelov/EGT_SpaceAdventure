@@ -155,7 +155,7 @@ void LifeCycle::Play()
 
 	SDL_Rect rectFigure3Slot1 = createRect(170, 413, 105, 110);
 
-	//Rectangles for second roll - need to fix coordinates
+	//Rectangles for second row - need to fix coordinates
 
 	SDL_Rect rectFigure1Slot2 = createRect(370, 223, 105, 110);
 
@@ -163,13 +163,29 @@ void LifeCycle::Play()
 
 	SDL_Rect rectFigure3Slot2 = createRect(370, 513, 105, 110);
 
-	// Rectangles for THIRD roll - need to fix coordinates
+	// Rectangles for THIRD row - need to fix coordinates
 
-	SDL_Rect rectFigure1Slot3 = createRect(470, 323, 105, 110);
+	SDL_Rect rectFigure1Slot3 = createRect(570, 323, 105, 110);
 
-	SDL_Rect rectFigure2Slot3 = createRect(470, 470, 105, 110);
+	SDL_Rect rectFigure2Slot3 = createRect(570, 470, 105, 110);
 
-	SDL_Rect rectFigure3Slot3 = createRect(470, 613, 105, 110);
+	SDL_Rect rectFigure3Slot3 = createRect(570, 613, 105, 110);
+
+	// Rectangles for FOURTH row
+
+	SDL_Rect rectFigure1Slot4 = createRect(770, 423, 105, 110);
+
+	SDL_Rect rectFigure2Slot4 = createRect(770, 570, 105, 110);
+
+	SDL_Rect rectFigure3Slot4 = createRect(770, 713, 105, 110);
+
+	//Rectangles for FIFTH row
+
+	SDL_Rect rectFigure1Slot5 = createRect(1020, 523, 105, 110);
+
+	SDL_Rect rectFigure2Slot5 = createRect(1020, 670, 105, 110);
+
+	SDL_Rect rectFigure3Slot5 = createRect(1020, 813, 105, 110);
 
 	// Event Object
 
@@ -3607,6 +3623,36 @@ void LifeCycle::Play()
 				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[8], NULL,
 						&rectFigure3Slot3);
 
+				//FIGURE 10
+
+				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[0], NULL,
+						&rectFigure3Slot4);
+
+				//FIGURE 11
+
+				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[1], NULL,
+						&rectFigure2Slot4);
+
+				//FIGURE 12
+
+				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[2], NULL,
+						&rectFigure1Slot4);
+
+				//FIGURE 13
+
+				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[3], NULL,
+						&rectFigure3Slot5);
+
+				//FIGURE 14
+
+				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[4], NULL,
+						&rectFigure2Slot5);
+
+				//FIGURE 15
+
+				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[5], NULL,
+						&rectFigure1Slot5);
+
 				SDL_RenderCopy(rendererPtr, Slot.GetSlotTexture(), NULL,
 						&rectSlot);
 
@@ -4021,7 +4067,7 @@ void LifeCycle::Play()
 
 					int spinRolls = 1; // counting spins for each roll
 
-					// counter for second roll
+					// counters for second row
 
 					int spinCounter4 = 0; // 0-1-2 figures - row 2
 
@@ -4030,6 +4076,36 @@ void LifeCycle::Play()
 					int spinCounter6 = 6; // 6-7-8 figures - row 2
 
 					int spinRolls2 = 1; // spinning second row
+
+					//counters for the third row
+
+					int spinCounter7 = 0; // 0-1-2 figures - row 3
+
+					int spinCounter8 = 3; // 3-4-5 figures - row 3
+
+					int spinCounter9 = 6; // 6-7-8 figures - row 3
+
+					int spinRolls3 = 1; // spinning counter row 3
+
+					//counters for FOURTH row
+
+					int spinCounter10 = 0; // 0-1-2 figures row - 4
+
+					int spinCounter11 = 3; // 3-4-5 figure row - 4
+
+					int spinCounter12 = 6; // 6-7-8 figures row - 4
+
+					int spinRolls4 = 1; // spinning rows counter
+
+					//counter for FIFTH row
+
+					int spinCounter13 = 0; // 0-1-2 figures row 5
+
+					int spinCounter14 = 3; // 3-4-5 figure row 5
+
+					int spinCounter15 = 6; // 6-7-8 figures row 5
+
+					int spinRolls5 = 1;
 
 					SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(),
 							&rectBackground, NULL);
@@ -4093,7 +4169,10 @@ void LifeCycle::Play()
 					//Spining figures loop
 
 					while (rectFigure1Slot1.y <= 520
-							&& rectFigure1Slot2.y <= 620)
+							&& rectFigure1Slot2.y <= 620
+							&& rectFigure1Slot3.y <= 820
+							&& rectFigure1Slot4.y <= 920
+							&& rectFigure1Slot5.y <= 1020)
 					{
 						rectFigure1Slot1.y += 5; // speed in pixels
 
@@ -4108,6 +4187,32 @@ void LifeCycle::Play()
 						rectFigure2Slot2.y += 5;
 
 						rectFigure3Slot2.y += 5;
+
+						// row 3
+
+						rectFigure1Slot3.y += 5;
+
+						rectFigure2Slot3.y += 5;
+
+						rectFigure3Slot3.y += 5;
+
+						//row 4
+
+						rectFigure1Slot4.y += 5;
+
+						rectFigure2Slot4.y += 5;
+
+						rectFigure3Slot4.y += 5;
+
+						//row 5
+
+						rectFigure1Slot5.y += 5;
+
+						rectFigure2Slot5.y += 5;
+
+						rectFigure3Slot5.y += 5;
+
+						// FIRST ROW CHEKC IN-s
 
 						if (rectFigure3Slot1.y >= 520)
 						{
@@ -4143,7 +4248,7 @@ void LifeCycle::Play()
 
 						if (rectFigure1Slot1.y >= 520)
 						{
-							rectFigure1Slot1.y = 23;
+							rectFigure1Slot1.y = 13;
 
 							spinCounter1++;
 
@@ -4201,6 +4306,147 @@ void LifeCycle::Play()
 							}
 						}
 
+						// row 3
+
+						if (rectFigure3Slot3.y >= 720)
+						{
+							rectFigure3Slot3.y = 13;
+
+							spinRolls3++;
+
+							//counting 3 spins for figure
+
+							spinCounter9++;
+
+							if (spinCounter9 > 8)
+							{
+								spinCounter9 = 6;
+
+							}
+
+						}
+
+						if (rectFigure2Slot3.y >= 720)
+						{
+							rectFigure2Slot3.y = 13;
+
+							spinCounter8++;
+
+							if (spinCounter8 > 5)
+							{
+								spinCounter8 = 3;
+
+							}
+
+						}
+
+						if (rectFigure1Slot1.y >= 720)
+						{
+							rectFigure1Slot1.y = 13;
+
+							spinCounter7++;
+
+							if (spinCounter7 > 2)
+							{
+								spinCounter7 = 0;
+
+							}
+						}
+
+						//ROW 4
+
+						if (rectFigure3Slot4.y >= 820)
+						{
+							rectFigure3Slot4.y = 13;
+
+							spinRolls4++;
+
+							//counting 3 spins for figure
+
+							spinCounter12++;
+
+							if (spinCounter12 > 8)
+							{
+								spinCounter12 = 6;
+
+							}
+
+						}
+
+						if (rectFigure2Slot4.y >= 820)
+						{
+							rectFigure2Slot4.y = 13;
+
+							spinCounter11++;
+
+							if (spinCounter11 > 5)
+							{
+								spinCounter11 = 3;
+
+							}
+
+						}
+
+						if (rectFigure1Slot4.y >= 820)
+						{
+							rectFigure1Slot4.y = 13;
+
+							spinCounter10++;
+
+							if (spinCounter10 > 2)
+							{
+								spinCounter10 = 0;
+
+							}
+						}
+
+						// ROW 5
+
+						if (rectFigure3Slot5.y >= 920)
+						{
+							rectFigure3Slot5.y = 13;
+
+							spinRolls5++;
+
+							//counting 3 spins for figure
+
+							spinCounter15++;
+
+							if (spinCounter15 > 8)
+							{
+								spinCounter15 = 6;
+
+							}
+
+						}
+
+						if (rectFigure2Slot5.y >= 920)
+						{
+							rectFigure2Slot5.y = 13;
+
+							spinCounter14++;
+
+							if (spinCounter14 > 5)
+							{
+								spinCounter14 = 3;
+
+							}
+
+						}
+
+						if (rectFigure1Slot5.y >= 920)
+						{
+							rectFigure1Slot5.y = 13;
+
+							spinCounter13++;
+
+							if (spinCounter13 > 2)
+							{
+								spinCounter10 = 0;
+
+							}
+						}
+
 						// presenting after SPIN
 
 						SDL_RenderCopy(rendererPtr,
@@ -4232,6 +4478,48 @@ void LifeCycle::Play()
 						SDL_RenderCopy(rendererPtr,
 								m_vecSlotFigures[spinCounter4], NULL,
 								&rectFigure1Slot2);
+
+						//ROW 3
+
+						SDL_RenderCopy(rendererPtr,
+								m_vecSlotFigures[spinCounter9], NULL,
+								&rectFigure3Slot3);
+
+						SDL_RenderCopy(rendererPtr,
+								m_vecSlotFigures[spinCounter8], NULL,
+								&rectFigure3Slot3);
+
+						SDL_RenderCopy(rendererPtr,
+								m_vecSlotFigures[spinCounter7], NULL,
+								&rectFigure3Slot3);
+
+						//ROW 4
+
+						SDL_RenderCopy(rendererPtr,
+								m_vecSlotFigures[spinCounter3], NULL,
+								&rectFigure3Slot4);
+
+						SDL_RenderCopy(rendererPtr,
+								m_vecSlotFigures[spinCounter2], NULL,
+								&rectFigure3Slot4);
+
+						SDL_RenderCopy(rendererPtr,
+								m_vecSlotFigures[spinCounter1], NULL,
+								&rectFigure3Slot4);
+
+						//ROW 5
+
+						SDL_RenderCopy(rendererPtr,
+								m_vecSlotFigures[spinCounter6], NULL,
+								&rectFigure3Slot5);
+
+						SDL_RenderCopy(rendererPtr,
+								m_vecSlotFigures[spinCounter5], NULL,
+								&rectFigure3Slot5);
+
+						SDL_RenderCopy(rendererPtr,
+								m_vecSlotFigures[spinCounter4], NULL,
+								&rectFigure3Slot5);
 
 						SDL_RenderCopy(rendererPtr, Slot.GetSlotTexture(), NULL,
 								&rectSlot);
@@ -4297,7 +4585,8 @@ void LifeCycle::Play()
 
 						SDL_RenderPresent(rendererPtr);
 
-						if (spinRolls > 9)
+						if (spinRolls > 9 && spinRolls2 > 9 && spinRolls3 > 9
+								&& spinRolls4 > 9 && spinRolls5 > 9)
 						{
 
 							//killing while loop
