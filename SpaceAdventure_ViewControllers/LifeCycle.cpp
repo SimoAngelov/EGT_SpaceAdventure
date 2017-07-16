@@ -155,6 +155,22 @@ void LifeCycle::Play()
 
 	SDL_Rect rectFigure3Slot1 = createRect(170, 413, 105, 110);
 
+	//Rectangles for second roll - need to fix coordinates
+
+	SDL_Rect rectFigure1Slot2 = createRect(370, 223, 105, 110);
+
+	SDL_Rect rectFigure2Slot2 = createRect(370, 370, 105, 110);
+
+	SDL_Rect rectFigure3Slot2 = createRect(370, 513, 105, 110);
+
+	// Rectangles for THIRD roll - need to fix coordinates
+
+	SDL_Rect rectFigure1Slot3 = createRect(470, 323, 105, 110);
+
+	SDL_Rect rectFigure2Slot3 = createRect(470, 470, 105, 110);
+
+	SDL_Rect rectFigure3Slot3 = createRect(470, 613, 105, 110);
+
 	// Event Object
 
 	SDL_Event ev;
@@ -3561,6 +3577,36 @@ void LifeCycle::Play()
 				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[2], NULL,
 						&rectFigure3Slot1);
 
+				// FIGURE 4
+
+				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[3], NULL,
+						&rectFigure1Slot2);
+
+				//FIGURE 5
+
+				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[4], NULL,
+						&rectFigure2Slot2);
+
+				// FIGURE 6
+
+				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[5], NULL,
+						&rectFigure3Slot2);
+
+				// FIGURE 7
+
+				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[6], NULL,
+						&rectFigure1Slot3);
+
+				//FIGURE 8
+
+				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[7], NULL,
+						&rectFigure2Slot3);
+
+				//FIGURE 9
+
+				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[8], NULL,
+						&rectFigure3Slot3);
+
 				SDL_RenderCopy(rendererPtr, Slot.GetSlotTexture(), NULL,
 						&rectSlot);
 
@@ -3975,6 +4021,16 @@ void LifeCycle::Play()
 
 					int spinRolls = 1; // counting spins for each roll
 
+					// counter for second roll
+
+					int spinCounter4 = 0; // 0-1-2 figures - row 2
+
+					int spinCounter5 = 3; // 3-4-5 figures - row 2
+
+					int spinCounter6 = 6; // 6-7-8 figures - row 2
+
+					int spinRolls2 = 1; // spinning second row
+
 					SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(),
 							&rectBackground, NULL);
 
@@ -4036,13 +4092,22 @@ void LifeCycle::Play()
 
 					//Spining figures loop
 
-					while (rectFigure1Slot1.y <= 520)
+					while (rectFigure1Slot1.y <= 520
+							&& rectFigure1Slot2.y <= 620)
 					{
 						rectFigure1Slot1.y += 5; // speed in pixels
 
 						rectFigure2Slot1.y += 5;
 
 						rectFigure3Slot1.y += 5;
+
+						//row 2
+
+						rectFigure1Slot2.y += 5;
+
+						rectFigure2Slot2.y += 5;
+
+						rectFigure3Slot2.y += 5;
 
 						if (rectFigure3Slot1.y >= 520)
 						{
@@ -4078,13 +4143,60 @@ void LifeCycle::Play()
 
 						if (rectFigure1Slot1.y >= 520)
 						{
-							rectFigure1Slot1.y = 13;
+							rectFigure1Slot1.y = 23;
 
 							spinCounter1++;
 
 							if (spinCounter1 > 2)
 							{
 								spinCounter1 = 0;
+
+							}
+						}
+
+						// row 2 -----
+
+						if (rectFigure3Slot2.y >= 620)
+						{
+							rectFigure3Slot2.y = 13;
+
+							spinRolls2++;
+
+							//counting 3 spins for figure
+
+							spinCounter6++;
+
+							if (spinCounter6 > 8)
+							{
+								spinCounter6 = 6;
+
+							}
+
+						}
+
+						if (rectFigure2Slot2.y >= 620)
+						{
+							rectFigure2Slot2.y = 13;
+
+							spinCounter5++;
+
+							if (spinCounter5 > 5)
+							{
+								spinCounter5 = 3;
+
+							}
+
+						}
+
+						if (rectFigure1Slot2.y >= 620)
+						{
+							rectFigure1Slot2.y = 13;
+
+							spinCounter4++;
+
+							if (spinCounter4 > 2)
+							{
+								spinCounter4 = 0;
 
 							}
 						}
@@ -4106,6 +4218,20 @@ void LifeCycle::Play()
 						SDL_RenderCopy(rendererPtr,
 								m_vecSlotFigures[spinCounter1], NULL,
 								&rectFigure1Slot1);
+
+						// ROW 2 ---------
+
+						SDL_RenderCopy(rendererPtr,
+								m_vecSlotFigures[spinCounter6], NULL,
+								&rectFigure3Slot2);
+
+						SDL_RenderCopy(rendererPtr,
+								m_vecSlotFigures[spinCounter5], NULL,
+								&rectFigure2Slot2);
+
+						SDL_RenderCopy(rendererPtr,
+								m_vecSlotFigures[spinCounter4], NULL,
+								&rectFigure1Slot2);
 
 						SDL_RenderCopy(rendererPtr, Slot.GetSlotTexture(), NULL,
 								&rectSlot);
