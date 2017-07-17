@@ -6,7 +6,8 @@
  */
 
 #include "TestRecovery.h"
-
+#include <iostream>
+using std::cin;
 TestRecovery::TestRecovery()
 {
 	// TODO Auto-generated constructor stub

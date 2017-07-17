@@ -9,7 +9,8 @@
 #define GAMECONTROLLER_H_
 
 #include "..\..\Model\GameModel.h"
-#include "..\..\Controller\BonusGameController\BonusGame.h"
+#include "..\BonusGameController\BonusGame.h"
+
 class GameController
 {
 private:

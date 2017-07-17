@@ -161,6 +161,9 @@ void BonusGame::DoubleUpWins()
 {
 	//increment the bonus round counter
 	BonusGame::m_iRound++;
+	//round 1 condition
+	bool b_RoundOneCondition = BonusGame::m_iRound == eRound1;
+	bool b_RoundTwoCondtion = (BonusGame::m_iRound == eRound2) && BonusGame::PlayerWon();
 	//if round 1 or round 2
 	if (BonusGame::m_iRound == eRound1 || BonusGame::m_iRound == eRound2)
 	{

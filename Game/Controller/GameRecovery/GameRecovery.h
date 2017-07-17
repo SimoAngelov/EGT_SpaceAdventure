@@ -10,6 +10,7 @@
 
 #include "XML/pugixml.hpp"
 #include "../../Globals/Globals.h"
+#include "../../Model/GameModel.h"
 class GameRecovery
 {
 private:
@@ -44,6 +45,8 @@ public:
 	//update the bonus game
 	static void UpdateBonusGameResult(const COLOR&);
 	static void UpdateBonusPlayerChoice(const COLOR&);
+	//update the game mode;
+	static void UpdateGameModel(const GameModel*);
 	virtual ~GameRecovery();
 private:
 	//add view node to root node

@@ -259,6 +259,47 @@ void GameRecovery::UpdateReels(const vector<vector<Figures> >& gameReels)
 //TODO
 void GameRecovery::UpdatePaylines(const vector<Payline>& vecPaylines)
 {
+	//test cout
+	cout << "GameRecovery::UpdatePaylines" << endl;
+	//load the document
+	GameRecovery::LoadDoc();
+
+	//create a paylines node
+	pugi::xml_node paylinesNode = m_doc.child("Game").child("Paylines");
+	//a node for a single payline
+	pugi::xml_node paylineNode;
+	//traverse the PaylinesNode
+	for (paylineNode = paylinesNode.child("Payline");
+			paylineNode; paylineNode = paylineNode.next_sibling("Payline"))
+	{
+		//get the index of the current payline
+		int iPaylineIndex = paylineNode.attribute("Index").as_int();
+		//test cout
+		cout << "Current Payline: " << iPaylineIndex << endl;
+		//get the current payline using the index
+		Payline currPayline = vecPaylines[iPaylineIndex];
+		//traverse the elements of a single payline
+		for (pugi::xml_node figureNode = paylineNode.child("Figure"); figureNode;
+				figureNode = figureNode.next_sibling("Figure"))
+		{
+			//get the index of the current figure
+			int iFigureIndex = figureNode.attribute("Index").as_int();
+			//test cout
+			cout << "Current Figure: " << iFigureIndex << endl;
+			//get the current figure from the payline, using the index
+			Figures currFigure = currPayline.figure[iFigureIndex];
+			//take the value attribute of the figure
+			pugi::xml_attribute valueAttribute = figureNode.attribute("Value");
+			if (!valueAttribute.set_value(currFigure))
+			{
+				cerr << "Failed to update the paylines!" << endl;
+			}	// end attribute if
+
+		}// end figure traversal
+	} // end payline traversal
+
+	//update the document
+	GameRecovery::UpdateDoc();
 }
 
 void GameRecovery::UpdateNumberOfPaylines(int iNumberOfPaylines)
@@ -287,7 +328,7 @@ void GameRecovery::UpdateNumberOfPaylines(int iNumberOfPaylines)
 			<< endl;
 }
 
-void GameRecovery::UpdateBetPerPayline(int int iBetPerLine)
+void GameRecovery::UpdateBetPerPayline(int iBetPerLine)
 {
 	//load the document
 	GameRecovery::LoadDoc();
@@ -422,8 +463,7 @@ void GameRecovery::UpdateBonusPlayerChoice(const COLOR& playerChoice)
 	//take the attribute of the player node
 	pugi::xml_attribute valueAttribute = playerChoiceNode.attribute("Value");
 	//test cout
-	cout << "before player choice update: " << valueAttribute.as_int()
-			<< endl;
+	cout << "before player choice update: " << valueAttribute.as_int() << endl;
 	//update the attribute
 	if (!valueAttribute.set_value(playerChoice))
 	{
@@ -434,8 +474,18 @@ void GameRecovery::UpdateBonusPlayerChoice(const COLOR& playerChoice)
 	GameRecovery::UpdateDoc();
 
 	//test cout
-	cout << "after player choice update: " << valueAttribute.as_int()
-			<< endl;
+	cout << "after player choice update: " << valueAttribute.as_int() << endl;
+}
+
+//update the game mode;
+void GameRecovery::UpdateGameModel(const GameModel* gameModelPtr)
+{
+	GameRecovery::UpdatePaylines(gameModelPtr->GetVecPaylines());
+	GameRecovery::UpdateNumberOfPaylines(gameModelPtr->GetINumberOfLines());
+	GameRecovery::UpdateBetPerPayline(gameModelPtr->GetIBetPerLine());
+	GameRecovery::UpdateTotalBet(gameModelPtr->GetITotalBet());
+	GameRecovery::UpdateWin(gameModelPtr->GetIWin());
+	GameRecovery::UpdateCredits(gameModelPtr->GetICredits());
 }
 
 //load functions
