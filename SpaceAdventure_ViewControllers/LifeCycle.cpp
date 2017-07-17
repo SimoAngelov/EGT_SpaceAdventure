@@ -157,7 +157,7 @@ void LifeCycle::Play()
 
 	SDL_Rect rectFigure3Slot1 = createRect(170, 413, 105, 110);
 
-	//Rectangles for second row - need to fix coordinates
+	//Rectangles for second row - done!
 
 	SDL_Rect rectFigure1Slot2 = createRect(370, 123, 105, 110);
 
@@ -175,11 +175,11 @@ void LifeCycle::Play()
 
 	// Rectangles for FOURTH row
 
-	SDL_Rect rectFigure1Slot4 = createRect(770, 123, 105, 110);
+	SDL_Rect rectFigure1Slot4 = createRect(790, 123, 105, 110);
 
-	SDL_Rect rectFigure2Slot4 = createRect(770, 270, 105, 110);
+	SDL_Rect rectFigure2Slot4 = createRect(790, 270, 105, 110);
 
-	SDL_Rect rectFigure3Slot4 = createRect(770, 413, 105, 110);
+	SDL_Rect rectFigure3Slot4 = createRect(790, 413, 105, 110);
 
 	//Rectangles for FIFTH row
 
@@ -4168,61 +4168,71 @@ void LifeCycle::Play()
 						NULL, &rectVolume);
 					}
 
-					//Spining figures loop
-
 					while (rectFigure1Slot1.y && rectFigure1Slot2.y
 							&& rectFigure1Slot3.y && rectFigure1Slot4.y
 							&& rectFigure1Slot5.y <= 520)
 					{
-						// 620 , 820, 920, 1020 - old Y
-						//////////
-						////////
-//						while (rectFigure1Slot2.y <= 520)
-//						{
-//							while (rectFigure1Slot2.y <= 520)
-//							{
-//								while (rectFigure1Slot2.y <= 520)
-//								{
-//									while (rectFigure1Slot2.y <= 520)
-//									{
 
-						rectFigure1Slot1.y += 5; // speed in pixels
+						//Spining figures loop
 
-						rectFigure2Slot1.y += 5;
+						//ROW 1
 
-						rectFigure3Slot1.y += 5;
+						if (spinRolls <= 9)
+						{
+							rectFigure1Slot1.y += 5;
+
+							rectFigure2Slot1.y += 5;
+
+							rectFigure3Slot1.y += 5;
+
+						}
 
 						//row 2
 
-						rectFigure1Slot2.y += 5;
+						if (spinRolls2 <= 11)
+						{
+							rectFigure1Slot2.y += 5;
 
-						rectFigure2Slot2.y += 5;
+							rectFigure2Slot2.y += 5;
 
-						rectFigure3Slot2.y += 5;
+							rectFigure3Slot2.y += 5;
 
+						}
 						// row 3
 
-						rectFigure1Slot3.y += 5;
+						if (spinRolls3 <= 13)
+						{
+							rectFigure1Slot3.y += 5;
 
-						rectFigure2Slot3.y += 5;
+							rectFigure2Slot3.y += 5;
 
-						rectFigure3Slot3.y += 5;
+							rectFigure3Slot3.y += 5;
+
+						}
 
 						//row 4
 
-						rectFigure1Slot4.y += 5;
+						if (spinRolls4 <= 15)
+						{
+							rectFigure1Slot4.y += 5;
 
-						rectFigure2Slot4.y += 5;
+							rectFigure2Slot4.y += 5;
 
-						rectFigure3Slot4.y += 5;
+							rectFigure3Slot4.y += 5;
+
+						}
 
 						//row 5
 
-						rectFigure1Slot5.y += 5;
+						if (spinRolls3 <= 17)
+						{
+							rectFigure1Slot5.y += 5;
 
-						rectFigure2Slot5.y += 5;
+							rectFigure2Slot5.y += 5;
 
-						rectFigure3Slot5.y += 5;
+							rectFigure3Slot5.y += 5;
+
+						}
 
 						// FIRST ROW CHECK IN-s
 
@@ -4352,9 +4362,9 @@ void LifeCycle::Play()
 
 						}
 
-						if (rectFigure1Slot1.y >= 520) // 720
+						if (rectFigure1Slot3.y >= 520) // 720
 						{
-							rectFigure1Slot1.y = 13;
+							rectFigure1Slot3.y = 13;
 
 							spinCounter7++;
 
@@ -4501,11 +4511,11 @@ void LifeCycle::Play()
 
 						SDL_RenderCopy(rendererPtr,
 								m_vecSlotFigures[spinCounter2],
-								NULL, &rectFigure3Slot3);
+								NULL, &rectFigure2Slot3);
 
 						SDL_RenderCopy(rendererPtr,
 								m_vecSlotFigures[spinCounter1],
-								NULL, &rectFigure3Slot3);
+								NULL, &rectFigure1Slot3);
 
 						//ROW 4
 
@@ -4515,11 +4525,11 @@ void LifeCycle::Play()
 
 						SDL_RenderCopy(rendererPtr,
 								m_vecSlotFigures[spinCounter2],
-								NULL, &rectFigure3Slot4);
+								NULL, &rectFigure2Slot4);
 
 						SDL_RenderCopy(rendererPtr,
 								m_vecSlotFigures[spinCounter1],
-								NULL, &rectFigure3Slot4);
+								NULL, &rectFigure1Slot4);
 
 						//ROW 5
 
@@ -4529,11 +4539,11 @@ void LifeCycle::Play()
 
 						SDL_RenderCopy(rendererPtr,
 								m_vecSlotFigures[spinCounter2],
-								NULL, &rectFigure3Slot5);
+								NULL, &rectFigure2Slot5);
 
 						SDL_RenderCopy(rendererPtr,
 								m_vecSlotFigures[spinCounter1],
-								NULL, &rectFigure3Slot5);
+								NULL, &rectFigure1Slot5);
 
 						SDL_RenderCopy(rendererPtr, Slot.GetSlotTexture(), NULL,
 								&rectSlot);
@@ -4599,36 +4609,61 @@ void LifeCycle::Play()
 
 						SDL_RenderPresent(rendererPtr);
 
+						// stopping spins
+
+						if (spinRolls > 9)
+						{
+							rectFigure1Slot1.y = 123;
+
+							rectFigure2Slot1.y = 270;
+
+							rectFigure3Slot1.y = 413;
+						}
+						if (spinRolls2 > 11)
+						{
+							rectFigure1Slot2.y = 123;
+
+							rectFigure2Slot2.y = 270;
+
+							rectFigure3Slot2.y = 413;
+
+						}
+
+						if (spinRolls3 > 13)
+						{
+							rectFigure1Slot3.y = 123;
+
+							rectFigure2Slot3.y = 270;
+
+							rectFigure3Slot3.y = 413;
+
+						}
+
+						if (spinRolls4 > 15)
+						{
+							rectFigure1Slot4.y = 123;
+
+							rectFigure2Slot4.y = 270;
+
+							rectFigure3Slot4.y = 413;
+
+						}
+
+						if (spinRolls5 > 17)
+						{
+							rectFigure1Slot5.y = 123;
+
+							rectFigure2Slot5.y = 270;
+
+							rectFigure3Slot5.y = 413;
+
+							break;
+						}
+
 					}
-					if (spinRolls > 9 && spinRolls2 > 9 && spinRolls3 > 9
-							&& spinRolls4 > 9 && spinRolls5 > 9)
-					{
-
-						//killing while loop
-
-						break;
-
-												}
-
 				}
 
 			}
-//							if (spinRolls > 9 && spinRolls2 > 9
-//									&& spinRolls3 > 9 && spinRolls4 > 9
-//									&& spinRolls5 > 9)
-//							{
-//
-//								//killing while loop
-//
-//								break;
-//
-//							}
-//						}
-//
-//					}
-//
-//				}
-//			}
 
 			SDL_RenderPresent(rendererPtr);
 
@@ -4636,8 +4671,6 @@ void LifeCycle::Play()
 	}
 
 }
-
-//
 
 void LifeCycle::QuitGame()
 {
