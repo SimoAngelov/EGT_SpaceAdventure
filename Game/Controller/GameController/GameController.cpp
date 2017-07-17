@@ -6,7 +6,7 @@
  */
 
 #include "GameController.h"
-
+#include <exception>
 //member field to control the number of betting steps
 int GameController::m_iBetStep = 0;
 
@@ -97,7 +97,14 @@ void GameController::Spin()
 		this->InitCurrentPaylines();
 		//Calculate the winnings from the spin
 		this->SetTotalWin();
-		GameRecovery::UpdateGameModel(&(this->m_baseGame));
+		try{
+			GameRecovery::UpdateGameModel(&(this->m_baseGame));
+		} catch (std::exception& e)
+		{
+			cerr << "GAMECONTROLLER EXCEPTION SAVING MODEL!!!!!" << endl;
+			cerr << e.what() << '\n';
+		}
+
 		//test cout
 		cout << "GameController::VALID SPIN" << endl;
 	} // end if
