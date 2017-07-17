@@ -10,7 +10,7 @@
 
 #include "..\..\Model\GameModel.h"
 #include "..\BonusGameController\BonusGame.h"
-
+#include "..\GameRecovery\GameRecovery.h"
 class GameController
 {
 private:

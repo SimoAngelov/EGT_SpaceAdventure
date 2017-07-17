@@ -7,9 +7,6 @@
 
 #include "GameRecovery.h"
 
-// Generate new XML document within memory
-pugi::xml_document GameRecovery::m_doc;
-
 //the root node of the xml document
 pugi::xml_node GameRecovery::m_rootNode;
 
@@ -29,8 +26,10 @@ GameRecovery::~GameRecovery()
 //create a blank save
 void GameRecovery::CreateBlankSave()
 {
+	//create xml document in memory
+	pugi::xml_document doc;
 	//append root node to the xml_document
-	m_rootNode = m_doc.append_child("Game");
+	m_rootNode = doc.append_child("Game");
 	//append the necessary nodes to the root node
 	GameRecovery::AddViewToRoot();
 	GameRecovery::AddVolumeToRoot();
@@ -45,7 +44,7 @@ void GameRecovery::CreateBlankSave()
 	// test cout
 	//save document to file
 	std::cout << "Saving result... ";
-	GameRecovery::UpdateDoc();
+	GameRecovery::UpdateDoc(doc);
 	// end::code[]
 }
 
@@ -179,20 +178,20 @@ void GameRecovery::AddBonusGameToRoot()
 }
 
 //load the document
-void GameRecovery::LoadDoc()
+void GameRecovery::LoadDoc(pugi::xml_document& doc)
 {
 	//open the document
-	if (!(m_doc.load_file(XML_FILE_PATH.c_str())))
+	if (!(doc.load_file(XML_FILE_PATH.c_str())))
 	{
 		cerr << "Failed to open " << XML_FILE_PATH.c_str() << endl;
 	}	//end update if
 }
 
 //updates the document
-void GameRecovery::UpdateDoc()
+void GameRecovery::UpdateDoc(pugi::xml_document& doc)
 {
 	//save the document
-	if (!(m_doc.save_file(XML_FILE_PATH.c_str())))
+	if (!(doc.save_file(XML_FILE_PATH.c_str())))
 	{
 		cerr << "Failed to update " << XML_FILE_PATH.c_str() << endl;
 	}	//end update if
@@ -202,12 +201,14 @@ void GameRecovery::UpdateDoc()
 //update the view
 void GameRecovery::UpdateView(int iView)
 {
+	//create xml document in memory
+	pugi::xml_document doc;
 	//test cout
 	cout << "GameRecovery::UpdateView" << endl;
 	//open the file
-	GameRecovery::LoadDoc();
+	GameRecovery::LoadDoc(doc);
 	//create a view node
-	pugi::xml_node viewNode = m_doc.child("Game").child("View");
+	pugi::xml_node viewNode = doc.child("Game").child("View");
 	//take the attribute of the view node
 	pugi::xml_attribute valueAttribute = viewNode.attribute("Value");
 	//test cout
@@ -219,7 +220,7 @@ void GameRecovery::UpdateView(int iView)
 	} //end attribute if
 
 	//update the document
-	GameRecovery::UpdateDoc();
+	GameRecovery::UpdateDoc(doc);
 	//test cout
 	cout << "after view update: " << valueAttribute.as_int() << endl;
 }
@@ -227,13 +228,15 @@ void GameRecovery::UpdateView(int iView)
 //update the volume
 void GameRecovery::UpdateVolume(int iVolume)
 {
+	//create xml document in memory
+	pugi::xml_document doc;
 	//test cout
 	cout << "GameRecovery::UpdateVolume" << endl;
 	//load the document
-	GameRecovery::LoadDoc();
+	GameRecovery::LoadDoc(doc);
 
 	//create a volume node
-	pugi::xml_node volumeNode = m_doc.child("Game").child("Volume");
+	pugi::xml_node volumeNode = doc.child("Game").child("Volume");
 	//take the attribute of the volume node
 	pugi::xml_attribute valueAttribute = volumeNode.attribute("Value");
 	//test cout
@@ -245,7 +248,7 @@ void GameRecovery::UpdateVolume(int iVolume)
 	}	// end attribute if
 
 	//update the document
-	GameRecovery::UpdateDoc();
+	GameRecovery::UpdateDoc(doc);
 
 	//test cout
 	cout << "after volume update: " << valueAttribute.as_int() << endl;
@@ -259,18 +262,20 @@ void GameRecovery::UpdateReels(const vector<vector<Figures> >& gameReels)
 //TODO
 void GameRecovery::UpdatePaylines(const vector<Payline>& vecPaylines)
 {
+	//create xml document in memory
+	pugi::xml_document doc;
 	//test cout
 	cout << "GameRecovery::UpdatePaylines" << endl;
 	//load the document
-	GameRecovery::LoadDoc();
+	GameRecovery::LoadDoc(doc);
 
 	//create a paylines node
-	pugi::xml_node paylinesNode = m_doc.child("Game").child("Paylines");
+	pugi::xml_node paylinesNode = doc.child("Game").child("Paylines");
 	//a node for a single payline
 	pugi::xml_node paylineNode;
 	//traverse the PaylinesNode
-	for (paylineNode = paylinesNode.child("Payline");
-			paylineNode; paylineNode = paylineNode.next_sibling("Payline"))
+	for (paylineNode = paylinesNode.child("Payline"); paylineNode; paylineNode =
+			paylineNode.next_sibling("Payline"))
 	{
 		//get the index of the current payline
 		int iPaylineIndex = paylineNode.attribute("Index").as_int();
@@ -279,8 +284,8 @@ void GameRecovery::UpdatePaylines(const vector<Payline>& vecPaylines)
 		//get the current payline using the index
 		Payline currPayline = vecPaylines[iPaylineIndex];
 		//traverse the elements of a single payline
-		for (pugi::xml_node figureNode = paylineNode.child("Figure"); figureNode;
-				figureNode = figureNode.next_sibling("Figure"))
+		for (pugi::xml_node figureNode = paylineNode.child("Figure");
+				figureNode; figureNode = figureNode.next_sibling("Figure"))
 		{
 			//get the index of the current figure
 			int iFigureIndex = figureNode.attribute("Index").as_int();
@@ -295,20 +300,22 @@ void GameRecovery::UpdatePaylines(const vector<Payline>& vecPaylines)
 				cerr << "Failed to update the paylines!" << endl;
 			}	// end attribute if
 
-		}// end figure traversal
+		}	// end figure traversal
 	} // end payline traversal
 
 	//update the document
-	GameRecovery::UpdateDoc();
+	GameRecovery::UpdateDoc(doc);
 }
 
 void GameRecovery::UpdateNumberOfPaylines(int iNumberOfPaylines)
 {
+	//create xml document in memory
+	pugi::xml_document doc;
 	//load the document
-	GameRecovery::LoadDoc();
+	GameRecovery::LoadDoc(doc);
 
 	//create a number of paylines node
-	pugi::xml_node viewNode = m_doc.child("Game").child("Number_Of_Paylines");
+	pugi::xml_node viewNode = doc.child("Game").child("Number_Of_Paylines");
 	//take the attribute of the number of paylines node
 	pugi::xml_attribute valueAttribute = viewNode.attribute("Value");
 	//test cout
@@ -321,7 +328,7 @@ void GameRecovery::UpdateNumberOfPaylines(int iNumberOfPaylines)
 	}	// end attribute if
 
 	//update the document
-	GameRecovery::UpdateDoc();
+	GameRecovery::UpdateDoc(doc);
 
 	//test cout
 	cout << "after number of paylines update: " << valueAttribute.as_int()
@@ -330,11 +337,13 @@ void GameRecovery::UpdateNumberOfPaylines(int iNumberOfPaylines)
 
 void GameRecovery::UpdateBetPerPayline(int iBetPerLine)
 {
+	//create xml document in memory
+	pugi::xml_document doc;
 	//load the document
-	GameRecovery::LoadDoc();
+	GameRecovery::LoadDoc(doc);
 
 	//create a bet per line node
-	pugi::xml_node betPerLineNode = m_doc.child("Game").child("Bet_Per_Line");
+	pugi::xml_node betPerLineNode = doc.child("Game").child("Bet_Per_Line");
 	//take the attribute of the bet per line node
 	pugi::xml_attribute valueAttribute = betPerLineNode.attribute("Value");
 	//test cout
@@ -347,7 +356,7 @@ void GameRecovery::UpdateBetPerPayline(int iBetPerLine)
 	}	// end attribute if
 
 	//update the document
-	GameRecovery::UpdateDoc();
+	GameRecovery::UpdateDoc(doc);
 
 	//test cout
 	cout << "after bet per line update: " << valueAttribute.as_int() << endl;
@@ -355,11 +364,13 @@ void GameRecovery::UpdateBetPerPayline(int iBetPerLine)
 
 void GameRecovery::UpdateTotalBet(int iTotalBet)
 {
+	//create xml document in memory
+	pugi::xml_document doc;
 	//load the document
-	GameRecovery::LoadDoc();
+	GameRecovery::LoadDoc(doc);
 
 	//create a total bet node
-	pugi::xml_node totalBetNode = m_doc.child("Game").child("Total_Bet");
+	pugi::xml_node totalBetNode = doc.child("Game").child("Total_Bet");
 	//take the attribute of the total bet node
 	pugi::xml_attribute valueAttribute = totalBetNode.attribute("Value");
 	//test cout
@@ -371,19 +382,23 @@ void GameRecovery::UpdateTotalBet(int iTotalBet)
 	}	// end attribute if
 
 	//update the document
-	GameRecovery::UpdateDoc();
+	GameRecovery::UpdateDoc(doc);
 
 	//test cout
 	cout << "after total bet update: " << valueAttribute.as_int() << endl;
 }
 
 void GameRecovery::UpdateWin(int iWin)
-{
-	//load the document
-	GameRecovery::LoadDoc();
+{	//create xml document in memory
+	pugi::xml_document doc;
+	//open the document
+	if (!(doc.load_file(XML_FILE_PATH.c_str())))
+	{
+		cerr << "Failed to open " << XML_FILE_PATH.c_str() << endl;
+	}	//end update if
 
 	//create a win node
-	pugi::xml_node winNode = m_doc.child("Game").child("Win");
+	pugi::xml_node winNode = doc.child("Game").child("Win");
 	//take the attribute of the win node
 	pugi::xml_attribute valueAttribute = winNode.attribute("Value");
 	//test cout
@@ -395,19 +410,26 @@ void GameRecovery::UpdateWin(int iWin)
 	}	// end attribute if
 
 	//update the document
-	GameRecovery::UpdateDoc();
+	if (!(doc.save_file(XML_FILE_PATH.c_str())))
+	{
+		cerr << "Failed to update " << XML_FILE_PATH.c_str() << endl;
+	}	//end update if
 
 	//test cout
 	cout << "after win update: " << valueAttribute.as_int() << endl;
 }
 
 void GameRecovery::UpdateCredits(int iCredits)
-{
-	//load the document
-	GameRecovery::LoadDoc();
+{	//create xml document in memory
+	pugi::xml_document doc;
+	//open the document
+	if (!(doc.load_file(XML_FILE_PATH.c_str())))
+	{
+		cerr << "Failed to open " << XML_FILE_PATH.c_str() << endl;
+	}	//end update if
 
 	//create a credits node
-	pugi::xml_node creditsNode = m_doc.child("Game").child("Credits");
+	pugi::xml_node creditsNode = doc.child("Game").child("Credits");
 	//take the attribute of the credits node
 	pugi::xml_attribute valueAttribute = creditsNode.attribute("Value");
 	//test cout
@@ -419,7 +441,10 @@ void GameRecovery::UpdateCredits(int iCredits)
 	}	// end attribute if
 
 	//update the document
-	GameRecovery::UpdateDoc();
+	if (!(doc.save_file(XML_FILE_PATH.c_str())))
+	{
+		cerr << "Failed to update " << XML_FILE_PATH.c_str() << endl;
+	}	//end update if
 
 	//test cout
 	cout << "after credits update: " << valueAttribute.as_int() << endl;
@@ -427,12 +452,14 @@ void GameRecovery::UpdateCredits(int iCredits)
 
 void GameRecovery::UpdateBonusGameResult(const COLOR& bonusGameResult)
 {
+	//create xml document in memory
+	pugi::xml_document doc;
 	//load the document
-	GameRecovery::LoadDoc();
+	GameRecovery::LoadDoc(doc);
 
 	//create a bonus game result node
 	pugi::xml_node bonusGameResultNode =
-			m_doc.child("Game").child("Bonus_Game").child("Game_Result");
+			doc.child("Game").child("Bonus_Game").child("Game_Result");
 	//take the attribute of the bonus game result node
 	pugi::xml_attribute valueAttribute = bonusGameResultNode.attribute("Value");
 	//test cout
@@ -445,7 +472,7 @@ void GameRecovery::UpdateBonusGameResult(const COLOR& bonusGameResult)
 	}	// end attribute if
 
 	//update the document
-	GameRecovery::UpdateDoc();
+	GameRecovery::UpdateDoc(doc);
 
 	//test cout
 	cout << "after bonus game result update: " << valueAttribute.as_int()
@@ -454,12 +481,18 @@ void GameRecovery::UpdateBonusGameResult(const COLOR& bonusGameResult)
 
 void GameRecovery::UpdateBonusPlayerChoice(const COLOR& playerChoice)
 {
-	//load the document
-	GameRecovery::LoadDoc();
+	//create xml document in memory
+	pugi::xml_document doc;
+
+	//open the document
+	if (!(doc.load_file(XML_FILE_PATH.c_str())))
+	{
+		cerr << "Failed to open " << XML_FILE_PATH.c_str() << endl;
+	}	//end update if
 
 	//create a player choice node
 	pugi::xml_node playerChoiceNode =
-			m_doc.child("Game").child("Bonus_Game").child("Player_Choice");
+			doc.child("Game").child("Bonus_Game").child("Player_Choice");
 	//take the attribute of the player node
 	pugi::xml_attribute valueAttribute = playerChoiceNode.attribute("Value");
 	//test cout
@@ -471,10 +504,14 @@ void GameRecovery::UpdateBonusPlayerChoice(const COLOR& playerChoice)
 	}	// end attribute if
 
 	//update the document
-	GameRecovery::UpdateDoc();
+	if (!(doc.save_file(XML_FILE_PATH.c_str())))
+	{
+		cerr << "Failed to update " << XML_FILE_PATH.c_str() << endl;
+	}	//end update if
 
 	//test cout
 	cout << "after player choice update: " << valueAttribute.as_int() << endl;
+
 }
 
 //update the game mode;

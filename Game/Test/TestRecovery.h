@@ -18,7 +18,11 @@ public:
 	static void TestBlankSave();
 	static void TestViewUpdate();
 	static void TestVolumeUpdate();
-
+	static void TestNumberOfLinesUpdate();
+	static void TestBetPerLineUpdate();
+	static void TestTotalBetUpdate();
+	static void TestCreditsUpdate();
+	static void TestWinUpdate();
 	static void Test();
 	virtual ~TestRecovery();
 };

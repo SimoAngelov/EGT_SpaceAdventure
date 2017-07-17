@@ -97,9 +97,12 @@ void GameController::Spin()
 		this->InitCurrentPaylines();
 		//Calculate the winnings from the spin
 		this->SetTotalWin();
+		GameRecovery::UpdateGameModel(&(this->m_baseGame));
 		//test cout
 		cout << "GameController::VALID SPIN" << endl;
 	} // end if
+	//GameRecovery::UpdateNumberOfPaylines(12);
+	//
 }
 
 //intialize the reels for the currentGame

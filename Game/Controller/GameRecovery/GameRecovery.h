@@ -14,16 +14,15 @@
 class GameRecovery
 {
 private:
-	static pugi::xml_document m_doc;
 	static pugi::xml_node m_rootNode;
 public:
 	GameRecovery();
 	//creates a blank save
 	static void CreateBlankSave();
 	//loads the document
-	static void LoadDoc();
+	static void LoadDoc(pugi::xml_document&);
 	//updates the document
-	static void UpdateDoc();
+	static void UpdateDoc(pugi::xml_document&);
 	//update the view
 	static void UpdateView(int);
 	//update the volume

@@ -17,8 +17,8 @@ using namespace std;
 int main() {
 	TestGameController testGame;
 	testGame.TestGame();
-//	GameRecovery ob;
-//	ob.CreateBlankSave();
-//	TestRecovery::Test();
+////	GameRecovery ob;
+////	ob.CreateBlankSave();
+//    TestRecovery::Test();
 	return 0;
 }

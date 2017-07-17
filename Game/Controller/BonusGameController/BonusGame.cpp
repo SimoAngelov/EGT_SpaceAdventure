@@ -6,7 +6,7 @@
  */
 
 #include "BonusGame.h"
-
+#include "../GameRecovery/GameRecovery.h"
 //member field to increment the seed additionally each time srand is called
 int BonusGame::m_iRandCounter = 0;
 
@@ -127,6 +127,7 @@ void BonusGame::UpdateIfLoss()
 	cout << "BonusGame::After LOSS" << endl;
 	cout << "Win: " << BonusGame::m_baseGamePtr->GetIWin();
 	cout << "\nCredits: " << BonusGame::m_baseGamePtr->GetICredits();
+
 	cout << "\nEND AFTER LOSS\n";
 }
 
@@ -163,9 +164,9 @@ void BonusGame::DoubleUpWins()
 	BonusGame::m_iRound++;
 	//round 1 condition
 	bool b_RoundOneCondition = BonusGame::m_iRound == eRound1;
-	bool b_RoundTwoCondtion = (BonusGame::m_iRound == eRound2) && BonusGame::PlayerWon();
+	bool b_RoundTwoCondition = (BonusGame::m_iRound == eRound2) && BonusGame::PlayerWon();
 	//if round 1 or round 2
-	if (BonusGame::m_iRound == eRound1 || BonusGame::m_iRound == eRound2)
+	if (b_RoundOneCondition || b_RoundTwoCondition)
 	{
 		//if the bet is valid
 		if (BonusGame::IsValidBet())
@@ -239,6 +240,9 @@ void BonusGame::UpdateWinAndCredits()
 	BonusGame::m_baseGamePtr->SetIWin(BonusGame::m_iBonusWin);
 	//update the credits
 	BonusGame::m_baseGamePtr->SetICredits(BonusGame::m_iCredits);
+	//save to xml
+	GameRecovery::UpdateWin(BonusGame::m_iBonusWin);
+	GameRecovery::UpdateCredits(BonusGame::m_iCredits);
 }
 
 //return the status of the quit member field
