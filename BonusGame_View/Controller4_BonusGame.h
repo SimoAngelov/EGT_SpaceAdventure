@@ -11,7 +11,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <SDL2/SDL_Mixer.h>
+#include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_ttf.h>
 using namespace std;
 
@@ -26,6 +26,8 @@ const int m_nTotalButtons = 2;
 
 const int m_nCardWidth = 130;  //CARD WIDTH
 const int m_nCardHeight = 180;  //CARD HEIGHT
+const int step = m_nCardWidth + 16;
+//const int m_n
 
 //typedef enum LButtonSprite {
 //	eBUTTON_SPRITE_MOUSE_OUT = 0,
@@ -44,6 +46,7 @@ public:
 	void SetBackgroundTexture(SDL_Texture* texture);
 	void SetRedButtonTexture1(SDL_Texture* texture);
 	void SetRedButtonTexture2(SDL_Texture* texture);
+	void SetRedButtonTexture3(SDL_Texture* texture);//******
 	void SetBlackButtonTexture1(SDL_Texture* texture);
 	void SetBlackButtonTexture2(SDL_Texture* texture);
 	void SetFaceDownCardTexture1(SDL_Texture* texture);
@@ -66,6 +69,7 @@ public:
 	SDL_Texture* GetBackgroundTexture();
 	SDL_Texture* GetRedButtonTexture1();
 	SDL_Texture* GetRedButtonTexture2();
+	SDL_Texture* GetRedButtonTexture3();//******
 	SDL_Texture* GetBlackButtonTexture1();
 	SDL_Texture* GetBlackButtonTexture2();
 	SDL_Texture* GetFaceDownCardTexture1();
@@ -90,8 +94,15 @@ public:
 	void PlayBonusGame();
 	void QuitBonusGame(); //Frees media and shuts down SDL
 
-	void SetGamble(int gamble);
-	int GetGamble() const;
+	//
+	void SetGambleAmount(int gambleAmount);
+	int GetGambleAmount() const;
+
+	void SetGambleToWin(int gambleToWin);
+	int GetGambleToWin()const;
+
+	void SetGambleLeft(int gambleLeft);
+	int GetGambleLeft()const;
 
 	//bool m_bIsClicked(int unPosX = 0, int unPosY = 0);
 
@@ -123,6 +134,7 @@ private:
 	SDL_Texture* backgroundTexture = NULL;
 	SDL_Texture* redButtonTexture1 = NULL;
 	SDL_Texture* redButtonTexture2 = NULL;
+	SDL_Texture* redButtonTexture3 = NULL;//*****
 	SDL_Texture* blackButtonTexture1 = NULL;
 	SDL_Texture* blackButtonTexture2 = NULL;
 	SDL_Texture* faceDownCardTexture1 = NULL;
@@ -146,35 +158,38 @@ private:
 	SDL_Renderer* rendererPtr = NULL;
 
 	//Card sprites
-	SDL_Rect gSpriteClips[25]; //Card sprites from the picture
+	SDL_Rect gSpriteClips[24]; //Face Up Card sprites from the picture
+	SDL_Rect faceDownCard[2]; //Face Down Card sprites from the picture
 	SDL_Texture* gSpriteSheetTexture;
 
 	//The music that will be played
 	Mix_Music* gMusic = NULL;
 	//The sound effects that will be used
-	//Mix_Chunck* g = NULL;
-	//Mix_Chunck* g = NULL;
-	//Mix_Chunck* g = NULL;
+//	Mix_Chunck* g = NULL;
+//	Mix_Chunck* g = NULL;
+//	Mix_Chunck* g = NULL;
 
-	int m_nGamble = 0;
-
+	int m_nGambleAmount = 0;
+	int m_nGambleToWin = 0;
+	int m_nGambleLeft = 0;
 	//
 	TTF_Font* conthrax = NULL;
 	SDL_Color color = { 252, 252, 252, 0 };
 
 	SDL_Texture* gambleAmountTexture = NULL;  // Text: "GAMBLE AMOUNT: "
-	SDL_Texture* gambleAmountDigitTexture = NULL;
+	SDL_Texture* gambleAmountDigitTexture = NULL;  //Digits
 	SDL_Texture* gambleToWinTexture = NULL;   // Text: "GAMBLE TO WIN: ";
-	SDL_Texture* gambleToWinDigitTexture = NULL;
+	SDL_Texture* gambleToWinDigitTexture = NULL;  //Digits
 	SDL_Texture* gambleLeftTexture = NULL;  // Text: "GAMBLE ATTEMPTS LEFT: "
-	SDL_Texture* gambleLeftDigitTexture = NULL;
+	SDL_Texture* gambleLeftDigitTexture = NULL;  //Digits
+	//
+	SDL_Surface* gambleAmountSurface = NULL;
+	SDL_Surface* gambleAmountDigitSurface = NULL;
+	SDL_Surface* gambleToWinSurface = NULL;
+	SDL_Surface* gambleToWinDigitSurface = NULL;
+	SDL_Surface* gambleLeftSurface = NULL;
+	SDL_Surface* gambleLeftDigitSurface = NULL;
 
-	SDL_Surface* gambleSurface1 = NULL;
-	SDL_Surface* gambleSurface2 = NULL;
-	SDL_Surface* gambleSurface3 = NULL;
-	SDL_Texture* gambleTexture1 = NULL;
-	SDL_Texture* gambleTexture2 = NULL;
-	SDL_Texture* gambleTexture3 = NULL;
 
 };
 
