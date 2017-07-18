@@ -311,13 +311,78 @@ void LifeCycle::Play()
 
 	Slot.SetFigure9(LoadTexture("figure9.png"));
 
-	// initializing vector
+	// Loading textures for 25 lines
+
+	Slot.SetLine1(LoadTexture("line1.png"));
+
+	Slot.SetLine2(LoadTexture("line2.png"));
+
+	Slot.SetLine3(LoadTexture("line3.png"));
+
+	Slot.SetLine4(LoadTexture("line4.png"));
+
+	Slot.SetLine5(LoadTexture("line5.png"));
+
+	Slot.SetLine6(LoadTexture("line6.png"));
+
+	Slot.SetLine7(LoadTexture("line7.png"));
+
+	Slot.SetLine8(LoadTexture("line8.png"));
+
+	Slot.SetLine9(LoadTexture("line9.png"));
+
+	Slot.SetLine10(LoadTexture("line10.png"));
+
+	Slot.SetLine11(LoadTexture("line11.png"));
+
+	Slot.SetLine12(LoadTexture("line12.png"));
+
+	Slot.SetLine13(LoadTexture("line13.png"));
+
+	Slot.SetLine14(LoadTexture("line14.png"));
+
+	Slot.SetLine15(LoadTexture("line15.png"));
+
+	Slot.SetLine16(LoadTexture("line16.png"));
+
+	Slot.SetLine17(LoadTexture("line17.png"));
+
+	Slot.SetLine18(LoadTexture("line18.png"));
+
+	Slot.SetLine19(LoadTexture("line19.png"));
+
+	Slot.SetLine20(LoadTexture("line20.png"));
+
+	Slot.SetLine21(LoadTexture("line21.png"));
+
+	Slot.SetLine22(LoadTexture("line22.png"));
+
+	Slot.SetLine23(LoadTexture("line23.png"));
+
+	Slot.SetLine24(LoadTexture("line24.png"));
+
+	Slot.SetLine25(LoadTexture("line25.png"));
+
+	// initializing vector for figures
 
 	m_vecSlotFigures =
 	{	Slot.GetFigure1(), Slot.GetFigure2(), Slot.GetFigure3(), Slot.GetFigure4(),
 		Slot.GetFigure5(), Slot.GetFigure6(), Slot.GetFigure7(),
 		Slot.GetFigure8(), Slot.GetFigure9()
 
+	};
+
+	//initializing vector for lines
+
+	m_vecLines =
+
+	{	Slot.GetSlotTexture(),Slot.GetLine1(), Slot.GetLine2(), Slot.GetLine3(), Slot.GetLine4(),
+		Slot.GetLine5(), Slot.GetLine6(), Slot.GetLine7(), Slot.GetLine8(),
+		Slot.GetLine9(),Slot.GetLine10(),Slot.GetLine11(), Slot.GetLine12(),
+		Slot.GetLine13(),Slot.GetLine14(),Slot.GetLine15(),Slot.GetLine16(),
+		Slot.GetLine17(),Slot.GetLine18(),Slot.GetLine19(),Slot.GetLine20(),
+		Slot.GetLine21(),Slot.GetLine22(),Slot.GetLine23(),Slot.GetLine24(),
+		Slot.GetLine25()
 	};
 
 	// Counter VIEW CONTROLLERS
@@ -356,7 +421,7 @@ void LifeCycle::Play()
 
 	creditTexture = SDL_CreateTextureFromSurface(rendererPtr, creditSurface);
 
-	// Mouse Coordinates xZ, yZ
+// Mouse Coordinates xZ, yZ
 
 	int xZ = 0;
 
@@ -3655,8 +3720,10 @@ void LifeCycle::Play()
 				SDL_RenderCopy(rendererPtr, m_vecSlotFigures[5], NULL,
 						&rectFigure3Slot5);
 
-				SDL_RenderCopy(rendererPtr, Slot.GetSlotTexture(), NULL,
-						&rectSlot);
+				//ADDING LINES
+
+				SDL_RenderCopy(rendererPtr, m_vecLines[m_nLinesCounter],
+				NULL, &rectSlot);
 
 				SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL,
 						&rectInfoButton);
@@ -3731,11 +3798,22 @@ void LifeCycle::Play()
 				if (xZ >= minusButtonLines.x && xZ <= 340
 						&& yZ >= minusButtonLines.y && yZ <= 635)
 				{
+					//DECREASING LINES
+
+					m_nLinesCounter--;
+
+					if(m_nLinesCounter < 0)
+					{
+						m_nLinesCounter = 0;
+
+					}
 					SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(),
 							&rectBackground, NULL);
 
-					SDL_RenderCopy(rendererPtr, Slot.GetSlotTexture(), NULL,
-							&rectSlot);
+					// VECTOR FOR LIENS -ADDING AND DECREASING
+
+					SDL_RenderCopy(rendererPtr, m_vecLines[m_nLinesCounter],
+					NULL, &rectSlot);
 
 					SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL,
 							&rectInfoButton);
@@ -3797,142 +3875,179 @@ void LifeCycle::Play()
 				if (xZ >= plusButtonLines.x && xZ <= 475
 						&& yZ >= plusButtonLines.y && yZ <= 635)
 				{
-					SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(),
-							&rectBackground, NULL);
 
-					SDL_RenderCopy(rendererPtr, Slot.GetSlotTexture(), NULL,
-							&rectSlot);
-
-					SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL,
-							&rectInfoButton);
-
-					SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(),
-					NULL, &rectVolumePlusButton);
-
-					SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(),
-					NULL, &rectVolumeMinusButton);
-
-					// addding buttons to reel
-
-					SDL_RenderCopy(rendererPtr, Slot.GetMinusButtonLines(),
-					NULL, &minusButtonLines);
-
-					SDL_RenderCopy(rendererPtr, Slot.GetPlusLinesButtonPushed(),
-					NULL, &plusButtonLines);
-
-					SDL_RenderCopy(rendererPtr, Slot.GetMinusButtonBet(), NULL,
-							&minusBetButton);
-
-					SDL_RenderCopy(rendererPtr, Slot.GetPlusButtonBet(), NULL,
-							&plusBetButton);
-
-					SDL_RenderCopy(rendererPtr, Slot.GetMaxBetButton(),
-					NULL, &maxBetButton);
-
-					SDL_RenderCopy(rendererPtr, Slot.GetStartSpinButton(), NULL,
-							&startSpinButton);
-
-					if (counterVolume == 0)
 					{
-						SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(),
-						NULL, &rectVolume);
+
+						//ADDING LINES
+
+						m_nLinesCounter++;
+
+						if (m_nLinesCounter > 25)
+						{
+							m_nLinesCounter = 25;
+
+						}
+
+						cout<<"COUNTER LINES"<<m_nLinesCounter<<endl;
+
+						SDL_RenderCopy(rendererPtr,
+								Intro.GetBackgroundTexture(), &rectBackground,
+								NULL);
+
+						SDL_RenderCopy(rendererPtr, m_vecLines[m_nLinesCounter],
+						NULL, &rectSlot);
+
+						SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(),
+						NULL, &rectInfoButton);
+
+						SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(),
+						NULL, &rectVolumePlusButton);
+
+						SDL_RenderCopy(rendererPtr,
+								Intro.GetVolumeMinusButton(),
+								NULL, &rectVolumeMinusButton);
+
+						// addding buttons to reel
+
+						SDL_RenderCopy(rendererPtr, Slot.GetMinusButtonLines(),
+						NULL, &minusButtonLines);
+
+						SDL_RenderCopy(rendererPtr,
+								Slot.GetPlusLinesButtonPushed(),
+								NULL, &plusButtonLines);
+
+						SDL_RenderCopy(rendererPtr, Slot.GetMinusButtonBet(),
+						NULL, &minusBetButton);
+
+						SDL_RenderCopy(rendererPtr, Slot.GetPlusButtonBet(),
+						NULL, &plusBetButton);
+
+						SDL_RenderCopy(rendererPtr, Slot.GetMaxBetButton(),
+						NULL, &maxBetButton);
+
+						SDL_RenderCopy(rendererPtr, Slot.GetStartSpinButton(),
+						NULL, &startSpinButton);
+
+						if (counterVolume == 0)
+						{
+							SDL_RenderCopy(rendererPtr,
+									Intro.GetVolumeTexture(),
+									NULL, &rectVolume);
+						}
+
+						if (counterVolume == 1)
+						{
+							SDL_RenderCopy(rendererPtr,
+									Intro.GetVolumeTexture1(),
+									NULL, &rectVolume);
+						}
+
+						if (counterVolume == 2)
+						{
+							SDL_RenderCopy(rendererPtr,
+									Intro.GetVolumeTexture2(),
+									NULL, &rectVolume);
+						}
+
+						if (counterVolume == 3)
+						{
+							SDL_RenderCopy(rendererPtr,
+									Intro.GetVolumeTexture3(),
+									NULL, &rectVolume);
+						}
+
+					}
+					// MINUS BET button pushed
+
+					if (xZ >= minusBetButton.x && xZ <= 545
+							&& yZ >= minusBetButton.y && yZ <= 635)
+					{
+						SDL_RenderCopy(rendererPtr,
+								Intro.GetBackgroundTexture(), &rectBackground,
+								NULL);
+
+						// ADDING LINES
+
+						SDL_RenderCopy(rendererPtr, m_vecLines[m_nLinesCounter],
+						NULL, &rectSlot);
+
+						SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(),
+						NULL, &rectInfoButton);
+
+						SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(),
+						NULL, &rectVolumePlusButton);
+
+						SDL_RenderCopy(rendererPtr,
+								Intro.GetVolumeMinusButton(),
+								NULL, &rectVolumeMinusButton);
+
+						// addding buttons to reel
+
+						SDL_RenderCopy(rendererPtr, Slot.GetMinusButtonLines(),
+						NULL, &minusButtonLines);
+
+						SDL_RenderCopy(rendererPtr, Slot.GetPlusLinesButton(),
+						NULL, &plusButtonLines);
+
+						SDL_RenderCopy(rendererPtr,
+								Slot.GetMinusButtonBetPushed(),
+								NULL, &minusBetButton);
+
+						SDL_RenderCopy(rendererPtr, Slot.GetPlusButtonBet(),
+						NULL, &plusBetButton);
+
+						SDL_RenderCopy(rendererPtr, Slot.GetMaxBetButton(),
+						NULL, &maxBetButton);
+
+						SDL_RenderCopy(rendererPtr, Slot.GetStartSpinButton(),
+						NULL, &startSpinButton);
+
+
+
+						if (counterVolume == 0)
+						{
+							SDL_RenderCopy(rendererPtr,
+									Intro.GetVolumeTexture(),
+									NULL, &rectVolume);
+						}
+
+						if (counterVolume == 1)
+						{
+							SDL_RenderCopy(rendererPtr,
+									Intro.GetVolumeTexture1(),
+									NULL, &rectVolume);
+						}
+
+						if (counterVolume == 2)
+						{
+							SDL_RenderCopy(rendererPtr,
+									Intro.GetVolumeTexture2(),
+									NULL, &rectVolume);
+						}
+
+						if (counterVolume == 3)
+						{
+							SDL_RenderCopy(rendererPtr,
+									Intro.GetVolumeTexture3(),
+									NULL, &rectVolume);
+						}
+
 					}
 
-					if (counterVolume == 1)
-					{
-						SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(),
-						NULL, &rectVolume);
-					}
+					//PLUS BET button  pushed
 
-					if (counterVolume == 2)
-					{
-						SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(),
-						NULL, &rectVolume);
-					}
+					if (xZ >= plusBetButton.x && xZ <= 710
+							&& yZ >= plusBetButton.y && yZ <= 635)
 
-					if (counterVolume == 3)
-					{
-						SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(),
-						NULL, &rectVolume);
-					}
+						SDL_RenderCopy(rendererPtr,
+								Intro.GetBackgroundTexture(), &rectBackground,
+								NULL);
 
-				}
-				// MINUS BET button pushed
 
-				if (xZ >= minusBetButton.x && xZ <= 545
-						&& yZ >= minusBetButton.y && yZ <= 635)
-				{
-					SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(),
-							&rectBackground, NULL);
+					//ADDING LINES
 
-					SDL_RenderCopy(rendererPtr, Slot.GetSlotTexture(), NULL,
-							&rectSlot);
-
-					SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL,
-							&rectInfoButton);
-
-					SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(),
-					NULL, &rectVolumePlusButton);
-
-					SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButton(),
-					NULL, &rectVolumeMinusButton);
-
-					// addding buttons to reel
-
-					SDL_RenderCopy(rendererPtr, Slot.GetMinusButtonLines(),
-					NULL, &minusButtonLines);
-
-					SDL_RenderCopy(rendererPtr, Slot.GetPlusLinesButton(), NULL,
-							&plusButtonLines);
-
-					SDL_RenderCopy(rendererPtr, Slot.GetMinusButtonBetPushed(),
-					NULL, &minusBetButton);
-
-					SDL_RenderCopy(rendererPtr, Slot.GetPlusButtonBet(), NULL,
-							&plusBetButton);
-
-					SDL_RenderCopy(rendererPtr, Slot.GetMaxBetButton(),
-					NULL, &maxBetButton);
-
-					SDL_RenderCopy(rendererPtr, Slot.GetStartSpinButton(), NULL,
-							&startSpinButton);
-
-					if (counterVolume == 0)
-					{
-						SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture(),
-						NULL, &rectVolume);
-					}
-
-					if (counterVolume == 1)
-					{
-						SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture1(),
-						NULL, &rectVolume);
-					}
-
-					if (counterVolume == 2)
-					{
-						SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture2(),
-						NULL, &rectVolume);
-					}
-
-					if (counterVolume == 3)
-					{
-						SDL_RenderCopy(rendererPtr, Intro.GetVolumeTexture3(),
-						NULL, &rectVolume);
-					}
-
-				}
-
-				//PLUS BET button  pushed
-
-				if (xZ >= plusBetButton.x && xZ <= 710 && yZ >= plusBetButton.y
-						&& yZ <= 635)
-				{
-					SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(),
-							&rectBackground, NULL);
-
-					SDL_RenderCopy(rendererPtr, Slot.GetSlotTexture(), NULL,
-							&rectSlot);
+					SDL_RenderCopy(rendererPtr, m_vecLines[m_nLinesCounter],
+					NULL, &rectSlot);
 
 					SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL,
 							&rectInfoButton);
@@ -3997,8 +4112,10 @@ void LifeCycle::Play()
 					SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(),
 							&rectBackground, NULL);
 
-					SDL_RenderCopy(rendererPtr, Slot.GetSlotTexture(), NULL,
-							&rectSlot);
+					//ADDING LINES
+
+					SDL_RenderCopy(rendererPtr, m_vecLines[m_nLinesCounter],
+					NULL, &rectSlot);
 
 					SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL,
 							&rectInfoButton);
@@ -4075,7 +4192,7 @@ void LifeCycle::Play()
 
 					int spinCounter5 = 3; // 3-4-5 figures - row 2
 
-					int spinCounter6 = 6; // 6-7-8 figures - row 2
+					int spinCounter6 = 6; // 6-7-r8 figures - row 2
 
 					int spinRolls2 = 1; // spinning second row
 

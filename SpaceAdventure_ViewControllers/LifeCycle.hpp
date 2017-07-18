@@ -39,6 +39,8 @@ private:
     
     int m_nCredit = 0; // Game Credit
     
+    int m_nLinesCounter = 0; // counter for lines GAME view 3;
+
     SDL_Window* windowPtr = NULL;
     
     SDL_Renderer* rendererPtr = NULL;
@@ -52,6 +54,8 @@ private:
     SDL_Texture* creditTexture = NULL;
     
     vector<SDL_Texture*> m_vecSlotFigures;
+
+    vector<SDL_Texture*> m_vecLines;
 
     
     
