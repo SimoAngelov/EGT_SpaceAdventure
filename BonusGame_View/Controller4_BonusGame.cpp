@@ -63,6 +63,14 @@ SDL_Texture* Bonus_Game::GetBlackButtonTexture2() {
 	return blackButtonTexture2;
 }
 
+void Bonus_Game::SetBlackButtonTexture3(SDL_Texture* texture) {
+	blackButtonTexture3 = texture;
+}
+
+SDL_Texture* Bonus_Game::GetBlackButtonTexture3() {
+	return blackButtonTexture3;
+}
+
 void Bonus_Game::SetFaceDownCardTexture1(SDL_Texture* texture) {
 	faceDownCardTexture1 = texture;
 }
@@ -85,6 +93,110 @@ void Bonus_Game::SetFaceUpCardTexture(SDL_Texture* texture) {
 
 SDL_Texture* Bonus_Game::GetFaceUpCardTexture() {
 	return faceUpCardTexture;
+}
+//*************
+void Bonus_Game::SetRedCardTexture1(SDL_Texture* texture) {
+	redCardTexture1 = texture;
+}
+
+SDL_Texture* Bonus_Game::GetRedCardTexture1() {
+	return redCardTexture1;
+}
+
+void Bonus_Game::SetRedCardTexture2(SDL_Texture* texture) {
+	redCardTexture1 = texture;
+}
+
+SDL_Texture* Bonus_Game::GetRedCardTexture2() {
+	return redCardTexture2;
+}
+
+void Bonus_Game::SetRedCardTexture3(SDL_Texture* texture) {
+	redCardTexture3 = texture;
+}
+
+SDL_Texture* Bonus_Game::GetRedCardTexture3() {
+	return redCardTexture3;
+}
+
+void Bonus_Game::SetRedCardTexture4(SDL_Texture* texture) {
+	redCardTexture4 = texture;
+}
+
+SDL_Texture* Bonus_Game::GetRedCardTexture4() {
+	return redCardTexture4;
+}
+
+void Bonus_Game::SetRedCardTexture5(SDL_Texture* texture) {
+	redCardTexture5 = texture;
+}
+
+SDL_Texture* Bonus_Game::GetRedCardTexture5() {
+	return redCardTexture5;
+}
+
+void Bonus_Game::SetRedCardTexture6(SDL_Texture* texture) {
+	redCardTexture6 = texture;
+}
+
+SDL_Texture* Bonus_Game::GetRedCardTexture6() {
+	return redCardTexture6;
+}
+
+void Bonus_Game::SetBlackCardTexture7(SDL_Texture* texture) {
+	blackCardTexture7 = texture;
+}
+
+SDL_Texture* Bonus_Game::GetBlackCardTexture7() {
+	return blackCardTexture7;
+}
+
+void Bonus_Game::SetBlackCardTexture8(SDL_Texture* texture) {
+	blackCardTexture8 = texture;
+}
+
+SDL_Texture* Bonus_Game::GetBlackCardTexture8() {
+	return blackCardTexture8;
+}
+
+void Bonus_Game::SetBlackCardTexture9(SDL_Texture* texture) {
+	blackCardTexture9 = texture;
+}
+
+SDL_Texture* Bonus_Game::GetBlackCardTexture9() {
+	return blackCardTexture9;
+}
+
+void Bonus_Game::SetBlackCardTexture10(SDL_Texture* texture) {
+	blackCardTexture10 = texture;
+}
+
+SDL_Texture* Bonus_Game::GetBlackCardTexture10() {
+	return blackCardTexture10;
+}
+
+void Bonus_Game::SetBlackCardTexture11(SDL_Texture* texture) {
+	blackCardTexture11 = texture;
+}
+
+SDL_Texture* Bonus_Game::GetBlackCardTexture11() {
+	return blackCardTexture11;
+}
+
+void Bonus_Game::SetBlackCardTexture12(SDL_Texture* texture) {
+	blackCardTexture12 = texture;
+}
+
+SDL_Texture* Bonus_Game::GetBlackCardTexture12() {
+	return blackCardTexture12;
+}
+
+void Bonus_Game::SetChooseCardTexture(SDL_Texture* texture) {
+	chooseCardTexture = texture;
+}
+
+SDL_Texture* Bonus_Game::GetChooseCardTexture() {
+	return chooseCardTexture;
 }
 
 void Bonus_Game::SetGambleAmountTexture(SDL_Texture* texture) {
@@ -236,6 +348,12 @@ void Bonus_Game::InitMedia() {
 			if (conthrax == NULL) {
 				cout << "Unable to OPEN FONT!\n";
 			}
+
+			if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+				printf("SDL_mixer clould nit initialize! SDL_mixer Error: %s\n",
+				Mix_GetError());
+				success = false;
+			}
 		}
 	}
 }
@@ -287,19 +405,33 @@ void Bonus_Game::PlayBonusGame() {
 	Bonus_Game Bonus_Game;
 	SDL_Rect rectBackground = createRect(0, 0, 2880, 1800);  // Background
 	SDL_Rect rectRedButton = createRect(100, 350, 130, 100);  // Red Button
-	SDL_Rect rectRedButtonClick = createRect(80, 330, 170, 140); //*********************
+	SDL_Rect rectRedButtonClick = createRect(90, 340, 150, 120); //*********************
 	SDL_Rect rectBlackButton = createRect(570, 350, 130, 100);  // Black Button
+	SDL_Rect rectBlackButtonClick = createRect(560, 340, 150, 120); //*******************
 	SDL_Rect rectFaceDownCard1 = createRect(310, 300, 130, 180); // Face Down Card
 	SDL_Rect rectFaceDownCard2 = createRect(350, 320, 130, 180); // Face Down Card
 	SDL_Rect rectFaceUpCard = createRect(390, 340, 130, 180);  // Face Up Card
+	SDL_Rect rectRedCard1 = createRect(390, 340, 130, 180);
+	SDL_Rect rectRedCard2 = createRect(390, 340, 130, 180);
+	SDL_Rect rectRedCard3 = createRect(390, 340, 130, 180);
+	SDL_Rect rectRedCard4 = createRect(390, 340, 130, 180);
+	SDL_Rect rectRedCard5 = createRect(390, 340, 130, 180);
+	SDL_Rect rectRedCard6 = createRect(390, 340, 130, 180);
+	SDL_Rect rectBlackCard7 = createRect(390, 340, 130, 180);
+	SDL_Rect rectBlackCard8 = createRect(390, 340, 130, 180);
+	SDL_Rect rectBlackCard9 = createRect(390, 340, 130, 180);
+	SDL_Rect rectBlackCard10 = createRect(390, 340, 130, 180);
+	SDL_Rect rectBlackCard11 = createRect(390, 340, 130, 180);
+	SDL_Rect rectBlackCard12 = createRect(390, 340, 130, 180);
+	SDL_Rect rectChooseCard = createRect(320, 10, 130, 130);
 
-	//
+//
 	SDL_Rect rectClub = createRect(10, 10, 50, 50); //Club
 	SDL_Rect rectDiamond = createRect(740, 10, 50, 50); //Diamond
 	SDL_Rect rectHeart = createRect(10, 540, 50, 50); //Heart
 	SDL_Rect rectSpade = createRect(740, 540, 50, 50); //Spade
 
-	//
+//
 	SDL_Rect rectGambleAmountText = createRect(50, 250, 210, 40); // "GAMBLE AMOUNT: "
 	SDL_Rect rectGambleAmountDigit = createRect(250, 250, 70, 40);
 	SDL_Rect rectGambleToWinText = createRect(500, 250, 210, 40); // "GAMBLE TO WIN: ";
@@ -307,26 +439,41 @@ void Bonus_Game::PlayBonusGame() {
 	SDL_Rect rectGambleLeftText = createRect(250, 180, 290, 40); // "GAMBLE ATTEMPTS LEFT: "
 	SDL_Rect rectGambleLeftDigit = createRect(540, 180, 20, 40);
 
-	//Load Textures - Resources
+//Load Textures - Resources
 	Bonus_Game.SetBackgroundTexture(LoadTexture("Background.png"));
 	Bonus_Game.SetRedButtonTexture1(LoadTexture("Red Button_Dark.png"));
 	Bonus_Game.SetRedButtonTexture2(LoadTexture("Red Button.png"));
-	Bonus_Game.SetRedButtonTexture3(LoadTexture("Red Button.png")); //********
+	Bonus_Game.SetRedButtonTexture3(LoadTexture("Red Button.png")); //******
 	Bonus_Game.SetBlackButtonTexture1(LoadTexture("Black Button.png"));
 	Bonus_Game.SetBlackButtonTexture2(LoadTexture("Black Button_Blue.png"));
+	Bonus_Game.SetBlackButtonTexture3(LoadTexture("Black Button_Blue.png")); //*******
 
-	//From Cards
-	Bonus_Game.SetFaceDownCardTexture1(LoadTexture("Back card.png"));
-	Bonus_Game.SetFaceDownCardTexture2(LoadTexture("Back card.png"));
+//From Cards
+	Bonus_Game.SetFaceDownCardTexture1(LoadTexture("2.png"));
+	Bonus_Game.SetFaceDownCardTexture2(LoadTexture("2.png"));
 	Bonus_Game.SetFaceUpCardTexture(LoadTexture("FaceUpCard.png"));
+	Bonus_Game.SetRedCardTexture1(LoadTexture("RedJDiamond.png"));  // NEW CARDS
 
-	//club, diamond, heart, spade
+	Bonus_Game.SetRedCardTexture2(LoadTexture("RedJHeart.png"));
+	Bonus_Game.SetRedCardTexture3(LoadTexture("RedKDiamond.png"));
+	Bonus_Game.SetRedCardTexture4(LoadTexture("RedKHeart.png"));
+	Bonus_Game.SetRedCardTexture5(LoadTexture("RedQDiamond.png"));
+	Bonus_Game.SetRedCardTexture6(LoadTexture("RedQHeart.png"));
+	Bonus_Game.SetBlackCardTexture7(LoadTexture("BlackJClub.png"));
+	Bonus_Game.SetBlackCardTexture8(LoadTexture("BlackJSpade.png"));
+	Bonus_Game.SetBlackCardTexture9(LoadTexture("BlackKClub.png"));
+	Bonus_Game.SetBlackCardTexture10(LoadTexture("BlackKSpade.png"));
+	Bonus_Game.SetBlackCardTexture11(LoadTexture("BlackQClub.png"));
+	Bonus_Game.SetBlackCardTexture12(LoadTexture("QSpadeBlack.png"));
+	Bonus_Game.SetChooseCardTexture(LoadTexture("choose card4.png")); ///////////////////
+
+//club, diamond, heart, spade
 	Bonus_Game.SetClubTexture(LoadTexture("Club.png"));
 	Bonus_Game.SetDiamondTexture(LoadTexture("Diamond.png"));
 	Bonus_Game.SetHeartTexture(LoadTexture("Heart.png"));
 	Bonus_Game.SetSpadeTexture(LoadTexture("Spade.png"));
 
-	//
+//
 	string gambleAmountText = "GAMBLE AMOUNT:  ";
 	string gambleToWinText = "GAMBLE TO WIN:  ";
 	string gambleLeftText = "GAMBLE ATTEMPTS LEFT:  ";
@@ -349,7 +496,7 @@ void Bonus_Game::PlayBonusGame() {
 	gambleLeftDigitSurface = TTF_RenderText_Solid(conthrax,
 			gambleLeftDigit.c_str(), color);
 
-	//
+//
 	gambleAmountTexture = SDL_CreateTextureFromSurface(rendererPtr,
 			gambleAmountSurface);
 	gambleAmountDigitTexture = SDL_CreateTextureFromSurface(rendererPtr,
@@ -363,6 +510,8 @@ void Bonus_Game::PlayBonusGame() {
 	gambleLeftDigitTexture = SDL_CreateTextureFromSurface(rendererPtr,
 			gambleLeftDigitSurface);
 
+//Music
+
 //	SDL_Surface* image;
 //	SDL_RWops* rwop;
 //	rwop = SDL_RWFromFile("graphics star wars.gif", "rb");
@@ -371,21 +520,17 @@ void Bonus_Game::PlayBonusGame() {
 //		printf("IMG_LoadGif_RW: %s/n", IMG_GetError());
 //	}
 
-	//Mouse coordinates xZ, yZ
+//Mouse coordinates xZ, yZ
 	int xZ = 0;
 	int yZ = 0;
 
-	//Loop flag
+//Loop flag
 	bool quit = false;
 
-	bool redButtonIsClicked = false;
-
-	bool blackButtonIsClicked = false;
-
-	//Event handler
+//Event handler
 	SDL_Event e;
 
-	//While application is running
+//While application is running
 	while (quit == false) {
 		//Handle events on queue
 		while (SDL_PollEvent(&e) != 0) {
@@ -397,6 +542,9 @@ void Bonus_Game::PlayBonusGame() {
 			// View with all buttons normal
 
 			SDL_GetMouseState(&xZ, &yZ);
+
+			//
+			//while(){
 
 			SDL_RenderCopy(rendererPtr, Bonus_Game.GetBackgroundTexture(),
 					&rectBackground, NULL);
@@ -413,6 +561,9 @@ void Bonus_Game::PlayBonusGame() {
 
 			SDL_RenderCopy(rendererPtr, Bonus_Game.GetFaceDownCardTexture2(),
 			NULL, &rectFaceDownCard2);
+
+			SDL_RenderCopy(rendererPtr, Bonus_Game.GetChooseCardTexture(), NULL,
+					&rectChooseCard);
 
 			//club, diamond, heart, spade pictures
 			SDL_RenderCopy(rendererPtr, Bonus_Game.GetClubTexture(), NULL,
@@ -437,128 +588,127 @@ void Bonus_Game::PlayBonusGame() {
 					&rectGambleLeftText);
 			SDL_RenderCopy(rendererPtr, gambleLeftDigitTexture, NULL,
 					&rectGambleLeftDigit);
-
-			//********************************
-			//Mouse events
-			//Mouse over Red Button
-			if (e.type == SDL_MOUSEMOTION) {
-
-				if ((redButtonIsClicked == false) && (xZ >= rectRedButton.x)
-						&& (xZ <= 230) && (yZ >= rectRedButton.y)
-						&& (yZ <= 450)) {
-
-					SDL_RenderCopy(rendererPtr,
-							Bonus_Game.GetBackgroundTexture(), &rectBackground,
-							NULL);
-
-					SDL_RenderCopy(rendererPtr,
-							Bonus_Game.GetRedButtonTexture2(), NULL,
-							&rectRedButton);
-
-					SDL_RenderCopy(rendererPtr,
-							Bonus_Game.GetBlackButtonTexture1(),
-							NULL, &rectBlackButton);
-
-					//
-					SDL_RenderCopy(rendererPtr,
-							Bonus_Game.GetFaceDownCardTexture1(),
-							NULL, &rectFaceDownCard1);
-
-					SDL_RenderCopy(rendererPtr,
-							Bonus_Game.GetFaceDownCardTexture2(),
-							NULL, &rectFaceDownCard2);
-
-					//club, diamond, heart, spade pictures
-					SDL_RenderCopy(rendererPtr, Bonus_Game.GetClubTexture(),
-					NULL, &rectClub);
-					SDL_RenderCopy(rendererPtr, Bonus_Game.GetDiamondTexture(),
-					NULL, &rectDiamond);
-					SDL_RenderCopy(rendererPtr, Bonus_Game.GetHeartTexture(),
-					NULL, &rectHeart);
-					SDL_RenderCopy(rendererPtr, Bonus_Game.GetSpadeTexture(),
-					NULL, &rectSpade);
-
-					//all texts
-					SDL_RenderCopy(rendererPtr, gambleAmountTexture, NULL,
-							&rectGambleAmountText);
-					SDL_RenderCopy(rendererPtr, gambleAmountDigitTexture, NULL,
-							&rectGambleAmountDigit);
-					SDL_RenderCopy(rendererPtr, gambleToWinTexture, NULL,
-							&rectGambleToWinText);
-					SDL_RenderCopy(rendererPtr, gambleToWinDigitTexture, NULL,
-							&rectGambleToWinDigit);
-					SDL_RenderCopy(rendererPtr, gambleLeftTexture, NULL,
-							&rectGambleLeftText);
-					SDL_RenderCopy(rendererPtr, gambleLeftDigitTexture, NULL,
-							&rectGambleLeftDigit);
-				}
-				SDL_RenderPresent(rendererPtr);
-
-				//Mouse over Black Button
-				if ((blackButtonIsClicked == false) && (xZ >= rectBlackButton.x)
-						&& (xZ <= 700) && (yZ >= rectBlackButton.y)
-						&& (yZ <= 450)) {
-					SDL_RenderCopy(rendererPtr,
-							Bonus_Game.GetBackgroundTexture(), &rectBackground,
-							NULL);
-
-					SDL_RenderCopy(rendererPtr,
-							Bonus_Game.GetRedButtonTexture1(), NULL,
-							&rectRedButton);
-
-					SDL_RenderCopy(rendererPtr,
-							Bonus_Game.GetBlackButtonTexture2(),
-							NULL, &rectBlackButton);
-
-					//
-					SDL_RenderCopy(rendererPtr,
-							Bonus_Game.GetFaceDownCardTexture1(),
-							NULL, &rectFaceDownCard1);
-
-					SDL_RenderCopy(rendererPtr,
-							Bonus_Game.GetFaceDownCardTexture2(),
-							NULL, &rectFaceDownCard2);
-
-					//club, diamond, heart, spade pictures
-					SDL_RenderCopy(rendererPtr, Bonus_Game.GetClubTexture(),
-					NULL, &rectClub);
-					SDL_RenderCopy(rendererPtr, Bonus_Game.GetDiamondTexture(),
-					NULL, &rectDiamond);
-					SDL_RenderCopy(rendererPtr, Bonus_Game.GetHeartTexture(),
-					NULL, &rectHeart);
-					SDL_RenderCopy(rendererPtr, Bonus_Game.GetSpadeTexture(),
-					NULL, &rectSpade);
-
-					//all texts
-					SDL_RenderCopy(rendererPtr, gambleAmountTexture,
-					NULL, &rectGambleAmountText);
-					SDL_RenderCopy(rendererPtr, gambleAmountDigitTexture,
-					NULL, &rectGambleAmountDigit);
-					SDL_RenderCopy(rendererPtr, gambleToWinTexture,
-					NULL, &rectGambleToWinText);
-					SDL_RenderCopy(rendererPtr, gambleToWinDigitTexture,
-					NULL, &rectGambleToWinDigit);
-					SDL_RenderCopy(rendererPtr, gambleLeftTexture, NULL,
-							&rectGambleLeftText);
-					SDL_RenderCopy(rendererPtr, gambleLeftDigitTexture,
-					NULL, &rectGambleLeftDigit);
-				}
-				SDL_RenderPresent(rendererPtr);
-			}
 		}
 
-		//Red Button is clicked
+		//Mouse events MOTION
+		//MOUSE MOTION Red Button
+		if (e.type == SDL_MOUSEMOTION) {
+
+			if ((xZ >= rectRedButton.x) && (xZ <= 230)
+					&& (yZ >= rectRedButton.y) && (yZ <= 450)) {
+
+				SDL_RenderCopy(rendererPtr, Bonus_Game.GetBackgroundTexture(),
+						&rectBackground,
+						NULL);
+
+				SDL_RenderCopy(rendererPtr, Bonus_Game.GetRedButtonTexture2(),
+				NULL, &rectRedButton);
+
+				SDL_RenderCopy(rendererPtr, Bonus_Game.GetBlackButtonTexture1(),
+				NULL, &rectBlackButton);
+
+				//
+				SDL_RenderCopy(rendererPtr,
+						Bonus_Game.GetFaceDownCardTexture1(),
+						NULL, &rectFaceDownCard1);
+
+				SDL_RenderCopy(rendererPtr,
+						Bonus_Game.GetFaceDownCardTexture2(),
+						NULL, &rectFaceDownCard2);
+
+				SDL_RenderCopy(rendererPtr, Bonus_Game.GetChooseCardTexture(),
+				NULL, &rectChooseCard);
+
+				//club, diamond, heart, spade pictures
+				SDL_RenderCopy(rendererPtr, Bonus_Game.GetClubTexture(),
+				NULL, &rectClub);
+				SDL_RenderCopy(rendererPtr, Bonus_Game.GetDiamondTexture(),
+				NULL, &rectDiamond);
+				SDL_RenderCopy(rendererPtr, Bonus_Game.GetHeartTexture(),
+				NULL, &rectHeart);
+				SDL_RenderCopy(rendererPtr, Bonus_Game.GetSpadeTexture(),
+				NULL, &rectSpade);
+
+				//all texts
+				SDL_RenderCopy(rendererPtr, gambleAmountTexture, NULL,
+						&rectGambleAmountText);
+				SDL_RenderCopy(rendererPtr, gambleAmountDigitTexture, NULL,
+						&rectGambleAmountDigit);
+				SDL_RenderCopy(rendererPtr, gambleToWinTexture, NULL,
+						&rectGambleToWinText);
+				SDL_RenderCopy(rendererPtr, gambleToWinDigitTexture, NULL,
+						&rectGambleToWinDigit);
+				SDL_RenderCopy(rendererPtr, gambleLeftTexture, NULL,
+						&rectGambleLeftText);
+				SDL_RenderCopy(rendererPtr, gambleLeftDigitTexture, NULL,
+						&rectGambleLeftDigit);
+			}
+
+			//MOUSE MOTION Black Button
+			if ((xZ >= rectBlackButton.x) && (xZ <= 700)
+					&& (yZ >= rectBlackButton.y) && (yZ <= 450)) {
+				SDL_RenderCopy(rendererPtr, Bonus_Game.GetBackgroundTexture(),
+						&rectBackground,
+						NULL);
+
+				SDL_RenderCopy(rendererPtr, Bonus_Game.GetRedButtonTexture1(),
+				NULL, &rectRedButton);
+
+				SDL_RenderCopy(rendererPtr, Bonus_Game.GetBlackButtonTexture2(),
+				NULL, &rectBlackButton);
+
+				//
+				SDL_RenderCopy(rendererPtr,
+						Bonus_Game.GetFaceDownCardTexture1(),
+						NULL, &rectFaceDownCard1);
+
+				SDL_RenderCopy(rendererPtr,
+						Bonus_Game.GetFaceDownCardTexture2(),
+						NULL, &rectFaceDownCard2);
+
+				SDL_RenderCopy(rendererPtr, Bonus_Game.GetChooseCardTexture(),
+				NULL, &rectChooseCard);
+
+				//club, diamond, heart, spade pictures
+				SDL_RenderCopy(rendererPtr, Bonus_Game.GetClubTexture(),
+				NULL, &rectClub);
+				SDL_RenderCopy(rendererPtr, Bonus_Game.GetDiamondTexture(),
+				NULL, &rectDiamond);
+				SDL_RenderCopy(rendererPtr, Bonus_Game.GetHeartTexture(),
+				NULL, &rectHeart);
+				SDL_RenderCopy(rendererPtr, Bonus_Game.GetSpadeTexture(),
+				NULL, &rectSpade);
+
+				//all texts
+				SDL_RenderCopy(rendererPtr, gambleAmountTexture,
+				NULL, &rectGambleAmountText);
+				SDL_RenderCopy(rendererPtr, gambleAmountDigitTexture,
+				NULL, &rectGambleAmountDigit);
+				SDL_RenderCopy(rendererPtr, gambleToWinTexture,
+				NULL, &rectGambleToWinText);
+				SDL_RenderCopy(rendererPtr, gambleToWinDigitTexture,
+				NULL, &rectGambleToWinDigit);
+				SDL_RenderCopy(rendererPtr, gambleLeftTexture, NULL,
+						&rectGambleLeftText);
+				SDL_RenderCopy(rendererPtr, gambleLeftDigitTexture,
+				NULL, &rectGambleLeftDigit);
+			}
+			//SDL_RenderPresent(rendererPtr);
+		}
+		//********************************
+
+		//MOUSEBUTTONDOWN - Red Button is clicked
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
 
-			if ((redButtonIsClicked == true) && (xZ >= rectRedButton.x)
-					&& (xZ <= 230) && (yZ >= rectRedButton.y) && (yZ <= 450)) {
+			if ((xZ >= rectRedButton.x) && (xZ <= 230)
+					&& (yZ >= rectRedButton.y) && (yZ <= 450)) {
 
 				SDL_RenderCopy(rendererPtr, Bonus_Game.GetBackgroundTexture(),
 						&rectBackground,
 						NULL);
 
 				SDL_RenderCopy(rendererPtr, Bonus_Game.GetRedButtonTexture3(),
-				NULL, &rectRedButtonClick);
+				NULL, &rectRedButtonClick);  //*********
 
 				SDL_RenderCopy(rendererPtr, Bonus_Game.GetBlackButtonTexture1(),
 				NULL, &rectBlackButton);
@@ -569,6 +719,9 @@ void Bonus_Game::PlayBonusGame() {
 
 				SDL_RenderCopy(rendererPtr, Bonus_Game.GetFaceUpCardTexture(),
 				NULL, &rectFaceUpCard);
+
+				SDL_RenderCopy(rendererPtr, Bonus_Game.GetChooseCardTexture(),
+				NULL, &rectChooseCard);
 
 				//club, diamond, heart, spade
 				SDL_RenderCopy(rendererPtr, Bonus_Game.GetClubTexture(),
@@ -594,57 +747,69 @@ void Bonus_Game::PlayBonusGame() {
 				SDL_RenderCopy(rendererPtr, gambleLeftDigitTexture,
 				NULL, &rectGambleLeftDigit);
 			}
-			SDL_RenderPresent(rendererPtr);
-		}
 
-		//Black Button is clicked
-		if (e.type == SDL_MOUSEBUTTONDOWN) {
-			if ((blackButtonIsClicked == true) && (xZ >= rectBlackButton.x)
-					&& (xZ <= 700) && (yZ >= rectBlackButton.y)
-					&& (yZ <= 450)) {
+			//MOUSEBUTTONDOWN - Black Button is clicked
+			if (e.type == SDL_MOUSEBUTTONDOWN) {
+				if ((xZ >= rectBlackButton.x) && (xZ <= 700)
+						&& (yZ >= rectBlackButton.y) && (yZ <= 450)) {
 
-				SDL_RenderCopy(rendererPtr, Bonus_Game.GetBackgroundTexture(),
-						&rectBackground,
-						NULL);
+					SDL_RenderCopy(rendererPtr,
+							Bonus_Game.GetBackgroundTexture(), &rectBackground,
+							NULL);
 
-				SDL_RenderCopy(rendererPtr, Bonus_Game.GetRedButtonTexture1(),
-				NULL, &rectRedButton);
+					SDL_RenderCopy(rendererPtr,
+							Bonus_Game.GetRedButtonTexture1(),
+							NULL, &rectRedButton);
 
-				SDL_RenderCopy(rendererPtr, Bonus_Game.GetBlackButtonTexture2(),
-				NULL, &rectBlackButton);
+					SDL_RenderCopy(rendererPtr,
+							Bonus_Game.GetBlackButtonTexture3(),
+							NULL, &rectBlackButtonClick);  //*********
 
 				SDL_RenderCopy(rendererPtr, Bonus_Game.GetFaceUpCardTexture(),
 				NULL, &rectFaceUpCard);
 
-				//club, diamond, heart, spade
-				SDL_RenderCopy(rendererPtr, Bonus_Game.GetClubTexture(),
-				NULL, &rectClub);
-				SDL_RenderCopy(rendererPtr, Bonus_Game.GetDiamondTexture(),
-				NULL, &rectDiamond);
-				SDL_RenderCopy(rendererPtr, Bonus_Game.GetHeartTexture(),
-				NULL, &rectHeart);
-				SDL_RenderCopy(rendererPtr, Bonus_Game.GetSpadeTexture(),
-				NULL, &rectSpade);
+					//Effect to the Face Down Card Texture 1
 
-				SDL_RenderCopy(rendererPtr, gambleAmountTexture,
-				NULL, &rectGambleAmountText);
-				SDL_RenderCopy(rendererPtr, gambleAmountDigitTexture,
-				NULL, &rectGambleAmountDigit);
-				SDL_RenderCopy(rendererPtr, gambleToWinTexture,
-				NULL, &rectGambleToWinText);
-				SDL_RenderCopy(rendererPtr, gambleToWinDigitTexture,
-				NULL, &rectGambleToWinDigit);
-				SDL_RenderCopy(rendererPtr, gambleLeftTexture,
-				NULL, &rectGambleLeftText);
-				SDL_RenderCopy(rendererPtr, gambleLeftDigitTexture,
-				NULL, &rectGambleLeftDigit);
+					//while(){
+
+
+					SDL_RenderCopy(rendererPtr,
+							Bonus_Game.GetChooseCardTexture(),
+							NULL, &rectChooseCard);
+
+					//club, diamond, heart, spade
+					SDL_RenderCopy(rendererPtr, Bonus_Game.GetClubTexture(),
+					NULL, &rectClub);
+					SDL_RenderCopy(rendererPtr, Bonus_Game.GetDiamondTexture(),
+					NULL, &rectDiamond);
+					SDL_RenderCopy(rendererPtr, Bonus_Game.GetHeartTexture(),
+					NULL, &rectHeart);
+					SDL_RenderCopy(rendererPtr, Bonus_Game.GetSpadeTexture(),
+					NULL, &rectSpade);
+
+					SDL_RenderCopy(rendererPtr, gambleAmountTexture,
+					NULL, &rectGambleAmountText);
+					SDL_RenderCopy(rendererPtr, gambleAmountDigitTexture,
+					NULL, &rectGambleAmountDigit);
+					SDL_RenderCopy(rendererPtr, gambleToWinTexture,
+					NULL, &rectGambleToWinText);
+					SDL_RenderCopy(rendererPtr, gambleToWinDigitTexture,
+					NULL, &rectGambleToWinDigit);
+					SDL_RenderCopy(rendererPtr, gambleLeftTexture,
+					NULL, &rectGambleLeftText);
+					SDL_RenderCopy(rendererPtr, gambleLeftDigitTexture,
+					NULL, &rectGambleLeftDigit);
+
+				}
+				//SDL_RenderPresent(rendererPtr);
+
 			}
-			//SDL_RenderPresent(rendererPtr);
+
 		}
+
 //Update screen
 		SDL_RenderPresent(rendererPtr);
 	}
-
 }
 
 void Bonus_Game::QuitBonusGame() {

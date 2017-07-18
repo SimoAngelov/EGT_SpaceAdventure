@@ -46,12 +46,26 @@ public:
 	void SetBackgroundTexture(SDL_Texture* texture);
 	void SetRedButtonTexture1(SDL_Texture* texture);
 	void SetRedButtonTexture2(SDL_Texture* texture);
-	void SetRedButtonTexture3(SDL_Texture* texture);//******
+	void SetRedButtonTexture3(SDL_Texture* texture);//*****
 	void SetBlackButtonTexture1(SDL_Texture* texture);
 	void SetBlackButtonTexture2(SDL_Texture* texture);
+	void SetBlackButtonTexture3(SDL_Texture* texture);//*****
 	void SetFaceDownCardTexture1(SDL_Texture* texture);
 	void SetFaceDownCardTexture2(SDL_Texture* texture);
 	void SetFaceUpCardTexture(SDL_Texture* texture);
+	void SetRedCardTexture1(SDL_Texture* texture);
+	void SetRedCardTexture2(SDL_Texture* texture);
+	void SetRedCardTexture3(SDL_Texture* texture);
+	void SetRedCardTexture4(SDL_Texture* texture);
+	void SetRedCardTexture5(SDL_Texture* texture);
+	void SetRedCardTexture6(SDL_Texture* texture);
+	void SetBlackCardTexture7(SDL_Texture* texture);
+	void SetBlackCardTexture8(SDL_Texture* texture);
+	void SetBlackCardTexture9(SDL_Texture* texture);
+	void SetBlackCardTexture10(SDL_Texture* texture);
+	void SetBlackCardTexture11(SDL_Texture* texture);
+	void SetBlackCardTexture12(SDL_Texture* texture);
+	void SetChooseCardTexture(SDL_Texture* texture);
 
 	void SetGambleAmountTexture(SDL_Texture* texture);
 	void SetGambleAmountDigitTexture(SDL_Texture* texture);
@@ -72,9 +86,23 @@ public:
 	SDL_Texture* GetRedButtonTexture3();//******
 	SDL_Texture* GetBlackButtonTexture1();
 	SDL_Texture* GetBlackButtonTexture2();
+	SDL_Texture* GetBlackButtonTexture3();//******
 	SDL_Texture* GetFaceDownCardTexture1();
 	SDL_Texture* GetFaceDownCardTexture2();
 	SDL_Texture* GetFaceUpCardTexture();
+	SDL_Texture* GetRedCardTexture1();
+	SDL_Texture* GetRedCardTexture2();
+	SDL_Texture* GetRedCardTexture3();
+	SDL_Texture* GetRedCardTexture4();
+	SDL_Texture* GetRedCardTexture5();
+	SDL_Texture* GetRedCardTexture6();
+	SDL_Texture* GetBlackCardTexture7();
+	SDL_Texture* GetBlackCardTexture8();
+	SDL_Texture* GetBlackCardTexture9();
+	SDL_Texture* GetBlackCardTexture10();
+	SDL_Texture* GetBlackCardTexture11();
+	SDL_Texture* GetBlackCardTexture12();
+	SDL_Texture* GetChooseCardTexture();
 
 	SDL_Texture* GetGambleAmountTexture();
 	SDL_Texture* GetGambleAmountDigitTexture();
@@ -137,9 +165,23 @@ private:
 	SDL_Texture* redButtonTexture3 = NULL;//*****
 	SDL_Texture* blackButtonTexture1 = NULL;
 	SDL_Texture* blackButtonTexture2 = NULL;
+	SDL_Texture* blackButtonTexture3 = NULL;//*****
 	SDL_Texture* faceDownCardTexture1 = NULL;
 	SDL_Texture* faceDownCardTexture2 = NULL;
 	SDL_Texture* faceUpCardTexture = NULL;
+	SDL_Texture* redCardTexture1 = NULL;
+	SDL_Texture* redCardTexture2 = NULL;
+	SDL_Texture* redCardTexture3 = NULL;
+	SDL_Texture* redCardTexture4 = NULL;
+	SDL_Texture* redCardTexture5 = NULL;
+	SDL_Texture* redCardTexture6 = NULL;
+	SDL_Texture* blackCardTexture7 = NULL;
+	SDL_Texture* blackCardTexture8 = NULL;
+	SDL_Texture* blackCardTexture9 = NULL;
+	SDL_Texture* blackCardTexture10 = NULL;
+	SDL_Texture* blackCardTexture11 = NULL;
+	SDL_Texture* blackCardTexture12 = NULL;
+	SDL_Texture* chooseCardTexture = NULL;
 
 	//club, diamond, heart, spade
 	SDL_Texture* clubTexture = NULL;
@@ -165,9 +207,9 @@ private:
 	//The music that will be played
 	Mix_Music* gMusic = NULL;
 	//The sound effects that will be used
-//	Mix_Chunck* g = NULL;
-//	Mix_Chunck* g = NULL;
-//	Mix_Chunck* g = NULL;
+//	Mix_Sound1* g = NULL;
+//	Mix_Soud2* g = NULL;
+//	Mix_Sound3* g = NULL;
 
 	int m_nGambleAmount = 0;
 	int m_nGambleToWin = 0;
