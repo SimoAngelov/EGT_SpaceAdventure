@@ -39,6 +39,20 @@ GameController::~GameController()
 // TODO Auto-generated destructor stub
 }
 
+
+//start new game
+void GameController::NewGame()
+{
+	this->Spin();
+}
+
+//load old game
+void GameController::LoadGame()
+{
+	GameRecovery::LoadGameModel(&(this->m_baseGame));
+	this->InitCurrentPaylines();
+}
+
 //Increase the credits
 void GameController::IncreaseCredits()
 {
@@ -97,19 +111,12 @@ void GameController::Spin()
 		this->InitCurrentPaylines();
 		//Calculate the winnings from the spin
 		this->SetTotalWin();
-		try{
-			GameRecovery::UpdateGameModel(&(this->m_baseGame));
-		} catch (std::exception& e)
-		{
-			cerr << "GAMECONTROLLER EXCEPTION SAVING MODEL!!!!!" << endl;
-			cerr << e.what() << '\n';
-		}
-
+		GameRecovery::UpdateGameModel(&(this->m_baseGame));
 		//test cout
 		cout << "GameController::VALID SPIN" << endl;
 	} // end if
-	//GameRecovery::UpdateNumberOfPaylines(12);
-	//
+	  //GameRecovery::UpdateNumberOfPaylines(12);
+	  //
 }
 
 //intialize the reels for the currentGame
@@ -117,12 +124,11 @@ void GameController::InitCurrentReels()
 {
 	this->InitRandomReels();
 //	this->SetSpecialFigure();
+	this->StartBonusGame();
+
 
 //	this->SetUniqueFigures();
-
 //	this->SetTheSameFigures();
-
-	this->StartBonusGame();
 
 }
 
@@ -131,15 +137,19 @@ void GameController::InitRandomReels()
 {
 	//seed a random sequence of numbers
 	srand(time(0));
-//traverse each reel
-	for (int iCol = 0; iCol < GAME_REELS; iCol++)
-	{
+
 //traverse each element of the reel
-		for (int iRow = 0; iRow < GAME_ROWS; iRow++)
+	for (int iRow = 0; iRow < GAME_ROWS; iRow++)
+	{
+		//traverse each reel
+		for (int iReel = 0; iReel < GAME_REELS; iReel++)
 		{
 			//choose a figure between 1 and 8
-			Figures randomFigure = static_cast<Figures>(rand() % eFigure9);
-			this->m_baseGame.SetReelElement(randomFigure, iRow, iCol);
+			Figures randomFigure = static_cast<Figures>(rand() % eFigure8);
+			this->m_baseGame.SetReelElement(randomFigure, iRow, iReel);
+			//test cout
+			//cout << "Reel: " << iReel << "\tRow: " << iRow << "\tElement"
+			//		<< randomFigure << endl;
 		} //end row for
 	} // end reel for
 }
@@ -149,26 +159,27 @@ void GameController::SetSpecialFigure()
 {
 	//seed a random sequence of numbers
 	srand(time(0));
-//traverse each reel
-	for (int iCol = 0; iCol < GAME_REELS; iCol++)
+//traverse each row
+	for (int iRow = 0; iRow < GAME_ROWS; iRow++)
 	{
-//traverse each element of the reel
-		for (int iRow = 0; iRow < GAME_ROWS; iRow++)
+		//traverse the first, second etc element of each reel
+		for (int iReel = 0; iReel < GAME_REELS; iReel++)
 		{
+
 			Figures randomFigure = static_cast<Figures>(rand() % eNUM_FIGURES);
 			if (randomFigure == eFigure9)
 			{
 				//if the current figure is 9 aka special, break the inner loop
 				//GameModel::m_iGameReels[iRow][iCol] = randomFigure;
-				this->m_baseGame.SetReelElement(randomFigure, iRow, iCol);
+				this->m_baseGame.SetReelElement(randomFigure, iReel, iRow);
 				//test cout
-				cout << "GameController::bonus counter ="
-						<< GameController::m_iBonusCounter << endl;
+			//	cout << "GameController::bonus counter ="
+			//			<< GameController::m_iBonusCounter << endl;
 				GameController::m_iBonusCounter++;
 				break;
 			} //end if
-		} //end row for
-	} //end reel for
+		} //end reel for
+	} //end row for
 }
 
 //hardcode a special figure at each reel to test the bonus game
@@ -177,14 +188,16 @@ void GameController::StartBonusGame()
 	//seed a random sequence of numbers
 	srand(time(0));
 //traverse each reel
-	for (int iCol = 0; iCol < GAME_REELS; iCol++)
+	for (int iReel = 0; iReel < GAME_REELS; iReel++)
 	{
-		int iRandomRow= rand() % 3;
+		int iRandomRow = rand() % 3;
 		Figures specialFigure = eFigure9;
-		this->m_baseGame.SetReelElement(specialFigure, iRandomRow, iCol);
-		//test cout
-		cout << "GameController::bonus counter ="
-				<< GameController::m_iBonusCounter << endl;
+		this->m_baseGame.SetReelElement(specialFigure, iRandomRow, iReel);
+		//cout << "Reel: " << iReel << "\tRow: " << iRandomRow << "\tElement"
+		//		<< specialFigure << endl;
+		//tes//coutut
+		//cout << "GameController::bonus counter ="
+		//		<< GameController::m_iBonusCounter << endl;
 		GameController::m_iBonusCounter++;
 	} //end reel for
 }
@@ -277,42 +290,53 @@ void GameController::InitCurrentPaylines()
 //set the bet per line and number of lines to their maximum values
 void GameController::MaxBet()
 {
+	//if the available credits are above the max bet
 	if (this->GetCredits() >= MAX_TOTAL_BET)
 	{
-		this->SetBetPerPayline(MAX_BET_STEP - 1);
+		//update the betting step
+		GameController::m_iBetStep = MAX_BET_STEP - 1;
+		//set the bet per line to max
+		this->SetBetPerPayline(GameController::m_iBetStep);
+		//set the number of paylines to max
 		this->SetNumberOfPaylines(MAX_PAYLINES);
-	}
+	} //end if
 }
 
 //increase the number of paylines
 void GameController::IncreasePaylines()
 {
+	//take the current number of paylines
 	int iNumPayLines = this->GetNumberOfLines();
 
 //check if the number of paylines doesn't exceed the max value
 	if (iNumPayLines < MAX_PAYLINES)
 	{
+		//increment the paylines
 		int iLineIncrement = iNumPayLines + 1;
 //check if the payLines don't cause the total bet to exceed the
 //current amount of credits
 		if (!(this->PaylinesExceedCredits(iLineIncrement)))
 		{
-			this->SetNumberOfPaylines(++iNumPayLines);
+			this->SetNumberOfPaylines(iLineIncrement);
+			//update the total bet
 			this->SetTotalBet();
-		}
-
-	}
+		} // end if total bet doesn't exceed credits
+	} // end if paylines don't exceed max value
 }
 
 //decrease the number of paylines
 void GameController::DecreasePaylines()
 {
+	//take the current number of paylines
 	int iNumPayLines = this->GetNumberOfLines();
+	//check if they are above the minimum
 	if (iNumPayLines > MIN_PAYLINES)
 	{
+		//decrement the number of paylines
 		this->SetNumberOfPaylines(--iNumPayLines);
+		//update the total bet
 		this->SetTotalBet();
-	}
+	} //end if
 }
 
 //set the number of paylines for the current game
@@ -324,10 +348,15 @@ void GameController::SetNumberOfPaylines(int iNumberOfPaylines)
 //check if the payline increase exceeds the current amount of credits
 bool GameController::PaylinesExceedCredits(int iNextStep)
 {
+	//take the available credits
 	int iAvailableCredits = this->m_baseGame.GetICredits();
+	//update the number of paylines with the next step
 	int iNewNumLines = iNextStep;
+	//take the current bet per line
 	int iCurrBet = this->m_baseGame.GetIBetPerLine();
+	//update the total bet
 	int iNewBet = iNewNumLines * iCurrBet;
+	//check if the total bet exceeds the credits
 	return iNewBet > iAvailableCredits;
 }
 
@@ -336,7 +365,7 @@ void GameController::IncreaseBet()
 {
 	int iCurrentStep = GameController::m_iBetStep;
 //check if the betting step doesn't exceed the max value
-	if (iCurrentStep <= MAX_BET_STEP)
+	if (iCurrentStep <= MAX_BET_STEP - 1)
 	{
 		int iNextStep = iCurrentStep + 1;
 //check if the incremented step doesn't cause
@@ -344,8 +373,11 @@ void GameController::IncreaseBet()
 		if (!(this->BetExceedsCredits(iNextStep)))
 		{
 			GameController::m_iBetStep++;
+			//test //cout
+			//cout << "\t\t\t\tIncreasing Bet To " << GameController::m_iBetStep
+					//<< endl;
 			this->SetBetPerPayline(GameController::m_iBetStep);
-			this->SetTotalBet();
+			//cout << "\t\t\t\tBetPerLine is " << this->GetBetPerLine() << endl;
 		}
 	}
 }
@@ -356,7 +388,11 @@ void GameController::DecreaseBet()
 	if (GameController::m_iBetStep > 0)
 	{
 		GameController::m_iBetStep--;
+		//test cout
+		//cout << "\t\t\t\tDecreasingBet To " << GameController::m_iBetStep
+		//		<< endl;
 		this->SetBetPerPayline(GameController::m_iBetStep);
+		//cout << "\t\t\t\tBetPerLine is " << this->GetBetPerLine() << endl;
 		this->SetTotalBet();
 	}
 
@@ -365,17 +401,24 @@ void GameController::DecreaseBet()
 //set the bet per line, depending on the number of steps
 void GameController::SetBetPerPayline(int iStep)
 {
+	//take the bet from the vector
 	int iBet = this->m_vecBetPerStep[iStep];
+	//update the bet per line in the model
 	this->m_baseGame.SetIBetPerLine(iBet);
 }
 
 //check if the bet increase exceeds the current amount of credits
 bool GameController::BetExceedsCredits(int iNextStep)
 {
+	//take the current credits
 	int iAvailableCredits = this->m_baseGame.GetICredits();
+	//take the current number of paylines
 	int iCurrNumLines = this->m_baseGame.GetINumberOfLines();
+	//new bet per line
 	int iNewBet = this->m_vecBetPerStep[iNextStep];
+	//new total bet
 	int iNewTotalBet = iCurrNumLines * iNewBet;
+	//check if the new total bet doesn't exceed the current credits
 	return iNewTotalBet > iAvailableCredits;
 }
 
@@ -415,10 +458,10 @@ void GameController::SetTotalWin()
 	//TODO save the win and credits to XML
 
 //TODO bonus game
-	if(this->IsBonusGame())
+	if (this->IsBonusGame())
 	{
 		//test cout
-		cout << "GameController:: This is Bonus Game" << endl;
+		//cout << "GameController:: This is Bonus Game" << endl;
 		//start the bonus game by passing the win and credits as arguments
 		BonusGame::InitBonusGame(&this->m_baseGame);
 	}
@@ -433,9 +476,9 @@ void GameController::WinFromPaylines()
 		Payline currentPayline = this->m_baseGame.GetVecPaylines()[i];
 		winFromPaylines += this->WinFromSinglePayline(currentPayline);
 		//test cout
-		if (this->WinFromSinglePayline(currentPayline) > 0)
-			cout << "GameController::Win for line" << i + 1 << ": "
-					<< this->WinFromSinglePayline(currentPayline) << endl;
+		//if (this->WinFromSinglePayline(currentPayline) > 0)
+			//cout << "GameController::Win for line" << i + 1 << ": "
+			//		<< this->WinFromSinglePayline(currentPayline) << endl;
 	}
 	int currentWinnings = this->GetWin();
 	int newWinnings = currentWinnings + winFromPaylines;
@@ -521,7 +564,7 @@ void GameController::AddWinToCredits()
 	if (this->GetWin() > 0)
 	{
 		//test cout
-		cout << "GameController::THERE IS A WIN" << endl;
+		//cout << "GameController::THERE IS A WIN" << endl;
 		//add the win to the credits
 		int iCurrCredits = this->GetCredits();
 		int iCurrWin = this->GetWin();
@@ -529,7 +572,6 @@ void GameController::AddWinToCredits()
 		this->m_baseGame.SetICredits(iNewCredits);
 	}
 }
-
 
 //check if bonus game. if yes - initialize it
 bool GameController::IsBonusGame()
@@ -588,13 +630,20 @@ void GameController::PrintInfo() const
 void GameController::PrintReels() const
 {
 	this->m_baseGame.PrintReels();
-//	for (int iRow = 0; iRow < GAME_ROWS; iRow++)
+	cout << endl;
+	//cout << "GameController::Print..." << endl;
+
+//	for (int iCol = 0; iCol < GAME_REELS; iCol++)
 //	{
-//		for (int iCol = 0; iCol < GAME_REELS; iCol++)
+		//cout << "Reel: " << iCol << endl;
+//		for (int iRow = 0; iRow < GAME_ROWS; iRow++)
 //		{
-//			//cout << GameModel::m_iGameReels[iRow][iCol] << "\t";
-//			cout << this->m_baseGame.GetMatrixGameReels()[iRow][iCol] << "\t";
+
+			//cout << "Element " << iRow << "\t"
+			//		<< this->m_baseGame.GetMatrixGameReels()[iRow][iCol]
+			//		<< endl;
 //		}
+//		cout << "</Reel" << iCol << endl;
 //		cout << endl;
 //	}
 }

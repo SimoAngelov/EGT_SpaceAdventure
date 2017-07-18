@@ -25,7 +25,9 @@ public:
 	static void TestMaxBet();
 	static void TestSpin();
 	static void PrintInfo();
-	void TestGame();
+	static void TestNewGame();
+	static void TestLoadGame();
+	static void InitTest();
 };
 
 #endif /* TESTGAMECONTROLLER_H_ */

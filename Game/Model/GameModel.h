@@ -26,6 +26,7 @@ public:
 	void InitDefaultReels();
 	//getters and setteres
 	void SetReelElement(const Figures&, int, int);
+	void SetMatrixGameReels(const vector<vector<Figures> >&);
 	const Figures GetReelElement(int, int) const;
 	static void InitVecPaylines();
 	virtual ~GameModel();
@@ -44,6 +45,7 @@ public:
 	vector<Payline>& GetVecPaylines() const;
 	//print
 	void PrintReels() const;
+
 
 };
 

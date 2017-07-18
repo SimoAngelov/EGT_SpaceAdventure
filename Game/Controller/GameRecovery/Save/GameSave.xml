@@ -1,216 +1,35 @@
 <?xml version="1.0"?>
 <Game>
-	<View Value="343" />
+	<View Value="1" />
 	<Volume Value="1" />
 	<Reels>
-		<Reel Index="0">
-			<Figure Index="0" Value="-1" />
-			<Figure Index="1" Value="-1" />
-			<Figure Index="2" Value="-1" />
-		</Reel>
-		<Reel Index="1">
-			<Figure Index="0" Value="-1" />
-			<Figure Index="1" Value="-1" />
-			<Figure Index="2" Value="-1" />
-		</Reel>
-		<Reel Index="2">
-			<Figure Index="0" Value="-1" />
-			<Figure Index="1" Value="-1" />
-			<Figure Index="2" Value="-1" />
-		</Reel>
-		<Reel Index="3">
-			<Figure Index="0" Value="-1" />
-			<Figure Index="1" Value="-1" />
-			<Figure Index="2" Value="-1" />
-		</Reel>
-		<Reel Index="4">
-			<Figure Index="0" Value="-1" />
-			<Figure Index="1" Value="-1" />
-			<Figure Index="2" Value="-1" />
-		</Reel>
+		<Row Index="0">
+			<Figure Index="0" Value="6" />
+			<Figure Index="1" Value="8" />
+			<Figure Index="2" Value="0" />
+			<Figure Index="3" Value="0" />
+			<Figure Index="4" Value="0" />
+		</Row>
+		<Row Index="1">
+			<Figure Index="0" Value="6" />
+			<Figure Index="1" Value="4" />
+			<Figure Index="2" Value="8" />
+			<Figure Index="3" Value="8" />
+			<Figure Index="4" Value="3" />
+		</Row>
+		<Row Index="2">
+			<Figure Index="0" Value="8" />
+			<Figure Index="1" Value="5" />
+			<Figure Index="2" Value="5" />
+			<Figure Index="3" Value="4" />
+			<Figure Index="4" Value="8" />
+		</Row>
 	</Reels>
-	<Paylines>
-		<Payline Index="0">
-			<Figure Index="0" Value="3" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="3" />
-			<Figure Index="3" Value="8" />
-			<Figure Index="4" Value="3" />
-		</Payline>
-		<Payline Index="1">
-			<Figure Index="0" Value="8" />
-			<Figure Index="1" Value="8" />
-			<Figure Index="2" Value="3" />
-			<Figure Index="3" Value="0" />
-			<Figure Index="4" Value="8" />
-		</Payline>
-		<Payline Index="2">
-			<Figure Index="0" Value="2" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="8" />
-			<Figure Index="3" Value="3" />
-			<Figure Index="4" Value="7" />
-		</Payline>
-		<Payline Index="3">
-			<Figure Index="0" Value="8" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="8" />
-			<Figure Index="3" Value="8" />
-			<Figure Index="4" Value="8" />
-		</Payline>
-		<Payline Index="4">
-			<Figure Index="0" Value="2" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="3" />
-			<Figure Index="3" Value="8" />
-			<Figure Index="4" Value="7" />
-		</Payline>
-		<Payline Index="5">
-			<Figure Index="0" Value="3" />
-			<Figure Index="1" Value="8" />
-			<Figure Index="2" Value="3" />
-			<Figure Index="3" Value="0" />
-			<Figure Index="4" Value="8" />
-		</Payline>
-		<Payline Index="6">
-			<Figure Index="0" Value="2" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="3" />
-			<Figure Index="3" Value="3" />
-			<Figure Index="4" Value="7" />
-		</Payline>
-		<Payline Index="7">
-			<Figure Index="0" Value="3" />
-			<Figure Index="1" Value="8" />
-			<Figure Index="2" Value="3" />
-			<Figure Index="3" Value="0" />
-			<Figure Index="4" Value="3" />
-		</Payline>
-		<Payline Index="8">
-			<Figure Index="0" Value="3" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="8" />
-			<Figure Index="3" Value="3" />
-			<Figure Index="4" Value="3" />
-		</Payline>
-		<Payline Index="9">
-			<Figure Index="0" Value="3" />
-			<Figure Index="1" Value="8" />
-			<Figure Index="2" Value="3" />
-			<Figure Index="3" Value="0" />
-			<Figure Index="4" Value="3" />
-		</Payline>
-		<Payline Index="10">
-			<Figure Index="0" Value="3" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="3" />
-			<Figure Index="3" Value="3" />
-			<Figure Index="4" Value="3" />
-		</Payline>
-		<Payline Index="11">
-			<Figure Index="0" Value="8" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="3" />
-			<Figure Index="3" Value="8" />
-			<Figure Index="4" Value="8" />
-		</Payline>
-		<Payline Index="12">
-			<Figure Index="0" Value="2" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="8" />
-			<Figure Index="3" Value="8" />
-			<Figure Index="4" Value="7" />
-		</Payline>
-		<Payline Index="13">
-			<Figure Index="0" Value="3" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="3" />
-			<Figure Index="3" Value="8" />
-			<Figure Index="4" Value="3" />
-		</Payline>
-		<Payline Index="14">
-			<Figure Index="0" Value="3" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="8" />
-			<Figure Index="3" Value="8" />
-			<Figure Index="4" Value="3" />
-		</Payline>
-		<Payline Index="15">
-			<Figure Index="0" Value="8" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="3" />
-			<Figure Index="3" Value="8" />
-			<Figure Index="4" Value="8" />
-		</Payline>
-		<Payline Index="16">
-			<Figure Index="0" Value="2" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="3" />
-			<Figure Index="3" Value="8" />
-			<Figure Index="4" Value="7" />
-		</Payline>
-		<Payline Index="17">
-			<Figure Index="0" Value="8" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="8" />
-			<Figure Index="3" Value="3" />
-			<Figure Index="4" Value="7" />
-		</Payline>
-		<Payline Index="18">
-			<Figure Index="0" Value="2" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="3" />
-			<Figure Index="3" Value="0" />
-			<Figure Index="4" Value="8" />
-		</Payline>
-		<Payline Index="19">
-			<Figure Index="0" Value="8" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="3" />
-			<Figure Index="3" Value="3" />
-			<Figure Index="4" Value="8" />
-		</Payline>
-		<Payline Index="20">
-			<Figure Index="0" Value="2" />
-			<Figure Index="1" Value="8" />
-			<Figure Index="2" Value="8" />
-			<Figure Index="3" Value="0" />
-			<Figure Index="4" Value="7" />
-		</Payline>
-		<Payline Index="21">
-			<Figure Index="0" Value="3" />
-			<Figure Index="1" Value="8" />
-			<Figure Index="2" Value="8" />
-			<Figure Index="3" Value="0" />
-			<Figure Index="4" Value="3" />
-		</Payline>
-		<Payline Index="22">
-			<Figure Index="0" Value="3" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="3" />
-			<Figure Index="3" Value="3" />
-			<Figure Index="4" Value="3" />
-		</Payline>
-		<Payline Index="23">
-			<Figure Index="0" Value="8" />
-			<Figure Index="1" Value="8" />
-			<Figure Index="2" Value="3" />
-			<Figure Index="3" Value="3" />
-			<Figure Index="4" Value="7" />
-		</Payline>
-		<Payline Index="24">
-			<Figure Index="0" Value="2" />
-			<Figure Index="1" Value="3" />
-			<Figure Index="2" Value="3" />
-			<Figure Index="3" Value="0" />
-			<Figure Index="4" Value="8" />
-		</Payline>
-	</Paylines>
 	<Number_Of_Paylines Value="25" />
 	<Bet_Per_Line Value="2000" />
 	<Total_Bet Value="50000" />
-	<Win Value="3900000" />
-	<Credits Value="3970000" />
+	<Win Value="660000" />
+	<Credits Value="680000" />
 	<Bonus_Game>
 		<Game_Result Value="-1" />
 		<Player_Choice Value="-1" />

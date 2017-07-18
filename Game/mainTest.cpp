@@ -15,10 +15,9 @@
 using namespace std;
 
 int main() {
-	TestGameController testGame;
-	testGame.TestGame();
-////	GameRecovery ob;
-////	ob.CreateBlankSave();
-//    TestRecovery::Test();
+ //   TestRecovery::Test();
+//	TestGameController testGame;
+//	testGame.TestGame();
+	TestGameController::InitTest();
 	return 0;
 }

@@ -64,6 +64,10 @@ public:
 	GameController();
 	virtual ~GameController();
 
+	//start new game
+	void NewGame();
+	//load old game
+	void LoadGame();
 	//increase the credits
 	void IncreaseCredits();
 	//decrease the credits

@@ -21,24 +21,25 @@ GameModel::GameModel(int iNumberOfLines, int iBetPerLine, int iWin,
 //initialize the game reels with default values
 void GameModel::InitDefaultReels()
 {
-	//vector to hold the current reel
-	vector<Figures> vecCurrentReel;
+	//vector to hold the current row
+	vector<Figures> vecCurrentRow;
 	//if the vector is not empty, erase its contents
-	if (!vecCurrentReel.empty())
+	if (!vecCurrentRow.empty())
 	{
-		cout << "Vector is not empty" << endl;
-		vecCurrentReel.erase(vecCurrentReel.begin(), vecCurrentReel.end());
+		//cout << "Vector is not empty" << endl;
+		vecCurrentRow.erase(vecCurrentRow.begin(), vecCurrentRow.end());
 	}
 
-	//vector, holding 5 vectors(reels), each holding 3 elements(figures)
-	for (int iCol = 0; iCol < GAME_REELS; iCol++)
-	{
-		for (int iRow = 0; iRow < GAME_ROWS; iRow++)
-		{
+	//vector, holding 3 vectors(rows), each holding 5 elements(figures)
+	//a single column represent a reel
 
-			vecCurrentReel.push_back(eInvalidFigure);
+	for (int iRow = 0; iRow < GAME_ROWS; iRow++)
+	{
+		for (int iCol = 0; iCol < GAME_REELS; iCol++)
+		{
+			vecCurrentRow.push_back(eInvalidFigure);
 		}
-		this->m_matrixGameReels.push_back(vecCurrentReel);
+		this->m_matrixGameReels.push_back(vecCurrentRow);
 	}
 }
 
@@ -90,6 +91,15 @@ void GameModel::SetReelElement(const Figures& figure, int iRow, int iCol)
 		this->m_matrixGameReels[iRow][iCol] = figure;
 	}
 }
+
+//set the game reels
+void GameModel::SetMatrixGameReels(
+		const vector<vector<Figures> >& matrixGameReels)
+{
+	m_matrixGameReels = matrixGameReels;
+}
+
+//return the game reels
 const vector<vector<Figures> >& GameModel::GetMatrixGameReels() const
 {
 	return m_matrixGameReels;
@@ -177,7 +187,7 @@ vector<Payline>& GameModel::GetVecPaylines() const
 //print
 void GameModel::PrintReels() const
 {
-	cout << "Printing Get()\n";
+	cout << "Game Reels: \n";
 	for (int iRow = 0; iRow < GAME_ROWS; iRow++)
 	{
 		for (int iCol = 0; iCol < GAME_REELS; iCol++)
@@ -186,5 +196,5 @@ void GameModel::PrintReels() const
 		}
 		cout << endl;
 	}
-	cout << "End Print Get() XO\n\n";
+	//cout << "End Print Get() XO\n\n";
 }

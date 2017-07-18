@@ -11,18 +11,18 @@
 #include "XML/pugixml.hpp"
 #include "../../Globals/Globals.h"
 #include "../../Model/GameModel.h"
+
+
 class GameRecovery
 {
-private:
-	static pugi::xml_node m_rootNode;
 public:
 	GameRecovery();
 	//creates a blank save
 	static void CreateBlankSave();
 	//loads the document
-	static void LoadDoc(pugi::xml_document&);
+	static void LoadDoc(pugi::xml_document*);
 	//updates the document
-	static void UpdateDoc(pugi::xml_document&);
+	static void UpdateDoc(pugi::xml_document*);
 	//update the view
 	static void UpdateView(int);
 	//update the volume
@@ -46,28 +46,38 @@ public:
 	static void UpdateBonusPlayerChoice(const COLOR&);
 	//update the game mode;
 	static void UpdateGameModel(const GameModel*);
+	//load functions
+	static int LoadView();
+	static int LoadVolume();
+	static void LoadReels(GameModel*);
+	static int LoadNumberOfPaylines();
+	static int LoadBetPerPayline();
+	static int LoadTotalBet();
+	static int LoadWin();
+	static int LoadCredits();
+	static void LoadGameModel(GameModel*);
 	virtual ~GameRecovery();
 private:
 	//add view node to root node
-	static void AddViewToRoot();
+	static void AddViewToRoot(pugi::xml_node&);
 	//add volume node to root node
-	static void AddVolumeToRoot();
+	static void AddVolumeToRoot(pugi::xml_node&);
 	//add reels node to root node
-	static void AddReelsToRoot();
+	static void AddReelsToRoot(pugi::xml_node&);
 	//add paylines node to root node
-	static void AddPaylinesToRoot();
+	static void AddPaylinesToRoot(pugi::xml_node&);
 	//add number of paylines node to root node
-	static void AddNumberOfPaylinesToRoot();
+	static void AddNumberOfPaylinesToRoot(pugi::xml_node&);
 	//add bet per line node to root node
-	static void AddBetPerLineToRoot();
+	static void AddBetPerLineToRoot(pugi::xml_node&);
 	//add total bet node to root node
-	static void AddTotalBetToRoot();
+	static void AddTotalBetToRoot(pugi::xml_node&);
 	//add win node to root node
-	static void AddWinToRoot();
+	static void AddWinToRoot(pugi::xml_node&);
 	//add credits node to rood node
-	static void AddCreditsToRoot();
+	static void AddCreditsToRoot(pugi::xml_node&);
 	//add bonus game node to root node
-	static void AddBonusGameToRoot();
+	static void AddBonusGameToRoot(pugi::xml_node&);
 };
 
 #endif /* CONTROLLER_GAMERECOVERY_GAMERECOVERY_H_ */

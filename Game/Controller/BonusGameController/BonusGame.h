@@ -21,7 +21,7 @@ private:
 	static int m_iBet;
 	static int m_iGameWin;
 	static int m_iBonusWin;
-	static bool m_bIsRound[eNUM_ROUNDS];
+	static bool m_bWonRound1;
 	static int m_iRound;
 	static bool m_bQuitBonusGame;
 
@@ -68,6 +68,8 @@ private:
 	static void DoubleUpWins();
 	//update the win and credits
 	static void UpdateWinAndCredits();
+	//set player choice and bonus game result to defaul
+	static void SetDefault();
 };
 
 #endif /* BONUSGAME_H_ */

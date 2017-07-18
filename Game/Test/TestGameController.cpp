@@ -153,7 +153,7 @@ void TestGameController::PrintInfo()
 	m_gameController.PrintInfo();
 }
 
-void TestGameController::TestGame()
+void TestGameController::TestNewGame()
 {
 
 	bool bQuit = false;
@@ -177,5 +177,32 @@ void TestGameController::TestGame()
 			case 6: PrintInfo(); break;
 			default: bQuit = true; break;
 			}
+	}
+}
+
+
+
+void TestGameController::TestLoadGame()
+{
+	cout << "Loading Game..." << endl;
+	m_gameController.LoadGame();
+}
+
+void TestGameController::InitTest()
+{
+	cout << "Welcome to the testing game controller :P" << endl;
+	bool bQuit = false;
+	while(!bQuit)
+	{
+		cout << "1 - New Game" << endl;
+		cout << "2 - Load Game" << endl;
+		int iChoice = 0;
+		cin >> iChoice;
+		switch(iChoice)
+		{
+		case 1: TestNewGame(); break;
+		case 2: TestLoadGame(); break;
+		default: bQuit = true; break;
+		}
 	}
 }

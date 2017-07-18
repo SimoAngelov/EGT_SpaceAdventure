@@ -31,10 +31,8 @@ int BonusGame::m_iGameWin = 0;
 //member field to hold the win from the bonus game
 int BonusGame::m_iBonusWin = 0;
 
-//member field to keep track of the rounds. index[0] corresponds to round 1
-// index[1] corresponds to round2
-bool BonusGame::m_bIsRound[eNUM_ROUNDS] =
-{ true, false };
+//member field to keep track if the player has won round1
+bool BonusGame::m_bWonRound1 = false;
 
 //member field to keep track of the rounds
 int BonusGame::m_iRound = 0;
@@ -57,7 +55,7 @@ bool BonusGame::IsBonusGame(int iBonusCounter)
 void BonusGame::InitBonusGame(GameModel* gameModelPtr)
 {
 	//test cout
-	cout << "BonusGame::InitBonusGame - Initializing bonus game :O" << endl;
+	//cout << "BonusGame::InitBonusGame - Initializing bonus game :O" << endl;
 	//set the game model
 	BonusGame::m_baseGamePtr = gameModelPtr;
 	//store the value of the current game win
@@ -68,9 +66,8 @@ void BonusGame::InitBonusGame(GameModel* gameModelPtr)
 	BonusGame::m_iBet = m_baseGamePtr->GetIWin();
 	//take the credits from the game controller
 	BonusGame::m_iCredits = m_baseGamePtr->GetICredits();
-	//set the bool values from round 1 and round 2 to false
-	BonusGame::m_bIsRound[eNUM_ROUNDS] =
-	{	false};
+	//set the bool values for won round 1 to false
+	BonusGame::m_bWonRound1 = false;
 	//increment the round counter to default
 	BonusGame::m_iRound = 0;
 	//set the quit game value to false
@@ -104,10 +101,10 @@ void BonusGame::UpdateIfWin()
 	//update the game model
 	BonusGame::UpdateWinAndCredits();
 	//test cout
-	cout << "BonusGame::After Win" << endl;
-	cout << "Win: " << BonusGame::m_baseGamePtr->GetIWin();
-	cout << "\nCredits: " << BonusGame::m_baseGamePtr->GetICredits();
-	cout << "\nEND AFTER WIN\n";
+	//cout << "\t\t\t\tBonusGame::After WIN" << endl;
+	//cout << "\t\t\t\tWin: " << BonusGame::m_baseGamePtr->GetIWin();
+	//cout << "\n\t\t\t\tCredits: " << BonusGame::m_baseGamePtr->GetICredits();
+	//cout << "\n\t\t\t\tEND AFTER WIN\n";
 }
 
 //update the member fields in case of a loss
@@ -124,11 +121,11 @@ void BonusGame::UpdateIfLoss()
 	//update the bonus bet for the next round
 	BonusGame::m_iBet = BonusGame::m_iBonusWin;
 	//test cout
-	cout << "BonusGame::After LOSS" << endl;
-	cout << "Win: " << BonusGame::m_baseGamePtr->GetIWin();
-	cout << "\nCredits: " << BonusGame::m_baseGamePtr->GetICredits();
+	//cout << "\t\t\t\tBonusGame::After LOSS" << endl;
+	//cout << "\t\t\t\tWin: " << BonusGame::m_baseGamePtr->GetIWin();
+	//cout << "\n\t\t\t\tCredits: " << BonusGame::m_baseGamePtr->GetICredits();
 
-	cout << "\nEND AFTER LOSS\n";
+	//cout << "\n\t\t\t\tEND AFTER LOSS\n";
 }
 
 void BonusGame::PlayerSelectedBlack()
@@ -156,7 +153,6 @@ bool BonusGame::PlayerWon()
 	return bWinCondition1 && bWinCondition2;
 }
 
-
 //double up the wins from the game controller, or set them to zero
 void BonusGame::DoubleUpWins()
 {
@@ -164,72 +160,99 @@ void BonusGame::DoubleUpWins()
 	BonusGame::m_iRound++;
 	//round 1 condition
 	bool b_RoundOneCondition = BonusGame::m_iRound == eRound1;
-	bool b_RoundTwoCondition = (BonusGame::m_iRound == eRound2) && BonusGame::PlayerWon();
+	bool b_RoundTwoCondition = (BonusGame::m_iRound == eRound2)
+			&& BonusGame::m_bWonRound1;
+//	test cout
+//	cout << "\t\tBonusGame::m_iRound == eRound1:   " << b_RoundOneCondition
+//			<< endl;
+//	cout << "\t\tBonusGame::m_iRound == eRound2 :   "
+//			<< (BonusGame::m_iRound == eRound2) << endl;
+//	cout << "\t\tPlayer WOn round 1 :   "
+//			<< BonusGame::m_bWonRound1 << endl;
+//	cout << "\t\tBonusGame::m_iRound == eRound2 && player won :   "
+//			<< b_RoundTwoCondition << endl;
+//	cout << "\t\tROUND IS " << BonusGame::m_iRound << endl;
+//	test cout
+	//cout << "BonusGame:: PLAYING DOUBLE UP WINS\n";
+
 	//if round 1 or round 2
 	if (b_RoundOneCondition || b_RoundTwoCondition)
 	{
 		//if the bet is valid
 		if (BonusGame::IsValidBet())
 		{
+			//set the bonusGame result
+			BonusGame::SetBonusGameResult();
 			//test cout
-			cout << "BonusGame::IsValidBet" << endl;
-			cout << "Playing Round " << BonusGame::m_iRound << endl;
-			cout << "Credits before taking bonus bet: " <<
-					BonusGame::m_iCredits
-					<< endl;
+			//cout << "BonusGame::IsValidBet" << endl;
+			//cout << "Playing Round " << BonusGame::m_iRound << endl;
+			//cout << "Credits before taking bonus bet: " <<
+//					BonusGame::m_iCredits
+//					<< endl;
 			//take the bet from the credits
 			BonusGame::m_iCredits -= BonusGame::m_iBet;
 			//test cout
-			cout << "Credits after taking bonus bet: " <<
-					BonusGame::m_iCredits
-							<< endl;
+//			cout << "Credits after taking bonus bet: " <<
+//					BonusGame::m_iCredits
+//							<< endl;
 			//if the player won
 			if (BonusGame::PlayerWon())
 			{
 				//test cout
-				cout << "BonusGame::WON ROUND " <<
-						BonusGame::m_iRound << endl;
+				cout << "\t\tBonusGame::WON ROUND " << BonusGame::m_iRound
+						<< endl;
 				//update the win and credits
 				BonusGame::UpdateIfWin();
 			} //end if player won round 1
 			else
 			{
 				//test cout
-				cout << "BonusGame::LOST ROUND " <<
-						BonusGame::m_iRound  << endl;
+				cout << "\t\tBonusGame::LOST ROUND " << BonusGame::m_iRound
+						<< endl;
 				//update the win and credits
 				BonusGame::UpdateIfLoss();
 			} // end if player lost round 1
-		}//end if valid bet
-	}//end if round
+		} //end if valid bet
+//		cout << "\t\tBonusGame::PlayerWon: " << BonusGame::PlayerWon() << endl;
+//		cout << "\t\tPlayer choice: " << BonusGame::m_playerChoice << endl;
+//		cout << "\t\tBonusGame result: " << BonusGame::m_bonusGameResult
+//				<< endl;
+	} //end if round
 }
 
 //play bonus round
 void BonusGame::PlayBonusRound()
 {
 	//test cout
-	cout << "BonusGame::PlayBonusRound = Current Bet: "
-				<< BonusGame::m_iBet << endl;
-	cout << "BonusGame::PlayBonusRound = Current Win: "
-			<< BonusGame::m_iBonusWin << endl;
-	cout << "BonusGame::PlayBonusRound = Current Credits: "
-			<< BonusGame::m_iCredits << endl;
-	//set the bonusGame result
-	BonusGame::SetBonusGameResult();
-	BonusGame::DoubleUpWins();
+//	cout << "\t\tBonusGame::PlayBonusRound" << endl;
+//	cout << "\t\tPlayer choice: " << BonusGame::m_playerChoice << endl;
+//	cout << "\t\tBonusGame result: " << BonusGame::m_bonusGameResult << endl;
+//	cout << "BonusGame::PlayBonusRound = Current Bet: "
+//				<< BonusGame::m_iBet << endl;
+//	cout << "BonusGame::PlayBonusRound = Current Win: "
+//			<< BonusGame::m_iBonusWin << endl;
+//	cout << "BonusGame::PlayBonusRound = Current Credits: "
+//			<< BonusGame::m_iCredits << endl;
+
+//	cout << "\t\tBonusGame::PlayBonusRound___PlayerWon() "
+//			<< BonusGame::PlayerWon();
+	//if the win is above zero
+	if(BonusGame::m_baseGamePtr->GetIWin())
+	{
+		BonusGame::DoubleUpWins();
+	}
+
 }
 
 void BonusGame::WinBonusRound()
 {
 	//test cout
-	cout << "BonusGame::PlayBonusRound = Current Bet: "
-				<< BonusGame::m_iBet << endl;
-	cout << "BonusGame::PlayBonusRound = Current Win: "
-			<< BonusGame::m_iBonusWin << endl;
-	cout << "BonusGame::PlayBonusRound = Current Credits: "
-			<< BonusGame::m_iCredits << endl;
-	//set the bonusGame result
-	BonusGame::SetBonusGameResult();
+//	cout << "BonusGame::PlayBonusRound = Current Bet: " << BonusGame::m_iBet
+//			<< endl;
+//	cout << "BonusGame::PlayBonusRound = Current Win: "
+//			<< BonusGame::m_iBonusWin << endl;
+//	cout << "BonusGame::PlayBonusRound = Current Credits: "
+//			<< BonusGame::m_iCredits << endl;
 	BonusGame::m_playerChoice = BonusGame::m_bonusGameResult;
 	BonusGame::DoubleUpWins();
 }
@@ -243,6 +266,22 @@ void BonusGame::UpdateWinAndCredits()
 	//save to xml
 	GameRecovery::UpdateWin(BonusGame::m_iBonusWin);
 	GameRecovery::UpdateCredits(BonusGame::m_iCredits);
+	//set game result and player choice to default
+	BonusGame::SetDefault();
+}
+
+//set player choice and bonus game result to defaul
+void BonusGame::SetDefault()
+{
+	//if round 1, update the flag
+	if(BonusGame::m_iRound == eRound1)
+	{
+		BonusGame::m_bWonRound1 = BonusGame::PlayerWon();
+	}
+	BonusGame::m_playerChoice = COLOR::eInvalidColor;
+	BonusGame::m_bonusGameResult = COLOR::eInvalidColor;
+	//test cout
+	cout << "\t\tBonusGame::m_bWonRound1 is " << BonusGame::m_bWonRound1 << endl;
 }
 
 //return the status of the quit member field
