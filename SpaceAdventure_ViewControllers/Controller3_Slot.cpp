@@ -81,9 +81,9 @@ void Slot::SetPlusButtonBetPushed(SDL_Texture* texture)
 	plusButtonBetPushed = texture;
 }
 
-void Slot::SetFigure1(SDL_Texture* texture)
+void Slot:: SetFigure1(SDL_Texture* texture)
 {
-	eFigure1 = texture;
+    eFigure1 = texture;
 }
 
 void Slot::SetFigure2(SDL_Texture* texture)
@@ -125,6 +125,149 @@ void Slot::SetFigure9(SDL_Texture* texture)
 {
 	eFigure9 = texture;
 }
+
+void Slot:: SetCashOutButton(SDL_Texture* texture)
+{
+    cashOutButton = texture;
+}
+
+void Slot:: SetCashOutButtonPushed(SDL_Texture* texture)
+{
+    cashOutButtonPushed = texture;
+}
+
+void Slot:: SetWhiteScreenTexture(SDL_Texture* texture)
+{
+    whiteScreenTexture = texture;
+}
+
+
+void Slot::SetLine1(SDL_Texture* texture)
+{
+    line1 = texture;
+}
+
+void Slot::SetLine2(SDL_Texture* texture)
+{
+    line2 = texture;
+}
+
+void Slot::SetLine3(SDL_Texture* texture)
+{
+    line3 = texture;
+}
+
+void Slot::SetLine4(SDL_Texture* texture)
+{
+    line4 = texture;
+}
+
+void Slot::SetLine5(SDL_Texture* texture)
+{
+    line5 = texture;
+}
+
+void Slot::SetLine6(SDL_Texture* texture)
+{
+    line6 = texture;
+}
+
+void Slot::SetLine7(SDL_Texture* texture)
+{
+    line7 = texture;
+}
+
+void Slot::SetLine8(SDL_Texture* texture)
+{
+    line8 = texture;
+}
+
+void Slot::SetLine9(SDL_Texture* texture)
+{
+    line9 = texture;
+}
+
+void Slot::SetLine10(SDL_Texture* texture)
+{
+    line10 = texture;
+}
+
+void Slot::SetLine11(SDL_Texture* texture)
+{
+    line11 = texture;
+}
+
+void Slot::SetLine12(SDL_Texture* texture)
+{
+    line12 = texture;
+}
+
+void Slot::SetLine13(SDL_Texture* texture)
+{
+    line13 = texture;
+}
+
+void Slot::SetLine14(SDL_Texture* texture)
+{
+    line14 = texture;
+}
+
+void Slot::SetLine15(SDL_Texture* texture)
+{
+    line15 = texture;
+}
+
+void Slot::SetLine16(SDL_Texture* texture)
+{
+    line16 = texture;
+}
+
+void Slot::SetLine17(SDL_Texture* texture)
+{
+    line17 = texture;
+}
+
+void Slot::SetLine18(SDL_Texture* texture)
+{
+    line18 = texture;
+}
+
+void Slot::SetLine19(SDL_Texture* texture)
+{
+    line19 = texture;
+}
+
+void Slot::SetLine20(SDL_Texture* texture)
+{
+    line20 = texture;
+}
+
+void Slot::SetLine21(SDL_Texture* texture)
+{
+    line21 = texture;
+}
+
+void Slot::SetLine22(SDL_Texture* texture)
+{
+    line22 = texture;
+}
+
+void Slot::SetLine23(SDL_Texture* texture)
+{
+    line23 = texture;
+}
+
+void Slot::SetLine24(SDL_Texture* texture)
+{
+    line24 = texture;
+}
+
+void Slot::SetLine25(SDL_Texture* texture)
+{
+    line25 = texture;
+}
+
+
 
 // Get Methods;
 
@@ -193,9 +336,25 @@ SDL_Texture* Slot::GetPlusButtonBetPushed()
 	return plusButtonBetPushed;
 }
 
-SDL_Texture* Slot::GetFigure1()
+SDL_Texture* Slot:: GetCashOutButton()
 {
-	return eFigure1;
+    return cashOutButton;
+}
+
+SDL_Texture* Slot:: GetCashOutButtonPushed()
+{
+    return cashOutButtonPushed;
+}
+
+SDL_Texture* Slot:: GetWhiteScreenTexture()
+{
+    return whiteScreenTexture;
+}
+
+
+SDL_Texture* Slot:: GetFigure1()
+{
+    return eFigure1;
 }
 
 SDL_Texture* Slot::GetFigure2()
@@ -233,258 +392,135 @@ SDL_Texture* Slot::GetFigure8()
 	return eFigure8;
 }
 
-void Slot::SetLine1(SDL_Texture* texture)
-{
-	line1 = texture;
-}
-
-void Slot::SetLine2(SDL_Texture* texture)
-{
-	line2 = texture;
-}
-
-void Slot::SetLine3(SDL_Texture* texture)
-{
-	line3 = texture;
-}
-
-void Slot::SetLine4(SDL_Texture* texture)
-{
-	line4 = texture;
-}
-
-void Slot::SetLine5(SDL_Texture* texture)
-{
-	line5 = texture;
-}
-
-void Slot::SetLine6(SDL_Texture* texture)
-{
-	line6 = texture;
-}
-
-void Slot::SetLine7(SDL_Texture* texture)
-{
-	line7 = texture;
-}
-
-void Slot::SetLine8(SDL_Texture* texture)
-{
-	line8 = texture;
-}
-
-void Slot::SetLine9(SDL_Texture* texture)
-{
-	line9 = texture;
-}
-
-void Slot::SetLine10(SDL_Texture* texture)
-{
-	line10 = texture;
-}
-
-void Slot::SetLine11(SDL_Texture* texture)
-{
-	line11 = texture;
-}
-
-void Slot::SetLine12(SDL_Texture* texture)
-{
-	line12 = texture;
-}
-
-void Slot::SetLine13(SDL_Texture* texture)
-{
-	line13 = texture;
-}
-
-void Slot::SetLine14(SDL_Texture* texture)
-{
-	line14 = texture;
-}
-
-void Slot::SetLine15(SDL_Texture* texture)
-{
-	line15 = texture;
-}
-
-void Slot::SetLine16(SDL_Texture* texture)
-{
-	line16 = texture;
-}
-
-void Slot::SetLine17(SDL_Texture* texture)
-{
-	line17 = texture;
-}
-
-void Slot::SetLine18(SDL_Texture* texture)
-{
-	line18 = texture;
-}
-
-void Slot::SetLine19(SDL_Texture* texture)
-{
-	line19 = texture;
-}
-
-void Slot::SetLine20(SDL_Texture* texture)
-{
-	line20 = texture;
-}
-
-void Slot::SetLine21(SDL_Texture* texture)
-{
-	line21 = texture;
-}
-
-void Slot::SetLine22(SDL_Texture* texture)
-{
-	line22 = texture;
-}
-
-void Slot::SetLine23(SDL_Texture* texture)
-{
-	line23 = texture;
-}
-
-void Slot::SetLine24(SDL_Texture* texture)
-{
-	line24 = texture;
-}
-
-void Slot::SetLine25(SDL_Texture* texture)
-{
-	line25 = texture;
-}
-
 SDL_Texture* Slot::GetFigure9()
 {
 	return eFigure9;
 }
 
+
 SDL_Texture* Slot::GetLine1()
 {
-	return line1;
-
+    return line1;
+    
 }
 
 SDL_Texture* Slot::GetLine2()
 {
-	return line2;
+    return line2;
 }
 
 SDL_Texture* Slot::GetLine3()
 {
-	return line3;
+    return line3;
 }
 
 SDL_Texture* Slot::GetLine4()
 {
-	return line4;
+    return line4;
 }
 
 SDL_Texture* Slot::GetLine5()
 {
-	return line5;
+    return line5;
 }
 
 SDL_Texture* Slot::GetLine6()
 {
-	return line6;
+    return line6;
 }
 
 SDL_Texture* Slot::GetLine7()
 {
-	return line7;
+    return line7;
 }
 
 SDL_Texture* Slot::GetLine8()
 {
-	return line8;
+    return line8;
 }
 
 SDL_Texture* Slot::GetLine9()
 {
-	return line9;
+    return line9;
 }
 
 SDL_Texture* Slot::GetLine10()
 {
-	return line10;
+    return line10;
 }
 
 SDL_Texture* Slot::GetLine11()
 {
-	return line11;
+    return line11;
 }
 
 SDL_Texture* Slot::GetLine12()
 {
-	return line12;
+    return line12;
 }
 
 SDL_Texture* Slot::GetLine13()
 {
-	return line13;
+    return line13;
 }
 
 SDL_Texture* Slot::GetLine14()
 {
-	return line14;
+    return line14;
 }
 
 SDL_Texture* Slot::GetLine15()
 {
-	return line15;
+    return line15;
 }
 
 SDL_Texture* Slot::GetLine16()
 {
-	return line16;
+    return line16;
 }
 
 SDL_Texture* Slot::GetLine17()
 {
-	return line17;
+    return line17;
 }
 
 SDL_Texture* Slot::GetLine18()
 {
-	return line18;
+    return line18;
 }
 
 SDL_Texture* Slot::GetLine19()
 {
-	return line19;
+    return line19;
 }
 
 SDL_Texture* Slot::GetLine20()
 {
-	return line20;
+    return line20;
 }
 
 SDL_Texture* Slot::GetLine21()
 {
-	return line21;
+    return line21;
 }
 
 SDL_Texture* Slot::GetLine22()
 {
-	return line22;
+    return line22;
 }
 
 SDL_Texture* Slot::GetLine23()
 {
-	return line23;
+    return line23;
 }
 
 SDL_Texture* Slot::GetLine24()
 {
-	return line24;
+    return line24;
 }
 
 SDL_Texture* Slot::GetLine25()
 {
-	return line25;
+    return line25;
 }
+

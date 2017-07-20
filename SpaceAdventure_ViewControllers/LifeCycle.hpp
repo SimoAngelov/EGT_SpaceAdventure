@@ -9,15 +9,16 @@
 #ifndef LifeCycle_hpp
 #define LifeCycle_hpp
 
-//#include <iostream>
-//#include <SDL2/SDL.h>
-//#include <SDL2_image/SDL_image.h>
-//#include <SDL2_ttf/SDL_ttf.h>
-
-#include "Controller1_Intro.hpp"
+#include <iostream>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
+#include <SDL2_image/SDL_image.h>
+#include <SDL2_ttf/SDL_ttf.h>
+#include <SDL2_mixer/SDL_mixer.h>
+
+//#include "Controller1_Intro.hpp"
+//#include <SDL2/SDL.h>
+//#include <SDL2/SDL_image.h>
+//#include <SDL2/SDL_ttf.h>
 #include <vector>
 
 #include "Controller1_Intro.hpp"
@@ -25,6 +26,8 @@
 #include "Controller2_GameController.hpp"
 
 #include "Controller3_Slot.hpp"
+
+#include "GameControllerLogic.hpp"
 
 using namespace std;
 
@@ -39,8 +42,8 @@ private:
     
     int m_nCredit = 0; // Game Credit
     
-    int m_nLinesCounter = 0; // counter for lines GAME view 3;
-
+    int m_nLinesCounter = 1; // Lines Counter Game View 3
+    
     SDL_Window* windowPtr = NULL;
     
     SDL_Renderer* rendererPtr = NULL;
@@ -53,14 +56,24 @@ private:
     
     SDL_Texture* creditTexture = NULL;
     
+    Mix_Chunk* introMusic = NULL;
+    
+    Mix_Chunk* buttonSound = NULL;
+    
+    Mix_Chunk* nextViewSound = NULL;
+    
+    Mix_Chunk* linesSound = NULL;
+    
     vector<SDL_Texture*> m_vecSlotFigures;
-
-    vector<SDL_Texture*> m_vecLines;
+    
+    vector<SDL_Texture*>m_vecLines;
 
     
     
     
 public:
+    
+    GameControllerLogic gameLogic;
     
     LifeCycle();
     
@@ -69,6 +82,12 @@ public:
     void InitMedia(); // To initialize EVERYTHING
     
     SDL_Texture* LoadTexture(string path); // To load Texture from PATH
+    
+    // Load and PREARE Textures
+    
+    void PrepareTextures();
+    
+    void CashOutAnimation();
     
     void Play(); // LifeCycle Program
     

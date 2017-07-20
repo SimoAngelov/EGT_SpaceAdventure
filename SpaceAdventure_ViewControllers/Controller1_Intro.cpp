@@ -174,6 +174,13 @@ void Intro:: SetSpaceShipButtonOkPushed(SDL_Texture* texture)
     spaceShipButtonOkPushed = texture;
 }
 
+//
+
+void Intro:: SetRulesTexture(SDL_Texture* texture)
+{
+    rulesTexture = texture;
+}
+
 // Get Methods
 
 SDL_Texture* Intro:: GetBackgroundTexture()
@@ -335,3 +342,9 @@ SDL_Texture* Intro:: GetSpaceShipButtonOkPushed()
     return spaceShipButtonOkPushed;
 }
 
+//
+
+SDL_Texture* Intro:: GetRulesTexture()
+{
+    return rulesTexture;
+}

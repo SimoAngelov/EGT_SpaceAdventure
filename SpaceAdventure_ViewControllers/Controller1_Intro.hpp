@@ -68,6 +68,8 @@ private:
     
     SDL_Texture* spaceShipButtonOkPushed = NULL;
     
+    SDL_Texture* rulesTexture = NULL;
+    
 public:
     
     Intro();
@@ -120,6 +122,8 @@ public:
     
     void SetSpaceShipButtonOkPushed(SDL_Texture* texture);
     
+    void SetRulesTexture(SDL_Texture* texture);
+    
     /////
 
     SDL_Texture* GetBackgroundTexture();
@@ -167,5 +171,7 @@ public:
     SDL_Texture* GetSpaceShipButtonOk();
     
     SDL_Texture* GetSpaceShipButtonOkPushed();
+    
+    SDL_Texture* GetRulesTexture();
 };
 #endif /* Controller1_Intro_hpp */
