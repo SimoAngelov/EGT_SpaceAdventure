@@ -70,6 +70,8 @@ private:
     
     SDL_Texture* rulesTexture = NULL;
     
+    SDL_Texture* closeRulesButton = NULL;
+    
 public:
     
     Intro();
@@ -124,6 +126,8 @@ public:
     
     void SetRulesTexture(SDL_Texture* texture);
     
+    void SetCloseRulesButton(SDL_Texture* texture);
+    
     /////
 
     SDL_Texture* GetBackgroundTexture();
@@ -173,5 +177,7 @@ public:
     SDL_Texture* GetSpaceShipButtonOkPushed();
     
     SDL_Texture* GetRulesTexture();
+    
+    SDL_Texture* GetCloseRulesButton();
 };
 #endif /* Controller1_Intro_hpp */

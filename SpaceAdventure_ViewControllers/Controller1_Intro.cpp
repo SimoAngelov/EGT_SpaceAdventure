@@ -181,6 +181,13 @@ void Intro:: SetRulesTexture(SDL_Texture* texture)
     rulesTexture = texture;
 }
 
+//
+
+void Intro:: SetCloseRulesButton(SDL_Texture* texture)
+{
+    closeRulesButton = texture;
+}
+
 // Get Methods
 
 SDL_Texture* Intro:: GetBackgroundTexture()
@@ -347,4 +354,11 @@ SDL_Texture* Intro:: GetSpaceShipButtonOkPushed()
 SDL_Texture* Intro:: GetRulesTexture()
 {
     return rulesTexture;
+}
+
+//
+
+SDL_Texture* Intro:: GetCloseRulesButton()
+{
+    return closeRulesButton;
 }
