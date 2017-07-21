@@ -289,6 +289,29 @@ void BonusGame::SetDefault()
 	cout << "\t\tBonusGame::m_bWonRound1 is " << BonusGame::m_bWonRound1 << endl;
 }
 
+
+//gamble amount
+string BonusGame::GambleAmount()
+//string BonusGame::GambleAmount()
+{
+	string res = itos(BonusGame::m_iBet);
+	cout << "BonusGame::GambleAmount res is " << res << endl;
+	cout << "c_str = " << res.c_str() << endl;
+	//return the bet, which is the current winnings from the game
+	return res.c_str();
+}
+
+//amount to win
+string BonusGame::GambleToWin()
+//string BonusGame::GambleToWin()
+{
+	string res = itos(2 * BonusGame::m_iBet);
+	cout << "BonusGame::GambleAmount res is " << res << endl;
+	cout << "c_str = " << res.c_str() << endl;
+	//the expected win is double the old winnings
+	return res.c_str();
+}
+
 //return the status of the quit member field
 bool BonusGame::IsQuitBonusGame()
 {
@@ -302,6 +325,9 @@ void BonusGame::QuitBonusGame()
 	BonusGame::m_baseGamePtr = NULL;
 	BonusGame::m_bQuitBonusGame = true;
 }
+
+
+
 
 BonusGame::~BonusGame()
 {

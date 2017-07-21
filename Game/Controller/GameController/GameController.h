@@ -100,6 +100,13 @@ public:
 	int GetTotalBet() const;
 	int GetWin() const;
 
+	//to_string methods
+	string BetPerLineAsString() const;
+	string CreditsAsString() const;
+	string NumberOfLinesAsString() const;
+	string TotalBetAsString() const;
+	string WinAsString() const;
+
 	//print functions
 	void PrintInfo() const;
 	void PrintReels() const;

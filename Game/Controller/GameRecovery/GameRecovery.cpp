@@ -440,7 +440,7 @@ void GameRecovery::UpdateCredits(int iCredits)
 	//take the attribute of the credits node
 	pugi::xml_attribute  valueAttribute = creditsNode.attribute(STR_VALUE);
 	//test cout
-//	cout << "before credits update: " << valueAttribute.as_int() << endl;
+	cout << "before credits update: " << valueAttribute.as_int() << endl;
 	//update the attribute
 	if (!valueAttribute.set_value(iCredits))
 	{
@@ -451,7 +451,7 @@ void GameRecovery::UpdateCredits(int iCredits)
 	GameRecovery::UpdateDoc(docPtr);
 
 	//test cout
-//	cout << "after credits update: " << valueAttribute.as_int() << endl;
+	cout << "after credits update: " << valueAttribute.as_int() << endl;
 }
 
 

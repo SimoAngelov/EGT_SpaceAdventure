@@ -590,6 +590,39 @@ int GameController::GetWin() const
 	return this->m_baseGame.GetIWin();
 }
 
+//to string methods
+
+string GameController::BetPerLineAsString() const
+{
+	string res = itos(this->m_baseGame.GetIBetPerLine());
+	return res;
+}
+
+string GameController::CreditsAsString() const
+{
+	string res = itos(this->m_baseGame.GetICredits());
+	return res;
+}
+
+string GameController::NumberOfLinesAsString() const
+{
+	string res = itos(this->m_baseGame.GetINumberOfLines());
+	return res;
+}
+
+string GameController::TotalBetAsString() const
+{
+	string res = itos(this->m_baseGame.GetITotalBet());
+	return res;
+}
+
+string GameController::WinAsString() const
+{
+	string res = itos(this->m_baseGame.GetIWin());
+	return res;
+}
+
+
 //printing functions
 
 void GameController::PrintInfo() const
@@ -632,28 +665,28 @@ void GameController::PrintPaylines() const
 
 void GameController::PrintCredits() const
 {
-	cout << "Credits: " << this->m_baseGame.GetICredits() << endl;
+	cout << "Credits: " << this->CreditsAsString() << endl;
 }
 
 void GameController::PrintBetPerLine() const
 {
-	cout << "BetPerLine: " << this->m_baseGame.GetIBetPerLine() << endl;
+	cout << "BetPerLine: " << this->BetPerLineAsString() << endl;
 }
 
 void GameController::PrintNumLines() const
 {
-	cout << "Number of Paylines: " << this->m_baseGame.GetINumberOfLines()
+	cout << "Number of Paylines: " << this->NumberOfLinesAsString()
 			<< endl;
 }
 
 void GameController::PrintTotalBet() const
 {
-	cout << "Total Bet: " << this->m_baseGame.GetITotalBet() << endl;
+	cout << "Total Bet: " << this->TotalBetAsString() << endl;
 }
 
 void GameController::PrintWin() const
 {
-	cout << "Win: " << this->m_baseGame.GetIWin() << endl;
+	cout << "Win: " << this->WinAsString() << endl;
 }
 
 //erase the contents from the vector, holding the paylines
@@ -948,4 +981,5 @@ void GameController::InitPayline25()
 			this->m_baseGame.GetMatrixGameReels()[0][4] };
 	this->m_baseGame.AddPayline(line);
 }
+
 

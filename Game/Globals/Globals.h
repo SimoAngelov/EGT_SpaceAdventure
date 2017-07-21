@@ -112,4 +112,6 @@ typedef enum
 //xml file path
 string const XML_FILE_PATH = "src/Controller/GameRecovery/Save/GameSave.xml";
 
+//helper function to convert from int to const char*
+string itos(int);
 #endif /* GLOBALS_H_ */

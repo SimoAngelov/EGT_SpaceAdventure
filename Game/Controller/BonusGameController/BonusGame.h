@@ -41,6 +41,10 @@ public:
 	static void PlayBonusRound();
 	//TEST: win the bonus round
 	static void WinBonusRound();
+	//gamble amount
+	static string GambleAmount();
+	//amount to win
+	static string GambleToWin();
 	//return the status of the quit member field
 	static bool IsQuitBonusGame();
 	//quit the bonus game

@@ -146,16 +146,27 @@ void TestGameController::InitTest()
 {
 	cout << "Welcome to testing the game controller :P" << endl;
 	bool bQuit = false;
+
+	cout << "\n1 - New Game" << endl;
+	cout << "2 - Load Game" << endl;
+	int iChoice = 0;
+	cin >> iChoice;
+	switch (iChoice)
+	{
+	case 1:
+		TestNewGame();
+		break;
+	case 2:
+		TestLoadGame();
+		break;
+	}
 	while (!bQuit)
 	{
-		cout << "\n1 - New Game" << endl;
-		cout << "2 - Load Game" << endl;
 		cout << "3 - Toggle Bet per Line" << endl;
 		cout << "4 - Toggle number of paylines" << endl;
 		cout << "5 - Toggle max bet" << endl;
 		cout << "6 - Test spin" << endl;
 		cout << "7 - Print GameCOntroller info\n" << endl;
-		int iChoice = 0;
 		cin >> iChoice;
 		switch (iChoice)
 		{

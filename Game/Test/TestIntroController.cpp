@@ -16,6 +16,7 @@ TestIntroController::TestIntroController()
 
 void TestIntroController::TestInsertCredtits()
 {
+	IntroController::PlayNewGame();
 	cout << "Welcome to SpaceAdventure-> Please insertCredits";
 	cout << "Current Credits:\t";
 	IntroController::PrintInfo();
@@ -51,7 +52,6 @@ void TestIntroController::TestGameController()
 void TestIntroController::InitTest()
 {
 	bool bQuit = false;
-	IntroController::PlayNewGame();
 	while(!bQuit)
 	{
 		cout << "1 - Insert Credits" << endl;
@@ -65,7 +65,7 @@ void TestIntroController::InitTest()
 		default: bQuit = true; break;
 		}
 	}
-	IntroController::SaveCredits();
+
 }
 TestIntroController::~TestIntroController()
 {

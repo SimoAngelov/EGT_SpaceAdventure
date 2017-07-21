@@ -19,38 +19,51 @@ TestBonusGame::TestBonusGame()
 
 void TestBonusGame::Round(bool win)
 {
-	cout << endl;
-	cout << "TestBonusGame::1 - Play" << endl;
-	cout << "TestBonusGame::2 - Quit" << endl;
-	int iChoice = 0;
-	cin >> iChoice;
-	switch(iChoice)
+	//if the player hasn't quit the bonus game
+	if (!BonusGame::IsQuitBonusGame())
 	{
-	case 1:
-		cout << "TestBonusGame::1 - select Black Card" << endl;
-		cout << "TestBonusGame::2 - select Black Card" << endl;
+		cout << endl;
+		cout << "Gamble amount: " << BonusGame::GambleAmount().c_str() << endl;
+		cout << "Gamble to win: " << BonusGame::GambleToWin().c_str() << endl;
+		cout << "TestBonusGame::1 - Play" << endl;
+		cout << "TestBonusGame::2 - Quit" << endl;
+		int iChoice = 0;
 		cin >> iChoice;
-		switch(iChoice)
+		switch (iChoice)
 		{
-		case 1: BonusGame::PlayerSelectedBlack(); break;
-		case 2: BonusGame::PlayerSelectedRed(); break;
-		}
-		cout << "TestBonusGame::Current Win: " <<
-					TestGameController::m_gameController.GetWin() << endl;
-			cout << "TestBonusGame::Current Credits: " <<
-					TestGameController::m_gameController.GetCredits() << endl;
+		case 1:
+			cout << "TestBonusGame::1 - select Black Card" << endl;
+			cout << "TestBonusGame::2 - select Black Card" << endl;
+			cin >> iChoice;
+			switch (iChoice)
+			{
+			case 1:
+				BonusGame::PlayerSelectedBlack();
+				break;
+			case 2:
+				BonusGame::PlayerSelectedRed();
+				break;
+			}
 
-			if(!win)BonusGame::PlayBonusRound();
-			else BonusGame::WinBonusRound();
+			cout << "TestBonusGame::Current Credits: "
+					<< TestGameController::m_gameController.GetCredits()
+					<< endl;
 
-			cout << "TestBonusGame::New Win: " <<
-						TestGameController::m_gameController.GetWin() << endl;
-				cout << "TestBonusGame::New Credits: " <<
-						TestGameController::m_gameController.GetCredits() << endl;
-		break;
+			if (!win)
+				BonusGame::PlayBonusRound();
+			else
+				BonusGame::WinBonusRound();
+
+			cout << "TestBonusGame::New Win: "
+					<< TestGameController::m_gameController.GetWin() << endl;
+			cout << "TestBonusGame::New Credits: "
+					<< TestGameController::m_gameController.GetCredits()
+					<< endl;
+			break;
 		case 2:
 			BonusGame::QuitBonusGame();
 			break;
+		}
 	}
 }
 
@@ -60,15 +73,12 @@ void TestBonusGame::TestWinRound()
 	TestBonusGame::Round(true);
 }
 
-
 void TestBonusGame::TestRound()
 {
 	cout << "TestBonusGame::Welcome to bonus round " << endl;
 	TestBonusGame::Round(false);
 
 }
-
-
 
 void TestBonusGame::Quit()
 {
@@ -83,7 +93,8 @@ void TestBonusGame::PlayBonusGame()
 	cout << "TestBonusGame::Default - Quit " << endl;
 	int iChoice = 0;
 	cin >> iChoice;
-	switch(iChoice){
+	switch (iChoice)
+	{
 	case 1:
 		TestBonusGame::TestRound();
 		break;
