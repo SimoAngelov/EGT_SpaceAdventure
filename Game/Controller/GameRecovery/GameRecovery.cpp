@@ -21,7 +21,6 @@ const char* STR_TOTAL_BET = "Total_Bet";
 const char* STR_WIN = "Win";
 const char* STR_CREDITS = "Credits";
 const char* STR_BONUS_GAME = "Bonus_Game";
-const char* STR_GAME_RESULT = "Game_Result";
 const char* STR_PLAYER_CHOICE = "Player_Choice";
 //XML attribute names
 const char* STR_INDEX = "Index";
@@ -39,6 +38,22 @@ GameRecovery::GameRecovery()
 GameRecovery::~GameRecovery()
 {
 	// TODO Auto-generated destructor stub
+}
+
+//check if an xml save document exists
+bool GameRecovery::IsSaveGame()
+{
+	//create an xml document in memory
+	pugi::xml_document* docPtr = new pugi::xml_document();
+	//check if the document loads
+	bool result = docPtr->load_file(XML_FILE_PATH.c_str());
+	//delete the doc pointer
+	delete docPtr;
+	docPtr = NULL;
+	//test cout
+	if(result) cout << "GameRecovery::IsSaveGame() THERE IS A SAVE GAME" << endl;
+	else cout << "GameRecovery::IsSaveGame()ERROR!! THERE IS not a SAVE GAME!!" << endl;
+	return result;
 }
 
 //create a blank save
@@ -59,8 +74,8 @@ void GameRecovery::CreateBlankSave()
 	GameRecovery::AddCreditsToRoot(rootNode);
 	GameRecovery::AddBonusGameToRoot(rootNode);
 	// test cout
-	//save document to file
 	std::cout << "Saving result... ";
+	//save document to file
 	GameRecovery::UpdateDoc(docPtr);
 	// end::code[]
 }
@@ -162,10 +177,6 @@ void GameRecovery::AddBonusGameToRoot(pugi::xml_node& rootNode)
 {
 	//append bonus game node to the root node
 	pugi::xml_node bonusGameNode = rootNode.append_child(STR_BONUS_GAME);
-	//append the game result to the bonus game node
-	pugi::xml_node gameResultNode = bonusGameNode.append_child(STR_GAME_RESULT);
-	//append value attribute the game result node
-	gameResultNode.append_attribute(STR_VALUE) = COLOR::eInvalidColor;
 	//append player choice node to the bonus game node
 	pugi::xml_node playerChoiceNode = bonusGameNode.append_child(
 			STR_PLAYER_CHOICE);
@@ -443,35 +454,7 @@ void GameRecovery::UpdateCredits(int iCredits)
 //	cout << "after credits update: " << valueAttribute.as_int() << endl;
 }
 
-void GameRecovery::UpdateBonusGameResult(const COLOR& bonusGameResult)
-{
-	//create xml document in memory
-	pugi::xml_document* docPtr = new pugi::xml_document();
-	//load the document
-	GameRecovery::LoadDoc(docPtr);
 
-	//create a bonus game result node
-	pugi::xml_node bonusGameResultNode =
-			docPtr->child(STR_ROOT).child(STR_BONUS_GAME).child(STR_GAME_RESULT);
-	//take the attribute of the bonus game result node
-	pugi::xml_attribute  valueAttribute = bonusGameResultNode.attribute(STR_VALUE);
-	//test cout
-//	cout << "before bonus game result update: " << valueAttribute.as_int()
-//			<< endl;
-	//update the attribute
-	if (!valueAttribute.set_value(bonusGameResult))
-	{
-		cerr << "Failed to update the bonus game result!" << endl;
-	}	// end attribute if
-
-	//update the document
-	GameRecovery::UpdateDoc(docPtr);
-
-	//test cout
-//	cout << "after bonus game result update: " << valueAttribute.as_int()
-//			<< endl;
-
-}
 
 void GameRecovery::UpdateBonusPlayerChoice(const COLOR& playerChoice)
 {
@@ -499,7 +482,6 @@ void GameRecovery::UpdateBonusPlayerChoice(const COLOR& playerChoice)
 
 	//test cout
 //	cout << "after player choice update: " << valueAttribute.as_int() << endl;
-
 
 }
 
@@ -534,6 +516,7 @@ int GameRecovery::LoadVolume()
 	GameRecovery::LoadDoc(docPtr);
 	pugi::xml_attribute  valueAttribute = docPtr->child(STR_ROOT).child(STR_VOLUME).attribute(STR_VALUE);
 	int res = valueAttribute.as_int();
+	//delete the docPtr, calling its destructor and destroy set the reference to NULL
 	delete docPtr;
 	docPtr = NULL;
 	return res;
@@ -568,6 +551,7 @@ void GameRecovery::LoadReels(GameModel* gameModelPtr)
 			//column index
 			iCol = figureNode.attribute(STR_INDEX).as_int();
 			//get the current element from the xml file
+			//static cast from int to COLOR
 			Figures currFigure =
 					static_cast<Figures>(figureNode.attribute(STR_VALUE).as_int());
 			//update the current element of the game reels vector
@@ -578,7 +562,7 @@ void GameRecovery::LoadReels(GameModel* gameModelPtr)
 		}
 	}
 
-	//delete
+	//delete the docPtr, calling its destructor and destroy set the reference to NULL
 	delete docPtr;
 	docPtr = NULL;
 }
@@ -590,6 +574,7 @@ int GameRecovery::LoadNumberOfPaylines()
 	GameRecovery::LoadDoc(docPtr);
 	pugi::xml_attribute  valueAttribute = docPtr->child(STR_ROOT).child(STR_NUMBER_OF_PAYLINES).attribute(STR_VALUE);
 	int res = valueAttribute.as_int();
+	//delete the docPtr, calling its destructor and destroy set the reference to NULL
 	delete docPtr;
 	docPtr = NULL;
 	return res;
@@ -602,6 +587,7 @@ int GameRecovery::LoadBetPerPayline()
 	GameRecovery::LoadDoc(docPtr);
 	pugi::xml_attribute  valueAttribute = docPtr->child(STR_ROOT).child(STR_BET_PER_LINE).attribute(STR_VALUE);
 	int res = valueAttribute.as_int();
+	//delete the docPtr, calling its destructor and destroy set the reference to NULL
 	delete docPtr;
 	docPtr = NULL;
 	return res;
@@ -614,6 +600,7 @@ int GameRecovery::LoadTotalBet()
 	GameRecovery::LoadDoc(docPtr);
 	pugi::xml_attribute  valueAttribute = docPtr->child(STR_ROOT).child(STR_TOTAL_BET).attribute(STR_VALUE);
 	int res = valueAttribute.as_int();
+	//delete the docPtr, calling its destructor and destroy set the reference to NULL
 	delete docPtr;
 	docPtr = NULL;
 	return res;
@@ -626,6 +613,7 @@ int GameRecovery::LoadWin()
 	GameRecovery::LoadDoc(docPtr);
 	pugi::xml_attribute  valueAttribute = docPtr->child(STR_ROOT).child(STR_WIN).attribute(STR_VALUE);
 	int res = valueAttribute.as_int();
+	//delete the docPtr, calling its destructor and destroy set the reference to NULL
 	delete docPtr;
 	docPtr = NULL;
 	return res;
@@ -638,6 +626,7 @@ int GameRecovery::LoadCredits()
 	GameRecovery::LoadDoc(docPtr);
 	pugi::xml_attribute  valueAttribute = docPtr->child(STR_ROOT).child(STR_CREDITS).attribute(STR_VALUE);
 	int res = valueAttribute.as_int();
+	//delete the docPtr, calling its destructor and destroy set the reference to NULL
 	delete docPtr;
 	docPtr = NULL;
 	return res;
@@ -657,7 +646,19 @@ void GameRecovery::LoadGameModel(GameModel* gameModelPtr)
 	gameModelPtr->SetITotalBet();
 	gameModelPtr->SetIWin(iWin);
 	gameModelPtr->SetICredits(iCredits);
-
-
 }
 
+COLOR GameRecovery::LoadBonusPlayerChoice()
+{
+	pugi::xml_document* docPtr = new pugi::xml_document();
+	//load doc
+	GameRecovery::LoadDoc(docPtr);
+	pugi::xml_attribute valueAttribute =
+			docPtr->child(STR_PLAYER_CHOICE).child(STR_CREDITS).attribute(STR_VALUE);
+	//static cast from int to COLOR
+	COLOR res = static_cast<COLOR>(valueAttribute.as_int());
+	//delete the docPtr, calling its destructor and destroy set the reference to NULL
+	delete docPtr;
+	docPtr = NULL;
+	return res;
+}

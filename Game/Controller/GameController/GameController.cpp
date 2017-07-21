@@ -15,17 +15,9 @@ vector<BET> GameController::m_vecBetPerStep
 { eBet0, eBet1, eBet2, eBet3, eBet4, eBet5, eBet6, eBet7, eBet8, eBet9, eBet10,
 		eBet11, eBet12, eBet13, eBet14, eBet15 };
 
-//member field to keep track of which figures are selected at each reel
-bool GameController::m_bFigureIsSelected[eNUM_FIGURES] =
-{ false };
-
 //initialize the bonus counter
 int GameController::m_iBonusCounter = 0;
 
-//member field to keep track of the choice the player made during the bonus game
-COLOR GameController::m_playerChoice = eInvalidColor;
-//member field to keep track if the player wants to keep the bonus game
-bool GameController::m_bQuitBonusGame = false;
 
 //constructor
 GameController::GameController() :
@@ -43,13 +35,22 @@ GameController::~GameController()
 //start new game
 void GameController::NewGame()
 {
-	this->Spin();
+	//if the xml file is present, update the member field iCredits
+	if(GameRecovery::IsSaveGame())
+	{
+		//load the credits from the xml file
+		int iCurrentCredits = GameRecovery::LoadCredits();
+		//update the credits of the game model
+		this->m_baseGame.SetICredits(iCurrentCredits);
+	}
 }
 
 //load old game
 void GameController::LoadGame()
 {
+	//update the game model with info from the xml file
 	GameRecovery::LoadGameModel(&(this->m_baseGame));
+	//initialize the vector of paylines
 	this->InitCurrentPaylines();
 }
 
@@ -122,14 +123,12 @@ void GameController::Spin()
 //intialize the reels for the currentGame
 void GameController::InitCurrentReels()
 {
+	//initialize the reels with figures from 0 to 7
 	this->InitRandomReels();
+	//randomly set or don't set a special figure for a row
 //	this->SetSpecialFigure();
+	//set a special figure for all the rows
 	this->StartBonusGame();
-
-
-//	this->SetUniqueFigures();
-//	this->SetTheSameFigures();
-
 }
 
 //initialize the game reels with random values
@@ -145,6 +144,7 @@ void GameController::InitRandomReels()
 		for (int iReel = 0; iReel < GAME_REELS; iReel++)
 		{
 			//choose a figure between 1 and 8
+			//static cast from int to Figures
 			Figures randomFigure = static_cast<Figures>(rand() % eFigure8);
 			this->m_baseGame.SetReelElement(randomFigure, iRow, iReel);
 			//test cout
@@ -165,7 +165,7 @@ void GameController::SetSpecialFigure()
 		//traverse the first, second etc element of each reel
 		for (int iReel = 0; iReel < GAME_REELS; iReel++)
 		{
-
+			//static cast from int to Figures
 			Figures randomFigure = static_cast<Figures>(rand() % eNUM_FIGURES);
 			if (randomFigure == eFigure9)
 			{
@@ -202,46 +202,13 @@ void GameController::StartBonusGame()
 	} //end reel for
 }
 
-//set unique figures per each reel
-void GameController::SetUniqueFigures()
-{
-	//seed a random sequence of numbers
-	srand(time(0));
-//traverse each reel
-	for (int iCol = 0; iCol < GAME_REELS; iCol++)
-	{
-//traverse each element of the reel
-		for (int iRow = 0; iRow < GAME_ROWS; iRow++)
-		{
-			//while the current element has an invalid value
-			while (this->m_baseGame.GetReelElement(iRow, iCol) == eInvalidFigure)
-			{
-				//pick a random figure
-				Figures randomFigure = static_cast<Figures>(rand() % eFigure9);
-				//check to see if it hasn't been selected
-				if (m_bFigureIsSelected[randomFigure] == false)
-				{
-					//if it hasn't been selected, set the bool value to true
-					this->m_baseGame.SetReelElement(randomFigure, iRow, iCol);
-					m_bFigureIsSelected[randomFigure] = true;
-					//if the selected figure is Special
-					if (randomFigure == eFigure9)
-					{
-						GameController::m_iBonusCounter++;
-					}
-				}
-			} //end while
-			  //set the figureIsSelected to false for the next reel
-			GameController::m_bFigureIsSelected[eNUM_FIGURES] = false;
-		} //end row for
-	} // end reel for
-}
 
-//set unique figures per each reel
+//set the same figures per each reel
 void GameController::SetTheSameFigures()
 {
 	//seed a random sequence of numbers
 	srand(time(0));
+	//static cast from int to Figures
 	Figures randFigure = static_cast<Figures>(rand() % eNUM_FIGURES);
 //traverse each reel
 	for (int iCol = 0; iCol < GAME_REELS; iCol++)
@@ -486,20 +453,23 @@ void GameController::WinFromPaylines()
 }
 
 //calculate the win from a single line based on the figures
+//this function finds the maximum sequence of equal figures
 int GameController::WinFromSinglePayline(const Payline& payline)
 {
-//this function finds the maximum sequence of equal figures
+	//local variable to hold the best figure
 	Figures bestFigure = eInvalidFigure;
+	//local variable to hold the occurrence of the best figure
 	int iBestOccurrence = 0;
 
-//initialize the bestFigure with the first element of the line
+//initialize the currentFigure with the first element of the line
 	Figures currentFigure = payline.figure[0];
+	//since it is the first element it has currently occurred once
 	int iCurrentOccurrence = 1;
 
 //traverse the rest of the line
 	for (int i = 1; i < GAME_REELS; i++)
 	{
-//increment the occurrence of the figure
+//increment the occurrence of the figure, if it is the same as the previous figure
 		if (payline.figure[i] == currentFigure)
 		{
 			iCurrentOccurrence++;
@@ -510,28 +480,35 @@ int GameController::WinFromSinglePayline(const Payline& payline)
 			currentFigure = payline.figure[i];
 			iCurrentOccurrence = 1;
 		}
-
+		//if the current occurrence of the figure is more than the best occurrence
 		if (iCurrentOccurrence >= iBestOccurrence)
 		{
+			//update the best figure and best occurrence
 			iBestOccurrence = iCurrentOccurrence;
 			bestFigure = currentFigure;
 		}
 	} //end for
 
-//return the winnings from the line
+	//find the figure coefficient
 	int iFigCoeff = this->FigureCoefficient(bestFigure, iBestOccurrence);
+	//get the current bet per line
 	int iBet = this->m_baseGame.GetIBetPerLine();
+	//the winning per line is the product of the figure coefficient and the bet per line
 	int winningsPerLine = iFigCoeff * iBet;
+	//return the winnings from the line
 	return winningsPerLine;
 }
 
 //calculate the coefficient of a figure based on its weight
 int GameController::FigureCoefficient(const Figures& figure, int iOccurrences)
 {
+	//local variable to hold the figure weight
 	int iWeight = 0;
+	//local variable to hold the figure coefficient
 	int iCoefficient = 0;
 	switch (iOccurrences)
 	{
+	// for 0 to 2 occurrences the win is zero
 	case 0:
 	case 1:
 	case 2:
@@ -552,7 +529,7 @@ int GameController::FigureCoefficient(const Figures& figure, int iOccurrences)
 		iCoefficient = 0;
 		break;
 	}
-
+	//calculate the coefficient
 	iCoefficient = (1 + figure) * iWeight;
 	return iCoefficient;
 }
@@ -573,7 +550,7 @@ void GameController::AddWinToCredits()
 	}
 }
 
-//check if bonus game. if yes - initialize it
+//check if bonus game.
 bool GameController::IsBonusGame()
 {
 	//pass the bonus counter to the bonus game
@@ -633,19 +610,6 @@ void GameController::PrintReels() const
 	cout << endl;
 	//cout << "GameController::Print..." << endl;
 
-//	for (int iCol = 0; iCol < GAME_REELS; iCol++)
-//	{
-		//cout << "Reel: " << iCol << endl;
-//		for (int iRow = 0; iRow < GAME_ROWS; iRow++)
-//		{
-
-			//cout << "Element " << iRow << "\t"
-			//		<< this->m_baseGame.GetMatrixGameReels()[iRow][iCol]
-			//		<< endl;
-//		}
-//		cout << "</Reel" << iCol << endl;
-//		cout << endl;
-//	}
 }
 
 void GameController::PrintPayline(const Payline& payline) const

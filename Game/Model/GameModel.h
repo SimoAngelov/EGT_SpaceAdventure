@@ -21,6 +21,7 @@ private:
 	int m_iTotalBet;
 	static vector<Payline> m_vecPaylines;
 public:
+	//default contstructor with default values for the parameters
 	GameModel(int iNumberOfLines = 1, int iBetPerLine = 1, int iWin = 0,
 			int iCredits = 0, int iTotalBet = 1);
 	void InitDefaultReels();

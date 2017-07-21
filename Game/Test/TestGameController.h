@@ -10,6 +10,7 @@
 #include <iostream>
 using std::cin;
 #include "..\Controller\GameController\GameController.h"
+#include "..\Controller\IntroController\IntroController.h"
 #include "TestBonusGame.h"
 class TestGameController
 {
@@ -19,14 +20,13 @@ private:
 public:
 	TestGameController();
 	virtual ~TestGameController();
-	static void TestCreditInsert();
+	static void TestNewGame();
+	static void TestLoadGame();
 	static void TestBetIncrement();
 	static void TestLineIncrement();
 	static void TestMaxBet();
 	static void TestSpin();
 	static void PrintInfo();
-	static void TestNewGame();
-	static void TestLoadGame();
 	static void InitTest();
 };
 

@@ -11,6 +11,7 @@
 #include "Test\TestGameController.h"
 #include "Test\TestRecovery.h"
 #include "Controller\GameRecovery\GameRecovery.h"
+#include "Test\TestIntroController.h"
 
 using namespace std;
 
@@ -18,6 +19,7 @@ int main() {
  //   TestRecovery::Test();
 //	TestGameController testGame;
 //	testGame.TestGame();
-	TestGameController::InitTest();
+//	TestGameController::InitTest();
+	TestIntroController::InitTest();
 	return 0;
 }

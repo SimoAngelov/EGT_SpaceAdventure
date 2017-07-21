@@ -56,6 +56,8 @@ void BonusGame::InitBonusGame(GameModel* gameModelPtr)
 {
 	//test cout
 	//cout << "BonusGame::InitBonusGame - Initializing bonus game :O" << endl;
+	//load the players choice from the xml
+	BonusGame::m_playerChoice = GameRecovery::LoadBonusPlayerChoice();
 	//set the game model
 	BonusGame::m_baseGamePtr = gameModelPtr;
 	//store the value of the current game win
@@ -145,6 +147,7 @@ bool BonusGame::IsValidBet()
 	return BonusGame::m_iCredits >= BonusGame::m_iBet;
 }
 
+//return if the player won the round
 bool BonusGame::PlayerWon()
 {
 	bool bWinCondition1 = BonusGame::m_playerChoice
@@ -237,13 +240,14 @@ void BonusGame::PlayBonusRound()
 //	cout << "\t\tBonusGame::PlayBonusRound___PlayerWon() "
 //			<< BonusGame::PlayerWon();
 	//if the win is above zero
-	if(BonusGame::m_baseGamePtr->GetIWin())
+	if(BonusGame::m_baseGamePtr->GetIWin() > 0)
 	{
 		BonusGame::DoubleUpWins();
 	}
 
 }
 
+//test function to test the win of a round
 void BonusGame::WinBonusRound()
 {
 	//test cout
@@ -266,6 +270,7 @@ void BonusGame::UpdateWinAndCredits()
 	//save to xml
 	GameRecovery::UpdateWin(BonusGame::m_iBonusWin);
 	GameRecovery::UpdateCredits(BonusGame::m_iCredits);
+	GameRecovery::UpdateBonusPlayerChoice(BonusGame::m_playerChoice);
 	//set game result and player choice to default
 	BonusGame::SetDefault();
 }

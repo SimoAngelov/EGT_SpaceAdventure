@@ -60,10 +60,6 @@ private:
 	static void UpdateIfLoss();
 	//check if the bet is valid
 	static bool IsValidBet();
-	//attempt at doubling the wins
-	static void RoundOne();
-	//attempt at try at quadrupling the wins
-	static void RoundTwo();
 	//try to double up the wins from the game controller
 	static void DoubleUpWins();
 	//update the win and credits

@@ -17,6 +17,8 @@ class GameRecovery
 {
 public:
 	GameRecovery();
+	//check if an xml save document exists
+	static bool IsSaveGame();
 	//creates a blank save
 	static void CreateBlankSave();
 	//loads the document
@@ -42,7 +44,6 @@ public:
 	//update the credits
 	static void UpdateCredits(int);
 	//update the bonus game
-	static void UpdateBonusGameResult(const COLOR&);
 	static void UpdateBonusPlayerChoice(const COLOR&);
 	//update the game mode;
 	static void UpdateGameModel(const GameModel*);
@@ -56,6 +57,7 @@ public:
 	static int LoadWin();
 	static int LoadCredits();
 	static void LoadGameModel(GameModel*);
+	static COLOR LoadBonusPlayerChoice();
 	virtual ~GameRecovery();
 private:
 	//add view node to root node

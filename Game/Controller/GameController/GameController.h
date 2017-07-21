@@ -17,9 +17,6 @@ private:
 	GameModel m_baseGame;
 	static int m_iBetStep;
 	static vector<BET> m_vecBetPerStep;
-	static bool m_bFigureIsSelected[eNUM_FIGURES];
-	static COLOR m_playerChoice;
-	static bool m_bQuitBonusGame;
 	static int m_iBonusCounter;
 
 	//set default values for the member fields
@@ -32,8 +29,6 @@ private:
 	void SetSpecialFigure();
 	//hardcode a special figure at each reel to test the bonus game
 	void StartBonusGame();
-	//set unique figures for each reel
-	void SetUniqueFigures();
 	//set the same figures on all the reels to test the win function
 	void SetTheSameFigures();
 	//initialize the reels for the current game

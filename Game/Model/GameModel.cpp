@@ -7,6 +7,7 @@
 
 #include "GameModel.h"
 
+//Payline is a structure consisting of 5 element array
 vector<Payline> GameModel::m_vecPaylines;
 
 GameModel::GameModel(int iNumberOfLines, int iBetPerLine, int iWin,
@@ -32,15 +33,14 @@ void GameModel::InitDefaultReels()
 
 	//vector, holding 3 vectors(rows), each holding 5 elements(figures)
 	//a single column represent a reel
-
 	for (int iRow = 0; iRow < GAME_ROWS; iRow++)
 	{
 		for (int iCol = 0; iCol < GAME_REELS; iCol++)
 		{
 			vecCurrentRow.push_back(eInvalidFigure);
-		}
+		} // end column for
 		this->m_matrixGameReels.push_back(vecCurrentRow);
-	}
+	} // end reel for
 }
 
 //initialize the game lines with default values
