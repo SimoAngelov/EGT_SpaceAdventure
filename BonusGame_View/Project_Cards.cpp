@@ -12,7 +12,7 @@
 #include <string>
 #include <iostream>
 
-#include "Controller4_BonusGame.h"
+#include "View4_BonusGame.h"
 using namespace std;
 
 int main(int argc, char* args[]) {

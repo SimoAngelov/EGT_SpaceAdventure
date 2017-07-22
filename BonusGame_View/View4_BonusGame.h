@@ -5,10 +5,11 @@
  *      Author: Dimitrinka Valkova
  */
 
-#ifndef CONTROLLER4_BONUSGAME_H_
-#define CONTROLLER4_BONUSGAME_H_
+#ifndef VIEW4_BONUSGAME_H_
+#define VIEW4_BONUSGAME_H_
 #include <stdio.h>
 #include <iostream>
+#include <vector>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
@@ -21,13 +22,12 @@ const int m_nWindowHeight = 600; //WINDOW HEIGHT
 
 //Red and Black Button constants
 const int m_nButtonWidth = 130;  //BUTTON WIDTH
-const int m_nButtonHeight = 100;  //BUTTON HEIGHT
+const int m_nButtonHeight = 130;  //BUTTON HEIGHT
 const int m_nTotalButtons = 2;
 
 const int m_nCardWidth = 130;  //CARD WIDTH
 const int m_nCardHeight = 180;  //CARD HEIGHT
-const int step = m_nCardWidth + 16;
-//const int m_n
+//const int step = m_nCardWidth + 16;
 
 //typedef enum LButtonSprite {
 //	eBUTTON_SPRITE_MOUSE_OUT = 0,
@@ -65,7 +65,7 @@ public:
 	void SetBlackCardTexture10(SDL_Texture* texture);
 	void SetBlackCardTexture11(SDL_Texture* texture);
 	void SetBlackCardTexture12(SDL_Texture* texture);
-	void SetChooseCardTexture(SDL_Texture* texture);
+	void SetFourCardsTexture(SDL_Texture* texture);
 
 	void SetGambleAmountTexture(SDL_Texture* texture);
 	void SetGambleAmountDigitTexture(SDL_Texture* texture);
@@ -102,7 +102,7 @@ public:
 	SDL_Texture* GetBlackCardTexture10();
 	SDL_Texture* GetBlackCardTexture11();
 	SDL_Texture* GetBlackCardTexture12();
-	SDL_Texture* GetChooseCardTexture();
+	SDL_Texture* GetFourCardsTexture();
 
 	SDL_Texture* GetGambleAmountTexture();
 	SDL_Texture* GetGambleAmountDigitTexture();
@@ -120,6 +120,7 @@ public:
 	void InitMedia();  //Starts up SDL and creates window
 	void LoadFromFile(string path); //Load sprite sheet texture
 	void PlayBonusGame();
+	void WinBonusGame();  //When the player is winning
 	void QuitBonusGame(); //Frees media and shuts down SDL
 
 	//
@@ -181,7 +182,9 @@ private:
 	SDL_Texture* blackCardTexture10 = NULL;
 	SDL_Texture* blackCardTexture11 = NULL;
 	SDL_Texture* blackCardTexture12 = NULL;
-	SDL_Texture* chooseCardTexture = NULL;
+	SDL_Texture* fourCardsTexture = NULL;
+
+	vector<SDL_Texture*> m_vecRedBlackCards;
 
 	//club, diamond, heart, spade
 	SDL_Texture* clubTexture = NULL;
@@ -205,15 +208,20 @@ private:
 	SDL_Texture* gSpriteSheetTexture;
 
 	//The music that will be played
-	Mix_Music* gMusic = NULL;
-	//The sound effects that will be used
-//	Mix_Sound1* g = NULL;
-//	Mix_Soud2* g = NULL;
-//	Mix_Sound3* g = NULL;
+	Mix_Chunk* gMusic = NULL;
 
-	int m_nGambleAmount = 0;
-	int m_nGambleToWin = 0;
-	int m_nGambleLeft = 0;
+	//The sound effects that will be used
+	Mix_Chunk* gButtonMotion = NULL;
+	Mix_Chunk* gButtonClick = NULL;
+	Mix_Chunk* gCardMoove = NULL;
+	Mix_Chunk* gCardOpen = NULL;
+	Mix_Chunk* gCardWrong = NULL;
+	Mix_Chunk* gCongrat = NULL;
+	Mix_Chunk* gWinBonus = NULL;
+
+	int m_nGambleAmount = 0;  //Bonus Game Gamble Amount
+	int m_nGambleToWin = 0;  //Bonus Game Gamble To Win
+	int m_nGambleLeft = 0;  //Bonus Game Gamble To Left
 	//
 	TTF_Font* conthrax = NULL;
 	SDL_Color color = { 252, 252, 252, 0 };
@@ -235,4 +243,4 @@ private:
 
 };
 
-#endif /* CONTROLLER4_BONUSGAME_H_ */
+#endif /* VIEW4_BONUSGAME_H_ */
