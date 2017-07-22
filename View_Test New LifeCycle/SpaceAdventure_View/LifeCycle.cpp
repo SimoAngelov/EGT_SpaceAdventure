@@ -124,10 +124,7 @@ void LifeCycle:: PreparingTexturesView1()
     Intro.SetRulesTexture(LoadTexture("rules.png"));
         
     Intro.SetCloseRulesButton(LoadTexture("closeButton.png"));
-    
-    creditSurface = TTF_RenderText_Solid(Xanadu, creditText.c_str(), color);
-    
-    creditTexture = SDL_CreateTextureFromSurface(rendererPtr, creditSurface);
+
 }
 
 // Loading Textures View 2
@@ -499,13 +496,19 @@ void LifeCycle:: PresentView1()
     
     SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(),&Rect.rectBackground , NULL);
     
-    SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &Rect.rectLogo);
-    
-    SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &Rect.rectInsertCredit);
+    if(counterViewControllers == 1)
+    {
+        SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &Rect.rectLogo);
+        
+        SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditTexture(), NULL, &Rect.rectInsertCredit);
+        
+        if(okPushedSpaceShip == true)
+        {
+            SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &Rect.rectForwardButton);
+        }
+    }
     
     SDL_RenderCopy(rendererPtr, Intro.GetInfoTexture(), NULL, &Rect.rectInfoButton);
-    
-    SDL_RenderCopy(rendererPtr, Intro.GetForwardButtonTexture(), NULL, &Rect.rectForwardButton);
     
     SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButton(), NULL, &Rect.rectVolumePlusButton);
     
@@ -530,6 +533,384 @@ void LifeCycle:: PresentView1()
     
 }
 
+// Present View 2
+
+void LifeCycle:: PresentView2()
+{
+    if(counterViewControllers == 2)
+    {
+        SDL_RenderCopy(rendererPtr, creditTexture, NULL, &Rect.rectTextCreditController2);
+    }
+}
+
+// Effect Credit Menu
+
+void LifeCycle:: CreditMenu(bool startCreditMenu)
+{
+    if(startCreditMenu == true)
+    {
+        while(Rect.rectLogo.y >= -260) // Logo Vertical Effect
+        {
+            Rect.rectLogo.y -= 1;
+            
+            PresentView1();
+            
+            SDL_RenderPresent(rendererPtr);
+        }
+        
+        while(Rect.rectBackground.h >= 250) // Zoom In Effect
+        {
+            Rect.rectBackground.h -= 1;
+            
+            Rect.rectBackground.w -= 2;
+            
+            SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &Rect.rectBackground, NULL);
+            
+            SDL_RenderPresent(rendererPtr);
+        }
+        
+        while(Rect.rectSpaceShip.y <= 0) // SpaceShipShown
+        {
+            Rect.rectSpaceShip.y += 1;
+            
+            SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &Rect.rectBackground, NULL);
+            
+            SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipTexture(), NULL, &Rect.rectSpaceShip);
+            
+            SDL_RenderPresent(rendererPtr);
+        }
+        
+        presentSpaceShip = true;
+    }
+}
+
+// Present SpaceShip
+
+void LifeCycle:: PresentCreditMenu(bool presentSpaceShip)
+{
+    if(presentSpaceShip == true)
+    {
+        creditText = to_string(m_nCredit);
+        
+        if(m_nCredit == 0)
+        {
+            creditText = "Insert Credit";
+        }
+        
+        creditSurface = TTF_RenderText_Solid(Xanadu, creditText.c_str(), color);
+        
+        creditTexture = SDL_CreateTextureFromSurface(rendererPtr, creditSurface);
+        
+        SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &Rect.rectBackground, NULL);
+        
+        SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipTexture(), NULL, &Rect.rectSpaceShip);
+        
+        SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonPlus(), NULL, &Rect.rectSpaceShipButtonPlus);
+        
+        SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonMinus(), NULL, &Rect.rectSpaceShipButtonMinus);
+        
+        SDL_RenderCopy(rendererPtr, creditTexture, NULL, &Rect.rectTextCredit);
+        
+        if(m_nCredit != 0)
+        {
+            SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonOk(), NULL, &Rect.rectSpaceShipButtonOk);
+        }
+    }
+}
+
+// Effect Credit Menu Zoom Out
+
+void LifeCycle:: CreditMenuZoomOut(bool okPushed)
+{
+    if(okPushed == true)
+    {
+        while(Rect.rectSpaceShip.y >= -500) // SpaceShip Vertical Effect Gone
+        {
+            Rect.rectSpaceShip.y -= 1;
+            
+            SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &Rect.rectBackground, NULL);
+            
+            SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipTexture(), NULL, &Rect.rectSpaceShip);
+            
+            SDL_RenderPresent(rendererPtr);
+        }
+        
+        while(Rect.rectBackground.h <= 720) // Background Zoom Out Effect
+        {
+            Rect.rectBackground.h += 1;
+            
+            Rect.rectBackground.w += 2;
+            
+            SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &Rect.rectBackground, NULL);
+            
+            SDL_RenderPresent(rendererPtr);
+        }
+        
+        while(Rect.rectLogo.y <= 10) // Logo Vertical Effect Coming
+        {
+            Rect.rectLogo.y += 1;
+            
+            SDL_RenderCopy(rendererPtr, Intro.GetBackgroundTexture(), &Rect.rectBackground, NULL);
+            
+            SDL_RenderCopy(rendererPtr, Intro.GetLogoTexture(), NULL, &Rect.rectLogo);
+            
+            SDL_RenderPresent(rendererPtr);
+        }
+        
+        StartCreditMenuEffect = false;
+        
+        presentSpaceShip = false;
+        
+    }
+}
+
+// Passing to View 2
+
+void LifeCycle:: PassingToView2()
+{
+    while(Rect.rectLogo.x >= -650) // Effect Going LEFT Logo, InsertCredit, Background
+    {
+        Rect.rectLogo.x -= 5;
+        
+        Rect.rectInsertCredit.x -= 5;
+        
+        Rect.rectBackground.x += 1;
+        
+        PresentView1();
+        
+        SDL_RenderPresent(rendererPtr);
+    }
+    
+    while(Rect.rectTextCreditController2.x >= 120) // Credit Coming Left To Right
+    {
+        Rect.rectTextCreditController2.x -= 3;
+        
+        PresentView1();
+        
+        SDL_RenderCopy(rendererPtr, creditTexture, NULL, &Rect.rectTextCreditController2);
+        
+        SDL_RenderPresent(rendererPtr);
+    }
+    
+    counterViewControllers += 1;
+}
+
+// Buttons
+
+// View 1 ->
+
+bool LifeCycle:: IsInsertCreditPressed(int x, int y) // Insert Credit / Start New Game
+{
+    if(ev.type == SDL_MOUSEBUTTONDOWN)
+    {
+        if(x >= Rect.rectInsertCredit.x && x <= (Rect.rectInsertCredit.x + Rect.rectInsertCredit.w) && y >= Rect.rectInsertCredit.y && y <= (Rect.rectInsertCredit.y + Rect.rectInsertCredit.h)  && StartCreditMenuEffect == false && presentSpaceShip == false)
+        {
+            StartCreditMenuEffect = true;
+            
+            okPushedSpaceShip = false;
+            
+            PresentView1();
+            
+            SDL_RenderCopy(rendererPtr, Intro.GetInsertCreditPushedTexture(), NULL, &Rect.rectInsertCredit);
+            
+            Mix_PlayChannel(0, buttonSound, 0);
+            
+            CreditMenu(StartCreditMenuEffect); // Credit Menu Effect
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    return false;
+}
+
+bool LifeCycle:: IsInfoPressed(int x, int y) // Info Button
+{
+    if(ev.type == SDL_MOUSEBUTTONDOWN)
+    {
+        if(x >= Rect.rectInfoButton.x && x <= (Rect.rectInfoButton.x + Rect.rectInfoButton.w) && y >= Rect.rectInfoButton.y && y <= (Rect.rectInfoButton.y + Rect.rectInfoButton.w) && presentSpaceShip == false)
+        {
+            PresentView1();
+            
+            SDL_RenderCopy(rendererPtr, Intro.GetInfoTexturePushed(), NULL, &Rect.rectInfoButton);
+            
+            Mix_PlayChannel(0, buttonSound, 0);
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    return false;
+}
+
+bool LifeCycle:: IsVolumeMinusPressed(int x, int y) // Volume Minus
+{
+    if(ev.type == SDL_MOUSEBUTTONDOWN)
+    {
+        if(x >= Rect.rectVolumeMinusButton.x && x <= (Rect.rectVolumeMinusButton.x + Rect.rectVolumeMinusButton.w) && y >= Rect.rectVolumeMinusButton.y && y <= (Rect.rectVolumeMinusButton.y + Rect.rectVolumeMinusButton.w)  && presentSpaceShip == false)
+        {
+            counterVolume -= 1;
+            
+            if(counterVolume < 0)
+            {
+                counterVolume = 0;
+            }
+            
+            PresentView1();
+            
+            SDL_RenderCopy(rendererPtr, Intro.GetVolumeMinusButtonPushed(), NULL, &Rect.rectVolumeMinusButton);
+            
+            Mix_PlayChannel(0, buttonSound, 0);
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    return false;
+}
+
+bool LifeCycle:: IsVolumePlusPressed(int x, int y) // Volume Plus
+{
+    if(ev.type == SDL_MOUSEBUTTONDOWN)
+    {
+        if(x >= Rect.rectVolumePlusButton.x && x <= (Rect.rectVolumePlusButton.x + Rect.rectVolumePlusButton.w) && y >= Rect.rectVolumePlusButton.y && y <= (Rect.rectVolumePlusButton.y + Rect.rectVolumePlusButton.w) && presentSpaceShip == false)
+        {
+            counterVolume += 1;
+            
+            if(counterVolume > 3)
+            {
+                counterVolume = 3;
+            }
+            
+            PresentView1();
+            
+            SDL_RenderCopy(rendererPtr, Intro.GetVolumePlusButtonPushed(), NULL, &Rect.rectVolumePlusButton);
+            
+            Mix_PlayChannel(0, buttonSound, 0);
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    return false;
+}
+
+bool LifeCycle:: IsForwardPressed(int x, int y) // Forward Button
+{
+    if(ev.type == SDL_MOUSEBUTTONDOWN)
+    {
+        if(x >= Rect.rectForwardButton.x && x <= (Rect.rectForwardButton.x + Rect.rectForwardButton.w) && y >= Rect.rectForwardButton.y && y <= (Rect.rectForwardButton.y + Rect.rectForwardButton.h) && presentSpaceShip == false && okPushedSpaceShip == true)
+        {
+            PresentView1();
+            
+            SDL_RenderCopy(rendererPtr, Intro.GetPushedForwardButtonTexture(), NULL, &Rect.rectForwardButton);
+            
+            Mix_PlayChannel(0, buttonSound, 0);
+            
+            PassingToView2();
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    return false;
+}
+
+// SpaceShip Buttons ->
+
+bool LifeCycle:: IsShipVolumePlusPressed(int x, int y) // Plus Button SpaceShip
+{
+    if(ev.type == SDL_MOUSEBUTTONDOWN)
+    {
+        if(xZ >= Rect.rectSpaceShipButtonPlus.x && xZ <= (Rect.rectSpaceShipButtonPlus.x + Rect.rectSpaceShipButtonPlus.w) && yZ >= Rect.rectSpaceShipButtonPlus.y && yZ <= (Rect.rectSpaceShipButtonPlus.y + Rect.rectSpaceShipButtonPlus.h) && presentSpaceShip == true)
+        {
+            m_nCredit += 10000;
+            
+            if(m_nCredit > 1000000)
+            {
+                m_nCredit = 1000000;
+            }
+            
+            PresentCreditMenu(presentSpaceShip);
+            
+            SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonPlusPushed(), NULL, &Rect.rectSpaceShipButtonPlus);
+            
+            Mix_PlayChannel(0, buttonSound, 0);
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    return false;
+}
+
+bool LifeCycle:: IsShipVolumeMinusPressed(int x, int y) // Minus Button SpaceShip
+{
+    if(ev.type == SDL_MOUSEBUTTONDOWN)
+    {
+        if(xZ >= Rect.rectSpaceShipButtonMinus.x && xZ <= (Rect.rectSpaceShipButtonMinus.x + Rect.rectSpaceShipButtonMinus.w) && yZ >= Rect.rectSpaceShipButtonMinus.y && yZ <= (Rect.rectSpaceShipButtonMinus.y + Rect.rectSpaceShipButtonMinus.h) && presentSpaceShip == true)
+        {
+            m_nCredit -= 10000;
+            
+            if(m_nCredit < 0)
+            {
+                m_nCredit = 0;
+            }
+            
+            PresentCreditMenu(presentSpaceShip);
+            
+            SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonMinusPushed(), NULL, &Rect.rectSpaceShipButtonMinus);
+            
+            Mix_PlayChannel(0, buttonSound, 0);
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    return false;
+}
+
+bool LifeCycle:: IsShipOkPressed(int x, int y)
+{
+    if(ev.type == SDL_MOUSEBUTTONDOWN)
+    {
+        if(xZ >= Rect.rectSpaceShipButtonOk.x && xZ <= (Rect.rectSpaceShipButtonOk.x + Rect.rectSpaceShipButtonOk.w) && yZ >= Rect.rectSpaceShipButtonMinus.y && yZ <= (Rect.rectSpaceShipButtonOk.y + (Rect.rectSpaceShipButtonOk.h - 50)) && presentSpaceShip == true && (m_nCredit > 0))
+        {
+            
+            PresentCreditMenu(presentSpaceShip);
+            
+            SDL_RenderCopy(rendererPtr, Intro.GetSpaceShipButtonOkPushed(), NULL, &Rect.rectSpaceShipButtonOk);
+            
+            Mix_PlayChannel(0, buttonSound, 0);
+            
+            okPushedSpaceShip = true;
+            
+            CreditMenuZoomOut(okPushedSpaceShip); // SpaceShipGone
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
+    return false;
+}
+
+
 // Play While LifeCycle
 
 void LifeCycle:: Play()
@@ -553,7 +934,35 @@ void LifeCycle:: Play()
             
             SDL_GetMouseState(&xZ, &yZ);
             
+            Mix_Volume(-1, counterVolume * 3);
+            
+            // View 1
+            
             PresentView1();
+            
+            PresentCreditMenu(presentSpaceShip);
+            
+            IsShipVolumePlusPressed(xZ, yZ);
+            
+            IsShipVolumeMinusPressed(xZ, yZ);
+            
+            IsInsertCreditPressed(xZ, yZ);
+            
+            IsShipOkPressed(xZ, xZ);
+            
+            IsInfoPressed(xZ, yZ);
+            
+            IsVolumeMinusPressed(xZ, yZ);
+            
+            IsVolumePlusPressed(xZ, yZ);
+            
+            IsForwardPressed(xZ, yZ);
+            
+            // View 2
+            
+            PresentView2();
+            
+            // TODO: Lines View 2
             
             SDL_RenderPresent(rendererPtr);
             

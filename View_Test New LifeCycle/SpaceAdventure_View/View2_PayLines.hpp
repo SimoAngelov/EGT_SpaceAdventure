@@ -52,6 +52,8 @@ public:
     
     void SetPlayButtonTexturePushed(SDL_Texture* texture);
     
+    void SetTextCreditView2(SDL_Texture* texture);
+    
     void SetFirstRow(SDL_Texture* texture);
     
     void SetSecondRow(SDL_Texture* texture);
@@ -69,6 +71,8 @@ public:
     SDL_Texture* GetPlayButtonTexture();
     
     SDL_Texture* GetPlayButtonTexturePushed();
+    
+    SDL_Texture* GetTextCreditView2();
     
     SDL_Texture* GetFirstRow();
     

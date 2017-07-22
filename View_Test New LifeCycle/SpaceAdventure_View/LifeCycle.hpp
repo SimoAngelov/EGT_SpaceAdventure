@@ -214,6 +214,14 @@ private:
     
     bool spaceShipHidden = true;
     
+    // Start Credit Menu Effect
+    
+    bool StartCreditMenuEffect = false;
+    
+    // Bool Present SpaceShip
+    
+    bool presentSpaceShip = false;
+    
     // Bool OK SpaceShip Pushed
     
     bool okPushedSpaceShip = false;
@@ -248,11 +256,35 @@ public:
     
     LifeCycle();
     
+    //
+    
     void InitMedia(); // Initialize Audio and Video, creating Window and Renderer...
     
     void Play(); // LIFECYCLE Program
     
     void QuitGame(); // Delete Memory and Free Pointers
+    
+    // Buttons Methods ->
+    
+    // View 1
+    
+    bool IsInsertCreditPressed(int x, int y);
+    
+    bool IsInfoPressed(int x, int y);
+    
+    bool IsVolumePlusPressed(int x, int y);
+    
+    bool IsVolumeMinusPressed(int x, int y);
+    
+    bool IsForwardPressed(int x, int y);
+    
+    // View SpaceShip
+    
+    bool IsShipVolumeMinusPressed(int x, int y);
+    
+    bool IsShipOkPressed(int x, int y);
+    
+    bool IsShipVolumePlusPressed(int x, int y);
     
     // Utility Methods ->
     
@@ -305,6 +337,16 @@ public:
     void LoadMusic(); // Loading Music
     
     void PresentView1(); // Present View 1
+    
+    void CreditMenu(bool spaceShipHidden); // Effect Credit Menu
+    
+    void PresentCreditMenu(bool presentSpaceShip);
+    
+    void CreditMenuZoomOut(bool okPushed); // Effect Credit Menu Zoom Out
+    
+    void PassingToView2(); // Passing to View 2 Animation
+    
+    void PresentView2(); // Present View 2
     
 };
 
