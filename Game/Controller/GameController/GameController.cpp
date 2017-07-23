@@ -54,41 +54,6 @@ void GameController::LoadGame()
 	this->InitCurrentPaylines();
 }
 
-//Increase the credits
-void GameController::IncreaseCredits()
-{
-	//increment the existing credits by 10000
-	int iNewCredits = this->m_baseGame.GetICredits() + CREDIT_STEP;
-	//check to make sure the new amount doesn't exceed the max value
-	if (iNewCredits <= MAX_CREDITS)
-	{
-		this->InsertCredits(iNewCredits);
-	} // end if
-}
-
-//Decrease Credits
-void GameController::DecreaseCredits()
-{
-	//decrement the existing credits by 10000
-	int iNewCredits = this->m_baseGame.GetICredits() - CREDIT_STEP;
-	//check to make sure the new amount doesn't go below the min amount
-	if (iNewCredits >= MIN_CREDITS)
-	{
-		this->InsertCredits(iNewCredits);
-	}
-
-}
-
-//insert credits in order to play the game
-void GameController::InsertCredits(int iCredits)
-{
-	//if the credits are within legal range
-	if (iCredits >= MIN_CREDITS && iCredits <= MAX_CREDITS)
-	{
-		this->m_baseGame.SetICredits(iCredits);
-	}
-}
-
 //set default values for the member fields
 void GameController::SetDefault()
 {

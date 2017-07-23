@@ -29,7 +29,6 @@ public:
 	void SetReelElement(const Figures&, int, int);
 	void SetMatrixGameReels(const vector<vector<Figures> >&);
 	const Figures GetReelElement(int, int) const;
-	static void InitVecPaylines();
 	virtual ~GameModel();
 	const vector<vector<Figures> >& GetMatrixGameReels() const;
 	int GetIBetPerLine() const;

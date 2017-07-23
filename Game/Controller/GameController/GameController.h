@@ -21,8 +21,6 @@ private:
 
 	//set default values for the member fields
 	void SetDefault();
-	//insert credits in order to play
-	void InsertCredits(int);
 	//set random values for the reels
 	void InitRandomReels();
 	//set the special figure per reel, random appearance
@@ -63,11 +61,6 @@ public:
 	void NewGame();
 	//load old game
 	void LoadGame();
-	//increase the credits
-	void IncreaseCredits();
-	//decrease the credits
-	void DecreaseCredits();
-
 	//spin the reels and set the paylines
 	void Spin();
 	//check if the total credit doesn't fall in range of the current

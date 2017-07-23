@@ -43,16 +43,6 @@ void GameModel::InitDefaultReels()
 	} // end reel for
 }
 
-//initialize the game lines with default values
-void GameModel::InitVecPaylines()
-{
-	for (int i = 0; i < MAX_PAYLINES; i++)
-	{
-		Payline line =
-		{ eInvalidFigure };
-		GameModel::m_vecPaylines.push_back(line);
-	}
-}
 
 GameModel::~GameModel()
 {
