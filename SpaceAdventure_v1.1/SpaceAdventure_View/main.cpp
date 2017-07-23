@@ -10,7 +10,7 @@
 
 #include "LifeCycle.hpp"
 
-int main(int argc, const char * argv[]) {
+int main(int argc, char* args[]) {
     
     LifeCycle LyfeCycle;
     
