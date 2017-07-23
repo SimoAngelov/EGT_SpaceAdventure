@@ -29,7 +29,7 @@
 	<Bet_Per_Line Value="1" />
 	<Total_Bet Value="1" />
 	<Win Value="0" />
-	<Credits Value="0" />
+	<Credits Value="50000" />
 	<Bonus_Game>
 		<Player_Choice Value="-1" />
 	</Bonus_Game>

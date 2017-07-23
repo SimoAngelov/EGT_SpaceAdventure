@@ -23,6 +23,7 @@
 #include <vector>
 
 #include "Controller1_Intro.hpp"
+#include "Controller/GameController/GameControllerLogic.h"
 
 #include "Controller/IntroController/IntroController.h"
 
@@ -82,6 +83,10 @@ public:
 
     //
     IntroController intrologic;
+
+    GameControllerLogic gamecontroller;
+
+    GameModel gameModel;
 
     void InitMedia(); // To initialize EVERYTHING
 
