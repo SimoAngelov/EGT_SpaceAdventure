@@ -23,7 +23,7 @@ int GameController::m_iBonusCounter = 0;
 GameController::GameController() :
 		m_baseGame()
 {
-	// TODO Auto-generated constructor stub
+	this->m_vecWinningLines;
 }
 
 GameController::~GameController()
@@ -403,14 +403,17 @@ void GameController::SetTotalWin()
 void GameController::WinFromPaylines()
 {
 	int winFromPaylines = 0;
-	for (int i = 0; i < this->GetNumberOfLines(); i++)
+	for (int iLine = 0; iLine < this->GetNumberOfLines(); iLine++)
 	{
-		Payline currentPayline = this->m_baseGame.GetVecPaylines()[i];
+		Payline currentPayline = this->m_baseGame.GetVecPaylines()[iLine];
 		winFromPaylines += this->WinFromSinglePayline(currentPayline);
-		//test cout
-		//if (this->WinFromSinglePayline(currentPayline) > 0)
-			//cout << "GameController::Win for line" << i + 1 << ": "
-			//		<< this->WinFromSinglePayline(currentPayline) << endl;
+		//if it is a winning payline add it to the winning paylines vector
+		if (this->WinFromSinglePayline(currentPayline) > 0)
+		{
+			cout << "Win at line: " << iLine + 1<< "\t won: " <<
+					this->WinFromSinglePayline(currentPayline) << endl;
+			this->m_vecWinningLines.push_back(iLine + 1);
+		}
 	}
 	int currentWinnings = this->GetWin();
 	int newWinnings = currentWinnings + winFromPaylines;
@@ -555,8 +558,12 @@ int GameController::GetWin() const
 	return this->m_baseGame.GetIWin();
 }
 
-//to string methods
+const vector<int>& GameController::GetWinningPaylines() const
+{
+	return this->m_vecWinningLines;
+}
 
+//to string methods
 string GameController::BetPerLineAsString() const
 {
 	string res = itos(this->m_baseGame.GetIBetPerLine());
@@ -596,6 +603,7 @@ void GameController::PrintInfo() const
 	this->PrintReels();
 	this->PrintPaylines();
 	this->PrintNumLines();
+	this->PrintWinningPaylines();
 	this->PrintBetPerLine();
 	this->PrintTotalBet();
 	this->PrintWin();
@@ -654,6 +662,15 @@ void GameController::PrintWin() const
 	cout << "Win: " << this->WinAsString() << endl;
 }
 
+void GameController::PrintWinningPaylines() const
+{
+	cout << "Winning lines: ";
+	for(int i = 0; i < this->m_vecWinningLines.size(); i++)
+	{
+		cout << this->m_vecWinningLines[i] << "\t";
+	}
+	cout << endl;
+}
 //erase the contents from the vector, holding the paylines
 void GameController::ErasePaylines()
 {
@@ -668,6 +685,17 @@ void GameController::ErasePaylines()
 				this->m_baseGame.GetVecPaylines().end();
 		//erase the contents of the vector
 		this->m_baseGame.GetVecPaylines().erase(paylinesBegin, paylinesEnd);
+	}
+	if(!this->m_vecWinningLines.empty())
+	{
+		//iterator pointing to the first element of the winning payline vector
+		vector<int>::iterator paylinesBegin =
+				this->m_vecWinningLines.begin();
+		//iterator pointing to the one after last element of  the winning payline vector
+		vector<int>::iterator paylinesEnd =
+				this->m_vecWinningLines.end();
+		//erase the contents of the vector
+		this->m_vecWinningLines.erase(paylinesBegin, paylinesEnd);
 	}
 }
 

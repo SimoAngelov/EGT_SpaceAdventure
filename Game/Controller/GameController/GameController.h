@@ -18,7 +18,7 @@ private:
 	static int m_iBetStep;
 	static vector<BET> m_vecBetPerStep;
 	static int m_iBonusCounter;
-
+	vector<int> m_vecWinningLines;
 	//set default values for the member fields
 	void SetDefault();
 	//set random values for the reels
@@ -94,7 +94,7 @@ public:
 	int GetNumberOfLines() const;
 	int GetTotalBet() const;
 	int GetWin() const;
-
+	const vector<int>& GetWinningPaylines() const;
 	//to_string methods
 	string BetPerLineAsString() const;
 	string CreditsAsString() const;
@@ -107,6 +107,7 @@ public:
 	void PrintReels() const;
 	void PrintPayline(const Payline&) const;
 	void PrintPaylines() const;
+	void PrintWinningPaylines() const;
 	void PrintCredits() const;
 	void PrintBetPerLine() const;
 	void PrintNumLines() const;
