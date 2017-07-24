@@ -6,7 +6,7 @@
 //  Copyright © 2017 IliyaStark. All rights reserved.
 //
 
-#include "View1_Intro.hpp"
+#include "../View1_Intro/View1_Intro.hpp"
 
 Intro::Intro()
 {

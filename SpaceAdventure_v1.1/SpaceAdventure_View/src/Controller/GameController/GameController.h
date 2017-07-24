@@ -61,6 +61,7 @@ public:
 	void NewGame();
 	//load old game
 	void LoadGame();
+
 	//spin the reels and set the paylines
 	void Spin();
 	//check if the total credit doesn't fall in range of the current

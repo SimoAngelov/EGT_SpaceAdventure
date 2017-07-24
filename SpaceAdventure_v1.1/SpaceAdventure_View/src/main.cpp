@@ -8,7 +8,7 @@
 
 #include <iostream>
 
-#include "LifeCycle.hpp"
+#include "View/LifeCycle/LifeCycle.hpp"
 
 int main(int argc, char* args[]) {
     
