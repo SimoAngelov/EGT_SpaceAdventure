@@ -101,7 +101,7 @@ public:
 	string NumberOfLinesAsString() const;
 	string TotalBetAsString() const;
 	string WinAsString() const;
-
+	string WinningPaylinesAsString() const;
 	//print functions
 	void PrintInfo() const;
 	void PrintReels() const;

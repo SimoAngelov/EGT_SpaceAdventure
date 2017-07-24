@@ -21,9 +21,8 @@ int GameController::m_iBonusCounter = 0;
 
 //constructor
 GameController::GameController() :
-		m_baseGame()
+		m_baseGame(), m_vecWinningLines()
 {
-	this->m_vecWinningLines;
 }
 
 GameController::~GameController()
@@ -594,7 +593,29 @@ string GameController::WinAsString() const
 	return res;
 }
 
-
+string GameController::WinningPaylinesAsString() const
+{
+	//string to hold the result
+	string res;
+	//string to hold the comma
+	string comma = ",";
+	int size = this->GetWinningPaylines().size();
+	for(int i = 0; i < size; i++)
+	{
+		//get the current element from the vector
+		int iCurrLine = this->GetWinningPaylines()[i];
+		//convert it to string
+		string strLine = itos(iCurrLine);
+		//append it to the result
+		res.append(strLine);
+		//if not last element, append a comma
+		if(i != (size - 1))
+		{
+			res.append(comma);
+		}
+	}//end vector for
+	return res;
+}
 //printing functions
 
 void GameController::PrintInfo() const
@@ -664,6 +685,7 @@ void GameController::PrintWin() const
 
 void GameController::PrintWinningPaylines() const
 {
+	cout << "ToString: " << this->WinningPaylinesAsString() << endl;
 	cout << "Winning lines: ";
 	for(int i = 0; i < this->m_vecWinningLines.size(); i++)
 	{
