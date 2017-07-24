@@ -8,9 +8,9 @@
 #ifndef GAMECONTROLLER_H_
 #define GAMECONTROLLER_H_
 
-#include "..\..\Model\GameModel.h"
-#include "..\BonusGameController\BonusGame.h"
-#include "..\GameRecovery\GameRecovery.h"
+#include "../../Model/GameModel.h"
+#include "../BonusGameController/BonusGame.h"
+#include "../GameRecovery/GameRecovery.h"
 class GameController
 {
 private:
@@ -53,6 +53,8 @@ private:
 	bool BetExceedsCredits(int);
 	//check if the payline increase exceeds the current amount of credits
 	bool PaylinesExceedCredits(int);
+
+
 public:
 	GameController();
 	virtual ~GameController();
@@ -110,7 +112,8 @@ public:
 	void PrintNumLines() const;
 	void PrintTotalBet() const;
 	void PrintWin() const;
-
+	//set the credits to null for cashout
+	void SetNullCredits();
 private:
 	void ErasePaylines();
 	void InitPayline1();

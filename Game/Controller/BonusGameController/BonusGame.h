@@ -7,8 +7,8 @@
 
 #ifndef BONUSGAME_H_
 #define BONUSGAME_H_
-#include "..\..\Globals\Globals.h"
-#include "..\..\Model\GameModel.h"
+#include "../../Globals/Globals.h"
+#include "../../Model/GameModel.h"
 
 class BonusGame
 {

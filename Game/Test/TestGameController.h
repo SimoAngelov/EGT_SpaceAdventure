@@ -9,8 +9,8 @@
 #define TESTGAMECONTROLLER_H_
 #include <iostream>
 using std::cin;
-#include "..\Controller\GameController\GameController.h"
-#include "..\Controller\IntroController\IntroController.h"
+#include "../Controller/GameController/GameController.h"
+#include "../Controller/IntroController/IntroController.h"
 #include "TestBonusGame.h"
 class TestGameController
 {

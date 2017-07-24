@@ -8,7 +8,7 @@
 #ifndef GAMEMODEL_H_
 #define GAMEMODEL_H_
 
-#include "..\Globals\Globals.h"
+#include "../Globals/Globals.h"
 class GameModel
 {
 private:

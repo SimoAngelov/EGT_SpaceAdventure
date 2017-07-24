@@ -8,10 +8,10 @@
 
 #include <iostream>
 
-#include "Test\TestGameController.h"
-#include "Test\TestRecovery.h"
-#include "Controller\GameRecovery\GameRecovery.h"
-#include "Test\TestIntroController.h"
+#include "Test/TestGameController.h"
+#include "Test/TestRecovery.h"
+#include "Controller/GameRecovery/GameRecovery.h"
+#include "Test/TestIntroController.h"
 
 using namespace std;
 
@@ -21,5 +21,6 @@ int main() {
 //	testGame.TestGame();
 //	TestGameController::InitTest();
 	TestIntroController::InitTest();
+
 	return 0;
 }

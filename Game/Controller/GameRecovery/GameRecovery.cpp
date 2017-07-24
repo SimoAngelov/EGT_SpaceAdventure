@@ -117,7 +117,7 @@ void GameRecovery::AddReelsToRoot(pugi::xml_node& rootNode)
 			pugi::xml_node figureNode = reelNode.append_child(STR_FIGURE);
 			//append default attributes
 			figureNode.append_attribute(STR_INDEX) = j;
-			figureNode.append_attribute(STR_VALUE) = Figures::eInvalidFigure;
+			figureNode.append_attribute(STR_VALUE) = eInvalidFigure;
 			//delete
 		}	//end figure for
 
@@ -181,7 +181,7 @@ void GameRecovery::AddBonusGameToRoot(pugi::xml_node& rootNode)
 	pugi::xml_node playerChoiceNode = bonusGameNode.append_child(
 			STR_PLAYER_CHOICE);
 	//append value attribute to the player choice node
-	playerChoiceNode.append_attribute(STR_VALUE) = COLOR::eInvalidColor;
+	playerChoiceNode.append_attribute(STR_VALUE) = eInvalidColor;
 }
 
 //load the document

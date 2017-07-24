@@ -947,4 +947,8 @@ void GameController::InitPayline25()
 	this->m_baseGame.AddPayline(line);
 }
 
-
+//set the credits to null for cashout
+void GameController::SetNullCredits()
+{
+	this->m_baseGame.SetICredits(0);
+}

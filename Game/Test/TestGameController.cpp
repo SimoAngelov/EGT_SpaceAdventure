@@ -167,6 +167,7 @@ void TestGameController::InitTest()
 		cout << "5 - Toggle max bet" << endl;
 		cout << "6 - Test spin" << endl;
 		cout << "7 - Print GameCOntroller info\n" << endl;
+		cout << "8 - Test SetNullCredits: " << endl;
 		cin >> iChoice;
 		switch (iChoice)
 		{
@@ -190,6 +191,13 @@ void TestGameController::InitTest()
 			break;
 		case 7:
 			PrintInfo();
+			break;
+		case 8:
+			cout << "Before SetCreditsNUll " << m_gameController.GetCredits()
+			<< endl;
+			m_gameController.SetNullCredits();
+			cout << "After SetCreditsNUll " << m_gameController.GetCredits()
+						<< endl;
 			break;
 		default:
 			bQuit = true;
