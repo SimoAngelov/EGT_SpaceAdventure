@@ -247,20 +247,6 @@ void BonusGame::PlayBonusRound()
 
 }
 
-//test function to test the win of a round
-void BonusGame::WinBonusRound()
-{
-	//test cout
-//	cout << "BonusGame::PlayBonusRound = Current Bet: " << BonusGame::m_iBet
-//			<< endl;
-//	cout << "BonusGame::PlayBonusRound = Current Win: "
-//			<< BonusGame::m_iBonusWin << endl;
-//	cout << "BonusGame::PlayBonusRound = Current Credits: "
-//			<< BonusGame::m_iCredits << endl;
-	BonusGame::m_playerChoice = BonusGame::m_bonusGameResult;
-	BonusGame::DoubleUpWins();
-}
-
 void BonusGame::UpdateWinAndCredits()
 {
 	//update the win
