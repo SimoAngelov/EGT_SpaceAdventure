@@ -218,7 +218,6 @@ void BonusGame::SetDefault()
 
 //gamble amount
 string BonusGame::GambleAmount()
-//string BonusGame::GambleAmount()
 {
 	string res = itos(BonusGame::m_iBet);
 	//return the bet, which is the current winnings from the game
@@ -227,7 +226,6 @@ string BonusGame::GambleAmount()
 
 //amount to win
 string BonusGame::GambleToWin()
-//string BonusGame::GambleToWin()
 {
 	string res = itos(2 * BonusGame::m_iBet);
 	//the expected win is double the old winnings

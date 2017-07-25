@@ -21,10 +21,5 @@ string itos(int nArg)
 	stream << nArg;
 	//return the const char* representation of the stream string method
 	string res = stream.str();
-	//test cout
-	//cout << "string res = " << res << endl;
-	//cout << "const char* res = " << res.c_str() << endl;
-	//const char* resCon = res.c_str();
-	//cout << "resCon = " << resCon << endl;
 	return res;
 }
