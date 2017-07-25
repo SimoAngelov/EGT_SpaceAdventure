@@ -15,14 +15,14 @@
 #include "View4_BonusGame.h"
 using namespace std;
 
-int main(int argc, char* args[]) {
+int main(int argc, char* args[])
+{
 
 	Bonus_Game BonusGame;
 
 	BonusGame.InitMedia();
 
 	BonusGame.PlayBonusGame();
-
 
 	return 0;
 }
