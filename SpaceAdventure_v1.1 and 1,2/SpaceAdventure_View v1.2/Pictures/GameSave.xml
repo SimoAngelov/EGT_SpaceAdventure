@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<Game>
+	<View Value="3" />
+	<Volume Value="1" />
+	<Reels>
+		<Row Index="0">
+			<Figure Index="0" Value="6" />
+			<Figure Index="1" Value="0" />
+			<Figure Index="2" Value="2" />
+			<Figure Index="3" Value="1" />
+			<Figure Index="4" Value="3" />
+		</Row>
+		<Row Index="1">
+			<Figure Index="0" Value="3" />
+			<Figure Index="1" Value="5" />
+			<Figure Index="2" Value="3" />
+			<Figure Index="3" Value="3" />
+			<Figure Index="4" Value="4" />
+		</Row>
+		<Row Index="2">
+			<Figure Index="0" Value="8" />
+			<Figure Index="1" Value="2" />
+			<Figure Index="2" Value="1" />
+			<Figure Index="3" Value="2" />
+			<Figure Index="4" Value="5" />
+		</Row>
+	</Reels>
+	<Number_Of_Paylines Value="6" />
+	<Bet_Per_Line Value="25" />
+	<Total_Bet Value="150" />
+	<Win Value="0" />
+	<Credits Value="59850" />
+	<Bonus_Game>
+		<Player_Choice Value="-1" />
+	</Bonus_Game>
+</Game>
