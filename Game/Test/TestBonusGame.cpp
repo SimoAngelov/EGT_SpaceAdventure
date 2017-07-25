@@ -49,10 +49,7 @@ void TestBonusGame::Round(bool win)
 					<< TestGameController::m_gameController.GetCredits()
 					<< endl;
 
-			if (!win)
-				BonusGame::PlayBonusRound();
-			else
-				BonusGame::WinBonusRound();
+			BonusGame::PlayBonusRound();
 
 			cout << "TestBonusGame::New Win: "
 					<< TestGameController::m_gameController.GetWin() << endl;

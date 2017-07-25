@@ -27,7 +27,6 @@ void GameModel::InitDefaultReels()
 	//if the vector is not empty, erase its contents
 	if (!vecCurrentRow.empty())
 	{
-		//cout << "Vector is not empty" << endl;
 		vecCurrentRow.erase(vecCurrentRow.begin(), vecCurrentRow.end());
 	}
 
@@ -186,5 +185,4 @@ void GameModel::PrintReels() const
 		}
 		cout << endl;
 	}
-	//cout << "End Print Get() XO\n\n";
 }

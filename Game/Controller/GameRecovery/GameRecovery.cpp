@@ -50,9 +50,6 @@ bool GameRecovery::IsSaveGame()
 	//delete the doc pointer
 	delete docPtr;
 	docPtr = NULL;
-	//test cout
-	if(result) cout << "GameRecovery::IsSaveGame() THERE IS A SAVE GAME" << endl;
-	else cout << "GameRecovery::IsSaveGame()ERROR!! THERE IS not a SAVE GAME!!" << endl;
 	return result;
 }
 
@@ -73,11 +70,8 @@ void GameRecovery::CreateBlankSave()
 	GameRecovery::AddWinToRoot(rootNode);
 	GameRecovery::AddCreditsToRoot(rootNode);
 	GameRecovery::AddBonusGameToRoot(rootNode);
-	// test cout
-	std::cout << "Saving result... ";
 	//save document to file
 	GameRecovery::UpdateDoc(docPtr);
-	// end::code[]
 }
 
 //add view node to root node
@@ -213,17 +207,13 @@ void GameRecovery::UpdateView(int iView)
 {
 	//create xml document in memory
 	pugi::xml_document* docPtr = new pugi::xml_document();
-	//test cout
-//	cout << "GameRecovery::UpdateView" << endl;
 	//open the file
 	GameRecovery::LoadDoc(docPtr);
+
 	//create a view node
 	pugi::xml_node viewNode = docPtr->child(STR_ROOT).child(STR_VIEW);
 	//take the attribute of the view node
 	pugi::xml_attribute  valueAttribute = viewNode.attribute(STR_VALUE);
-	//test cout
-//	cout << "before view update: " << valueAttribute.as_int() << endl;
-	//update the attribute
 	if (!valueAttribute.set_value(iView))
 	{
 		cerr << "Failed to update the view!" << endl;
@@ -231,8 +221,6 @@ void GameRecovery::UpdateView(int iView)
 
 	//update the document
 	GameRecovery::UpdateDoc(docPtr);
-	//test cout
-//	cout << "after view update: " << valueAttribute.as_int() << endl;
 }
 
 //update the volume
@@ -240,8 +228,6 @@ void GameRecovery::UpdateVolume(int iVolume)
 {
 	//create xml document in memory
 	pugi::xml_document* docPtr = new pugi::xml_document();
-	//test cout
-	cout << "GameRecovery::UpdateVolume" << endl;
 	//load the document
 	GameRecovery::LoadDoc(docPtr);
 
@@ -249,8 +235,6 @@ void GameRecovery::UpdateVolume(int iVolume)
 	pugi::xml_node volumeNode = docPtr->child(STR_ROOT).child(STR_VOLUME);
 	//take the attribute of the volume node
 	pugi::xml_attribute  valueAttribute = volumeNode.attribute(STR_VALUE);
-	//test cout
-//	cout << "before volume update: " << valueAttribute.as_int() << endl;
 	//update the attribute
 	if (!valueAttribute.set_value(iVolume))
 	{
@@ -259,25 +243,15 @@ void GameRecovery::UpdateVolume(int iVolume)
 
 	//update the document
 	GameRecovery::UpdateDoc(docPtr);
-
-	//test cout
-//	cout << "after volume update: " << valueAttribute.as_int() << endl;
 }
 
-//TODO
 void GameRecovery::UpdateReels(const vector<vector<Figures> >& gameReels)
 {
-	//test cout
-//	cout << "UpdateReels.gameReels size = " << gameReels.size() << endl;
-//	cout << "UpdateReels.gameReels[0] size = " << gameReels[0].size() << endl;
-//	cout << "UpdateReels.gameReels[1] size = " << gameReels[1].size() << endl;
-//	cout << "UpdateReels.gameReels[2] size = " << gameReels[2].size() << endl;
 	//create xml document in memory
 	pugi::xml_document* docPtr = new pugi::xml_document();
-	//test cout
-//	cout << "GameRecovery::UpdateReels" << endl;
 	//load doc
 	GameRecovery::LoadDoc(docPtr);
+
 	//create a reels node
 	pugi::xml_node reelsNode = docPtr->child(STR_ROOT).child(STR_REELS);
 	//a node for a single row
@@ -288,13 +262,8 @@ void GameRecovery::UpdateReels(const vector<vector<Figures> >& gameReels)
 	{
 		//get the index of the current row
 		int iRowIndex = rowNode.attribute(STR_INDEX).as_int();
-		//test cout
-//		cout << "Current row: " << iRowIndex << endl;
 		//get the current payline using the index
 		vector<Figures> currentRow = gameReels[iRowIndex];
-		//if the vector is not empty, erase its contents
-
-//		cout << "current reel size " << currentRow.size() << endl;
 		pugi::xml_node figureNode;
 		//traverse the elements of a single reel
 		for (pugi::xml_node figureNode = rowNode.child(STR_FIGURE); figureNode;
@@ -302,8 +271,6 @@ void GameRecovery::UpdateReels(const vector<vector<Figures> >& gameReels)
 		{
 			//get the index of the current figure
 			int iFigureIndex = figureNode.attribute(STR_INDEX).as_int();
-			//test cout
-//			cout << "Current Figure: " << iFigureIndex << endl;
 			//get the current figure from the reel, using the index
 			Figures currFigure = currentRow[iFigureIndex];
 			//take the value attribute of the figure
@@ -311,14 +278,14 @@ void GameRecovery::UpdateReels(const vector<vector<Figures> >& gameReels)
 			if (!valueAttribute.set_value(currFigure))
 			{
 				cerr << "Failed to update the reels!" << endl;
-			}	// end attribute if
-
-		}	// end figure traversal
+			}// end attribute if
+		}// end figure traversal
 		if (!currentRow.empty())
 		{
 			currentRow.erase(currentRow.begin(), currentRow.end());
 		}	// end if not empty
 	} // end reels traversal
+
 	  //update doc
 	GameRecovery::UpdateDoc(docPtr);
 }
@@ -335,9 +302,6 @@ void GameRecovery::UpdateNumberOfPaylines(int iNumberOfPaylines)
 	pugi::xml_node numberOfPaylinesNode = docPtr->child(STR_ROOT).child(STR_NUMBER_OF_PAYLINES);
 	//take the attribute of the number of paylines node
 	pugi::xml_attribute  valueAttribute = numberOfPaylinesNode.attribute(STR_VALUE);
-	//test cout
-//	cout << "before number of paylines update: " << valueAttribute.as_int()
-//			<< endl;
 	//update the attribute
 	if (!valueAttribute.set_value(iNumberOfPaylines))
 	{
@@ -346,10 +310,6 @@ void GameRecovery::UpdateNumberOfPaylines(int iNumberOfPaylines)
 
 	//update the document
 	GameRecovery::UpdateDoc(docPtr);
-
-	//test cout
-//	cout << "after number of paylines update: " << valueAttribute.as_int()
-//			<< endl;
 }
 
 void GameRecovery::UpdateBetPerPayline(int iBetPerLine)
@@ -363,9 +323,6 @@ void GameRecovery::UpdateBetPerPayline(int iBetPerLine)
 	pugi::xml_node betPerLineNode = docPtr->child(STR_ROOT).child(STR_BET_PER_LINE);
 	//take the attribute of the bet per line node
 	pugi::xml_attribute  valueAttribute = betPerLineNode.attribute(STR_VALUE);
-	//test cout
-//	cout << "before number of bet per line update: " << valueAttribute.as_int()
-//			<< endl;
 	//update the attribute
 	if (!valueAttribute.set_value(iBetPerLine))
 	{
@@ -374,9 +331,6 @@ void GameRecovery::UpdateBetPerPayline(int iBetPerLine)
 
 	//update the document
 	GameRecovery::UpdateDoc(docPtr);
-
-	//test cout
-//	cout << "after bet per line update: " << valueAttribute.as_int() << endl;
 }
 
 void GameRecovery::UpdateTotalBet(int iTotalBet)
@@ -390,8 +344,6 @@ void GameRecovery::UpdateTotalBet(int iTotalBet)
 	pugi::xml_node totalBetNode = docPtr->child(STR_ROOT).child(STR_TOTAL_BET);
 	//take the attribute of the total bet node
 	pugi::xml_attribute  valueAttribute = totalBetNode.attribute(STR_VALUE);
-	//test cout
-//	cout << "before total bet update: " << valueAttribute.as_int() << endl;
 	//update the attribute
 	if (!valueAttribute.set_value(iTotalBet))
 	{
@@ -400,9 +352,6 @@ void GameRecovery::UpdateTotalBet(int iTotalBet)
 
 	//update the document
 	GameRecovery::UpdateDoc(docPtr);
-
-	//test cout
-//	cout << "after total bet update: " << valueAttribute.as_int() << endl;
 }
 
 void GameRecovery::UpdateWin(int iWin)
@@ -414,8 +363,6 @@ void GameRecovery::UpdateWin(int iWin)
 	pugi::xml_node winNode = docPtr->child(STR_ROOT).child(STR_WIN);
 	//take the attribute of the win node
 	pugi::xml_attribute  valueAttribute = winNode.attribute(STR_VALUE);
-	//test cout
-//	cout << "before win update: " << valueAttribute.as_int() << endl;
 	//update the attribute
 	if (!valueAttribute.set_value(iWin))
 	{
@@ -424,9 +371,6 @@ void GameRecovery::UpdateWin(int iWin)
 
 	//update the document
 	GameRecovery::UpdateDoc(docPtr);
-
-	//test cout
-	//cout << "after win update: " << valueAttribute.as_int() << endl;
 }
 
 void GameRecovery::UpdateCredits(int iCredits)
@@ -439,8 +383,6 @@ void GameRecovery::UpdateCredits(int iCredits)
 	pugi::xml_node creditsNode = docPtr->child(STR_ROOT).child(STR_CREDITS);
 	//take the attribute of the credits node
 	pugi::xml_attribute  valueAttribute = creditsNode.attribute(STR_VALUE);
-	//test cout
-	cout << "before credits update: " << valueAttribute.as_int() << endl;
 	//update the attribute
 	if (!valueAttribute.set_value(iCredits))
 	{
@@ -449,9 +391,6 @@ void GameRecovery::UpdateCredits(int iCredits)
 
 	//update the document
 	GameRecovery::UpdateDoc(docPtr);
-
-	//test cout
-	cout << "after credits update: " << valueAttribute.as_int() << endl;
 }
 
 
@@ -469,8 +408,6 @@ void GameRecovery::UpdateBonusPlayerChoice(const COLOR& playerChoice)
 			docPtr->child(STR_ROOT).child(STR_BONUS_GAME).child(STR_PLAYER_CHOICE);
 	//take the attribute of the player node
 	pugi::xml_attribute  valueAttribute = playerChoiceNode.attribute(STR_VALUE);
-	//test cout
-//	cout << "before player choice update: " << valueAttribute.as_int() << endl;
 	//update the attribute
 	if (!valueAttribute.set_value(playerChoice))
 	{
@@ -479,10 +416,6 @@ void GameRecovery::UpdateBonusPlayerChoice(const COLOR& playerChoice)
 
 	//update the document
 	GameRecovery::UpdateDoc(docPtr);
-
-	//test cout
-//	cout << "after player choice update: " << valueAttribute.as_int() << endl;
-
 }
 
 //update the game mode;
@@ -525,8 +458,6 @@ int GameRecovery::LoadVolume()
 //parameter is the game model in order to access its ModifyReelElement method
 void GameRecovery::LoadReels(GameModel* gameModelPtr)
 {
-	//test cout
-	cout << "Loading reels..." << endl;
 	//create an xml document in memory
 	pugi::xml_document* docPtr = new pugi::xml_document();
 	//load doc
@@ -542,8 +473,6 @@ void GameRecovery::LoadReels(GameModel* gameModelPtr)
 	{
 		//row index
 		iRow = rowNode.attribute(STR_INDEX).as_int();
-		//test cout
-		cout << "iRow: " << iRow;
 		//access the figures of the the current row
 		for(pugi::xml_node figureNode = rowNode.child(STR_FIGURE);
 				figureNode; figureNode = figureNode.next_sibling(STR_FIGURE))
@@ -556,9 +485,6 @@ void GameRecovery::LoadReels(GameModel* gameModelPtr)
 					static_cast<Figures>(figureNode.attribute(STR_VALUE).as_int());
 			//update the current element of the game reels vector
 			gameModelPtr->SetReelElement(currFigure,iRow, iCol);
-			//test cout
-			cout << "\tiCol: " << iCol;
-			cout << "\tFigure: " << currFigure << endl;
 		}
 	}
 

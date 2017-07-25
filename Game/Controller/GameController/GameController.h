@@ -86,7 +86,6 @@ public:
 	//check if bonus game, if yes - initialize it
 	bool IsBonusGame();
 
-
 	//Getters
 	const vector<vector<Figures> >& GetGameReels() const;
 	int GetBetPerLine() const;
@@ -95,6 +94,9 @@ public:
 	int GetTotalBet() const;
 	int GetWin() const;
 	const vector<int>& GetWinningPaylines() const;
+	//setter
+	//set the credits to null for cashout
+	void SetNullCredits();
 	//to_string methods
 	string BetPerLineAsString() const;
 	string CreditsAsString() const;
@@ -113,8 +115,6 @@ public:
 	void PrintNumLines() const;
 	void PrintTotalBet() const;
 	void PrintWin() const;
-	//set the credits to null for cashout
-	void SetNullCredits();
 private:
 	void ErasePaylines();
 	void InitPayline1();
