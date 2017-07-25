@@ -483,6 +483,12 @@ void GameController::AddWinToCredits()
 	//if there was a win, add it to the credits
 	if (this->GetWin() > 0)
 	{
+		//if bonus game - add 5 times max bet to the win
+		if(this->IsBonusGame())
+		{
+			int iBonusWin = this->GetWin() + (5 * MAX_BET);
+			this->m_baseGame.SetIWin(iBonusWin);
+		}
 		//add the win to the credits
 		int iCurrCredits = this->GetCredits();
 		int iCurrWin = this->GetWin();
