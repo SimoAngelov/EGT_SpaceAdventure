@@ -31,6 +31,10 @@ public:
 	static bool IsBonusGame(int);
 	//initialize the member fields
 	static void InitBonusGame(GameModel*);
+	//get the bonus game result
+	static COLOR GetBonusGameResult();
+	//get the player choice
+	static COLOR GetPlayerChoice();
 	//return the bonus win
 	static int GetWin();
 	//if the plater selected black
@@ -39,8 +43,6 @@ public:
 	static void PlayerSelectedRed();
 	//play a bonus game round
 	static void PlayBonusRound();
-	//TEST: win the bonus round
-	static void WinBonusRound();
 	//gamble amount
 	static string GambleAmount();
 	//amount to win
@@ -51,13 +53,10 @@ public:
 	static void QuitBonusGame();
 	virtual ~BonusGame();
 private:
+	//set a random color as the bonus game result
 	static void SetBonusGameResult();
-	//update the win and credits in case of a win
 	//if the player won
 	static bool PlayerWon();
-	//update the win and credits of the bonus game and game model
-	//parameter is a boolean value to check for a win
-	static void UpdateGameModel();
 	//set a value for the bonus game result
 	static void UpdateIfWin();
 	//update the win and credits in case of a loss
@@ -73,3 +72,4 @@ private:
 };
 
 #endif /* BONUSGAME_H_ */
+

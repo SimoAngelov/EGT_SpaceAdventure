@@ -336,8 +336,6 @@ private:
 
     GameController gameController;
 
-    GameModel gameModel;
-
     GameRecovery gameRecovery;
 
     // Logic Variables ->

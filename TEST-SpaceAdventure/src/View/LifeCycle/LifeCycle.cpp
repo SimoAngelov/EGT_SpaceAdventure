@@ -3092,6 +3092,25 @@ void LifeCycle::QuitGame()
 	SDL_DestroyTexture(winningPayLinesTexture);
 	SDL_DestroyTexture(winningLinesTexture);
 	SDL_DestroyTexture(winTextureText);
+	Mix_FreeChunk(introMusic);
+	Mix_FreeChunk(buttonSound);
+	Mix_FreeChunk(nextViewSound);
+	Mix_FreeChunk(stopReel);
+	Mix_FreeChunk(startButtonSound);
+	Mix_FreeChunk(viewSound);
+	Mix_FreeChunk(lineSound);
+	TTF_CloseFont(Xanadu);
+	SDL_FreeSurface(creditSurface);
+	SDL_FreeSurface(finalCredit);
+	SDL_FreeSurface(linesLabelSurface);
+	SDL_FreeSurface(linesSurface);
+	SDL_FreeSurface(betLabelSurface);
+    SDL_FreeSurface(betSurface);
+	SDL_FreeSurface(goodLuckSurface);
+	SDL_FreeSurface(totalBetSurface);
+	SDL_FreeSurface(winningPayLinesSurface);
+	SDL_FreeSurface(winningLinesSurface);
+	SDL_FreeSurface(winSurface);
 
 	creditTexture = NULL;
 	finalCreditTexture = NULL;

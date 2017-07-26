@@ -4,32 +4,32 @@
 	<Volume Value="1" />
 	<Reels>
 		<Row Index="0">
-			<Figure Index="0" Value="3" />
-			<Figure Index="1" Value="4" />
-			<Figure Index="2" Value="6" />
-			<Figure Index="3" Value="5" />
-			<Figure Index="4" Value="6" />
+			<Figure Index="0" Value="8" />
+			<Figure Index="1" Value="6" />
+			<Figure Index="2" Value="2" />
+			<Figure Index="3" Value="2" />
+			<Figure Index="4" Value="3" />
 		</Row>
 		<Row Index="1">
-			<Figure Index="0" Value="5" />
-			<Figure Index="1" Value="6" />
-			<Figure Index="2" Value="8" />
-			<Figure Index="3" Value="1" />
-			<Figure Index="4" Value="2" />
+			<Figure Index="0" Value="4" />
+			<Figure Index="1" Value="4" />
+			<Figure Index="2" Value="4" />
+			<Figure Index="3" Value="6" />
+			<Figure Index="4" Value="6" />
 		</Row>
 		<Row Index="2">
-			<Figure Index="0" Value="6" />
-			<Figure Index="1" Value="6" />
-			<Figure Index="2" Value="4" />
-			<Figure Index="3" Value="1" />
-			<Figure Index="4" Value="5" />
+			<Figure Index="0" Value="4" />
+			<Figure Index="1" Value="0" />
+			<Figure Index="2" Value="0" />
+			<Figure Index="3" Value="5" />
+			<Figure Index="4" Value="2" />
 		</Row>
 	</Reels>
-	<Number_Of_Paylines Value="6" />
-	<Bet_Per_Line Value="50" />
-	<Total_Bet Value="300" />
-	<Win Value="10500" />
-	<Credits Value="49900" />
+	<Number_Of_Paylines Value="2" />
+	<Bet_Per_Line Value="2" />
+	<Total_Bet Value="4" />
+	<Win Value="300" />
+	<Credits Value="40292" />
 	<Bonus_Game>
 		<Player_Choice Value="-1" />
 	</Bonus_Game>
