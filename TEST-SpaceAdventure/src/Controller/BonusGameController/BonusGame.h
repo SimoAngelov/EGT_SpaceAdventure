@@ -35,6 +35,8 @@ public:
 	static COLOR GetBonusGameResult();
 	//get the player choice
 	static COLOR GetPlayerChoice();
+	//if the player won
+	static bool PlayerWon();
 	//return the bonus win
 	static int GetWin();
 	//if the plater selected black
@@ -55,8 +57,6 @@ public:
 private:
 	//set a random color as the bonus game result
 	static void SetBonusGameResult();
-	//if the player won
-	static bool PlayerWon();
 	//set a value for the bonus game result
 	static void UpdateIfWin();
 	//update the win and credits in case of a loss
