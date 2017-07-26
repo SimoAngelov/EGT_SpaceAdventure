@@ -20,12 +20,6 @@ using namespace std;
 const int m_nWindowWidth = 800; //WINDOW WIDTH
 const int m_nWindowHeight = 600; //WINDOW HEIGHT
 
-//const int m_nScreenWidth = 800;  //SCREEN WIDTH for Bonus Win Splash
-//const int m_nScreenHeight = 600;  //SCREEN HEIGHT for Bonus Win Splash
-
-//Falling money animation
-const int FALLING_MONEY_ANIMATION = 8;
-
 //Red and Black Button constants
 const int m_nButtonWidth = 130;  //BUTTON WIDTH
 const int m_nButtonHeight = 130;  //BUTTON HEIGHT
@@ -37,22 +31,19 @@ const int m_nCardHeight = 180;  //CARD HEIGHT
 const int m_nFigureWidth = 50;  //FIGURES WIDTH
 const int m_nFigureHeight = 50;  //FIGURES HEIGHT
 
-//typedef enum LButtonSprite {
-//	eBUTTON_SPRITE_MOUSE_OUT = 0,
-//	eBUTTON_SPRITE_MOUSE_OVER_MOTION = 1,
-//	eBUTTON_SPRITE_MOUSE_DOWN = 2,
-//	eBUTTON_SPRITE_MOUSE_UP = 3,
-//	eBUTTON_SPRITE_TOTAL = 4
-//};
+//Falling money animation
+const int FALLING_MONEY_ANIMATION = 8;
 
-class Bonus_Game {
+class Bonus_Game
+{
 private:
+
 	bool isPresentBonusGame = false;
 
 	//Angle of rotation
 	double degrees = 0;
 
-	//For Bonus Win Splash Texture
+	//For Bonus Win Splash Screen
 	SDL_Texture* bonusWinSplashTexture = NULL;
 
 	//For Bonus Game
@@ -88,8 +79,23 @@ private:
 	SDL_Texture* heartTexture = NULL;
 	SDL_Texture* spadeTexture = NULL;
 
-	//SDL_Surface* image = NULL;
-	//SDL_RWops* rwop = NULL;
+	//For Double Up Win Splash Screen
+	SDL_Texture* doubleUpWinSplashTexture = NULL;
+
+	//Falling money animation
+	SDL_Rect gSpriteClips[FALLING_MONEY_ANIMATION];
+	SDL_Texture* gSpriteSheetTexture;
+	//Falling money pictures
+	SDL_Texture* fallMoneyTexture01 = NULL;
+	SDL_Texture* fallMoneyTexture02 = NULL;
+	SDL_Texture* fallMoneyTexture03 = NULL;
+	SDL_Texture* fallMoneyTexture04 = NULL;
+	SDL_Texture* fallMoneyTexture05 = NULL;
+	SDL_Texture* fallMoneyTexture06 = NULL;
+	SDL_Texture* fallMoneyTexture07 = NULL;
+	SDL_Texture* fallMoneyTexture08 = NULL;
+
+	vector<SDL_Texture*> m_vecFallMoneyPictures;
 
 	//The window we'll be rendering to
 	SDL_Window* windowPtr = NULL;
@@ -97,10 +103,6 @@ private:
 
 	//The window renderer
 	SDL_Renderer* rendererPtr = NULL;
-
-	//Falling money animation
-	SDL_Rect gSpriteClips[FALLING_MONEY_ANIMATION];
-	SDL_Texture* gSpriteSheetTexture;
 
 	//The music that will be played
 	Mix_Chunk* gMusic = NULL;
@@ -120,7 +122,8 @@ private:
 	int m_nGambleLeft = 0;  //Bonus Game Gamble To Left
 	//
 	TTF_Font* conthrax = NULL;
-	SDL_Color color = { 250, 200, 50, 0 };
+	SDL_Color color =
+	{ 250, 200, 50, 0 };
 
 	//For Bonus Win Splash and Double Up Win Splash - Textures
 	SDL_Texture* earnedAmountTexture = NULL;  //Text: "YOU HAVE WON:  "
@@ -149,7 +152,7 @@ public:
 	virtual ~Bonus_Game();
 
 	//Set Methods
-	void SetBonusWinSplashTexture(SDL_Texture* texture);  //For Bonus Win Splash Texture
+	void SetBonusWinSplashTexture(SDL_Texture* texture); //For Bonus Win Splash Texture
 
 	void SetBackgroundTexture(SDL_Texture* texture);
 	void SetRedButtonTexture1(SDL_Texture* texture);
@@ -175,7 +178,7 @@ public:
 	void SetBlackCardTexture12(SDL_Texture* texture);
 	void SetFourCardsTexture(SDL_Texture* texture);
 
-	//For Bonus Win Splash Texture
+	//For Bonus Win Splash Screen
 	void SetEarnedAmountTexture(SDL_Texture* texture);
 	void SetEarnedAmountDigitTexture(SDL_Texture* texture);
 
@@ -191,6 +194,18 @@ public:
 	void SetDiamondTexture(SDL_Texture* texture);
 	void SetHeartTexture(SDL_Texture* texture);
 	void SetSpadeTexture(SDL_Texture* texture);
+
+	//For Double Up Win Splash Screen
+	void SetDoubleUpWinSplashTexture(SDL_Texture* texture);
+	//Falling money pictures
+	void SetFallMoneyTexture01(SDL_Texture* texture);
+	void SetFallMoneyTexture02(SDL_Texture* texture);
+	void SetFallMoneyTexture03(SDL_Texture* texture);
+	void SetFallMoneyTexture04(SDL_Texture* texture);
+	void SetFallMoneyTexture05(SDL_Texture* texture);
+	void SetFallMoneyTexture06(SDL_Texture* texture);
+	void SetFallMoneyTexture07(SDL_Texture* texture);
+	void SetFallMoneyTexture08(SDL_Texture* texture);
 
 	//Get Methods
 	SDL_Texture* GetBonusWinSplashTexture();
@@ -219,7 +234,7 @@ public:
 	SDL_Texture* GetBlackCardTexture12();
 	SDL_Texture* GetFourCardsTexture();
 
-	//For Bonus Win Splash Texture
+	//For Bonus Win Splash Screen
 	SDL_Texture* GetEarnedAmountTexture();
 	SDL_Texture* GetEarnedAmountDigitTexture();
 
@@ -236,8 +251,22 @@ public:
 	SDL_Texture* GetHeartTexture();
 	SDL_Texture* GetSpadeTexture();
 
+	//For Double Up Win Splash Screen
+	SDL_Texture* GetDoubleUpWinSplashTexture();
+	//Falling money pictures
+	SDL_Texture* GetFallMoneyTexture01();
+	SDL_Texture* GetFallMoneyTexture02();
+	SDL_Texture* GetFallMoneyTexture03();
+	SDL_Texture* GetFallMoneyTexture04();
+	SDL_Texture* GetFallMoneyTexture05();
+	SDL_Texture* GetFallMoneyTexture06();
+	SDL_Texture* GetFallMoneyTexture07();
+	SDL_Texture* GetFallMoneyTexture08();
+
 	//
 	void InitMedia();  //Starts up SDL and creates window
+	//Renders texture at given point
+	void Render(int x, int y, SDL_Rect* clip = NULL);
 	void LoadFromFile(string path); //Load sprite sheet texture
 	//void PresentBonusWinSplash();  //When we have 5 Special figures +++++
 	void PlayBonusGame();  //Playing Double Up Bonus Game
@@ -260,7 +289,9 @@ public:
 	SDL_Window* GetWindow();
 	SDL_Renderer* GetRenderer();
 
-	SDL_Rect* operator =(SDL_Rect newObject) { //Operator overload
+	//Operator overload
+	SDL_Rect* operator =(SDL_Rect newObject)
+	{
 		SDL_Rect* object;
 		object->x = newObject.x;
 		object->y = newObject.y;
@@ -270,7 +301,9 @@ public:
 		return object;
 	}
 
-	SDL_Rect createRect(int x, int y, int w, int h) {
+	// Function to construct rectangles
+	SDL_Rect createRect(int x, int y, int w, int h)
+	{
 		SDL_Rect object;
 		object.x = x;
 		object.y = y;
