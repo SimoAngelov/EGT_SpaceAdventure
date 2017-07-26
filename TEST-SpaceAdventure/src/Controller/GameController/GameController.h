@@ -18,8 +18,7 @@ private:
 	static int m_iBetStep;
 	static vector<BET> m_vecBetPerStep;
 	static int m_iBonusCounter;
-    vector<int> m_vecWinningLines;
-
+	vector<int> m_vecWinningLines;
 	//set default values for the member fields
 	void SetDefault();
 	//set random values for the reels
@@ -54,6 +53,8 @@ private:
 	bool BetExceedsCredits(int);
 	//check if the payline increase exceeds the current amount of credits
 	bool PaylinesExceedCredits(int);
+
+
 public:
 	GameController();
 	virtual ~GameController();
@@ -85,7 +86,6 @@ public:
 	//check if bonus game, if yes - initialize it
 	bool IsBonusGame();
 
-
 	//Getters
 	const vector<vector<Figures> >& GetGameReels() const;
 	int GetBetPerLine() const;
@@ -93,27 +93,28 @@ public:
 	int GetNumberOfLines() const;
 	int GetTotalBet() const;
 	int GetWin() const;
-    const vector<int>& GetWinningPaylines() const;
-
+	const vector<int>& GetWinningPaylines() const;
+	//setter
+	//set the credits to null for cashout
+	void SetNullCredits();
 	//to_string methods
 	string BetPerLineAsString() const;
 	string CreditsAsString() const;
 	string NumberOfLinesAsString() const;
 	string TotalBetAsString() const;
 	string WinAsString() const;
-    string WinningPaylinesAsString() const;
-
+	string WinningPaylinesAsString() const;
 	//print functions
 	void PrintInfo() const;
 	void PrintReels() const;
 	void PrintPayline(const Payline&) const;
 	void PrintPaylines() const;
+	void PrintWinningPaylines() const;
 	void PrintCredits() const;
 	void PrintBetPerLine() const;
 	void PrintNumLines() const;
 	void PrintTotalBet() const;
 	void PrintWin() const;
-
 private:
 	void ErasePaylines();
 	void InitPayline1();

@@ -454,11 +454,11 @@ void LifeCycle::RefreshFromBackup(bool IsGameSaved)
 
 		gameController.NewGame(); // Reading Credits from XML and Save In Info Menu
 
-		counterViewControllers = gameRecovery.LoadView();
+		counterViewControllers = GameRecovery::LoadView();
 
-		counterVolume = gameRecovery.LoadVolume(); // Loading Volume before Save
+		counterVolume = GameRecovery::LoadVolume(); // Loading Volume before Save
 
-		m_nCredit = gameRecovery.LoadCredits(); // Loading Credits
+		m_nCredit = GameRecovery::LoadCredits(); // Loading Credits
 
 		// Loading all Figures before Save
 
@@ -491,6 +491,27 @@ void LifeCycle::RefreshFromBackup(bool IsGameSaved)
 		row5fig2 = gameController.GetGameReels()[1][4];
 
 		row5fig3 = gameController.GetGameReels()[2][4];
+
+		if(row1fig1 == -1)
+		{
+			row1fig1 = 0;
+			row1fig2 = 1;
+			row1fig3 = 2;
+			row2fig1 = 3;
+			row2fig2 = 4;
+			row2fig3 = 5;
+			row3fig1 = 6;
+			row3fig2 = 7;
+			row3fig3 = 8;
+			row4fig1 = 0;
+			row4fig2 = 1;
+			row4fig3 = 2;
+			row5fig1 = 3;
+			row5fig2 = 4;
+			row5fig3 = 5;
+
+
+		}
 
 		// Loading all TTFs for Info Menu Credits, Lines, Bet, TotalBet
 
@@ -598,7 +619,7 @@ void LifeCycle::CashOutAnimation()
 
 		SDL_Delay(50);
 
-		counterTextures++;
+		counterTextures = counterTextures + 3; // 1
 
 		if (counterTextures > 91)
 		{
@@ -607,31 +628,9 @@ void LifeCycle::CashOutAnimation()
 
 			SDL_RenderPresent(rendererPtr);
 
-			SDL_Delay(5000);
+			SDL_Delay(2000);
 
 			m_nCredit = gameController.GetCredits();
-
-//            while(m_nCredit > 0) // Effect Counting Down Credit
-//            {
-//                m_nCredit -= 500;
-//
-//                if(m_nCredit <= 0)
-//                {
-//                    m_nCredit = 0;
-//                }
-//
-//                finalCreditText = "Total Winnings: " + to_string(m_nCredit) + " BGN";
-//
-//                finalCredit = TTF_RenderText_Solid(Xanadu, finalCreditText.c_str(), black);
-//
-//                finalCreditTexture = SDL_CreateTextureFromSurface(rendererPtr, finalCredit);
-//
-//                SDL_RenderCopy(rendererPtr, vecAnimationCashOut[counterTextures], NULL, NULL);
-//
-//                SDL_RenderCopy(rendererPtr, finalCreditTexture, NULL, &Rect.rectFinalCreditText);
-//
-//                SDL_RenderPresent(rendererPtr);
-//            }
 
 			SDL_Delay(2000);
 
@@ -644,7 +643,7 @@ void LifeCycle::CashOutAnimation()
 
 				SDL_Delay(50);
 
-				counterTextures--;
+				counterTextures = counterTextures - 3;
 
 				if (counterTextures < 0)
 				{
@@ -1809,55 +1808,55 @@ void LifeCycle::SpinningReels() // Effect Spinning REELS
 
 		if (spinRolls <= 9)
 		{
-			Rect.rectFigure1Slot1.y += 5; // speed in pixels
+			Rect.rectFigure1Slot1.y += 10; // speed in pixels
 
-			Rect.rectFigure2Slot1.y += 5;
+			Rect.rectFigure2Slot1.y += 10;
 
-			Rect.rectFigure3Slot1.y += 5;
+			Rect.rectFigure3Slot1.y += 10;
 		}
 
 		//row 2
 
 		if (spinRolls2 <= 11)
 		{
-			Rect.rectFigure1Slot2.y += 5; // speed in pixels
+			Rect.rectFigure1Slot2.y += 10; // speed in pixels
 
-			Rect.rectFigure2Slot2.y += 5;
+			Rect.rectFigure2Slot2.y += 10;
 
-			Rect.rectFigure3Slot2.y += 5;
+			Rect.rectFigure3Slot2.y += 10;
 		}
 
 		// row 3
 
 		if (spinRolls3 <= 13)
 		{
-			Rect.rectFigure1Slot3.y += 5; // speed in pixels
+			Rect.rectFigure1Slot3.y += 10; // speed in pixels
 
-			Rect.rectFigure2Slot3.y += 5;
+			Rect.rectFigure2Slot3.y += 10;
 
-			Rect.rectFigure3Slot3.y += 5;
+			Rect.rectFigure3Slot3.y += 10;
 		}
 
 		//row 4
 
 		if (spinRolls4 <= 15)
 		{
-			Rect.rectFigure1Slot4.y += 5; // speed in pixels
+			Rect.rectFigure1Slot4.y += 10; // speed in pixels
 
-			Rect.rectFigure2Slot4.y += 5;
+			Rect.rectFigure2Slot4.y += 10;
 
-			Rect.rectFigure3Slot4.y += 5;
+			Rect.rectFigure3Slot4.y += 10;
 		}
 
 		//row 5
 
 		if (spinRolls5 <= 17)
 		{
-			Rect.rectFigure1Slot5.y += 5; // speed in pixels
+			Rect.rectFigure1Slot5.y += 10; // speed in pixels
 
-			Rect.rectFigure2Slot5.y += 5;
+			Rect.rectFigure2Slot5.y += 10;
 
-			Rect.rectFigure3Slot5.y += 5;
+			Rect.rectFigure3Slot5.y += 10;
 		}
 
 		// FIRST ROW CHECK IN-s
@@ -2220,9 +2219,9 @@ bool LifeCycle::IsInsertCreditPressed(int x, int y) // Insert Credit / Start New
 		{
 			m_nCredit = 0;
 
-			introController.PlayNewGame(); // Create Blank XML FIle
+			IntroController::PlayNewGame(); // Create Blank XML FIle
 
-			gameRecovery.UpdateView(counterViewControllers); // Update Counter VIEW CONTROLLER in XML
+			GameRecovery::UpdateView(counterViewControllers); // Update Counter VIEW CONTROLLER in XML
 
 			StartCreditMenuEffect = true;
 
@@ -2260,7 +2259,7 @@ bool LifeCycle::IsLoadGamePressed(int x, int y) // Load Game Button
 		{
 			// Checking if Exist XML FILE
 
-			IsSaveGameExist = gameRecovery.IsSaveGame();
+			IsSaveGameExist = GameRecovery::IsSaveGame();
 
 			RefreshFromBackup(IsSaveGameExist);
 
@@ -2421,7 +2420,7 @@ bool LifeCycle::IsVolumeMinusPressed(int x, int y) // Volume Minus
 				counterVolume = 0;
 			}
 
-			gameRecovery.UpdateVolume(counterVolume); // Updating Volume in XML
+			GameRecovery::UpdateVolume(counterVolume); // Updating Volume in XML
 
 			PresentView1();
 
@@ -2460,7 +2459,7 @@ bool LifeCycle::IsVolumePlusPressed(int x, int y) // Volume Plus
 				counterVolume = 3;
 			}
 
-			gameRecovery.UpdateVolume(counterVolume); // Updating Volume in XML
+			GameRecovery::UpdateVolume(counterVolume); // Updating Volume in XML
 
 			PresentView1();
 
@@ -2499,7 +2498,7 @@ bool LifeCycle::IsForwardPressed(int x, int y) // Forward Button
 
 			PassingToView2();
 
-			gameRecovery.UpdateView(counterViewControllers); // Update VIEW CONTROLLER in XML
+			GameRecovery::UpdateView(counterViewControllers); // Update VIEW CONTROLLER in XML
 
 			return true;
 		}
@@ -2526,7 +2525,7 @@ bool LifeCycle::IsShipVolumePlusPressed(int x, int y) // Plus Button SpaceShip
 								+ Rect.rectSpaceShipButtonPlus.h)
 				&& presentSpaceShip == true)
 		{
-			introController.IncreaseCredits(); // Increase Credit LOGIC
+			IntroController::IncreaseCredits(); // Increase Credit LOGIC
 
 			m_nCredit += 10000;
 
@@ -2565,7 +2564,7 @@ bool LifeCycle::IsShipVolumeMinusPressed(int x, int y) // Minus Button SpaceShip
 								+ Rect.rectSpaceShipButtonMinus.h)
 				&& presentSpaceShip == true)
 		{
-			introController.DecreaseCredits(); // Decrease Credit LOGIC
+			IntroController::DecreaseCredits(); // Decrease Credit LOGIC
 
 			m_nCredit -= 10000;
 
@@ -2604,9 +2603,9 @@ bool LifeCycle::IsShipOkPressed(int x, int y)
 								+ (Rect.rectSpaceShipButtonOk.h - 50))
 				&& presentSpaceShip == true && (m_nCredit > 0))
 		{
-			introController.SaveCredits(); // Save Current credit in XML File
+			IntroController::SaveCredits(); // Save Current credit in XML File
 
-			introController.PrintInfo(); // Prints in Console
+			IntroController::PrintInfo(); // Prints in Console
 
 			PresentCreditMenu(presentSpaceShip);
 
@@ -2650,7 +2649,7 @@ bool LifeCycle::IsBackPressed(int x, int y)
 
 			BackToView1();
 
-			gameRecovery.UpdateView(counterViewControllers); // Update VIEW CONTROLLER in XML
+			GameRecovery::UpdateView(counterViewControllers); // Update VIEW CONTROLLER in XML
 
 			return true;
 		}
@@ -2684,7 +2683,7 @@ bool LifeCycle::IsPlayPressed(int x, int y)
 
 			PassingToView3();
 
-			gameRecovery.UpdateView(counterViewControllers); // Update VIEW CONTROLLER in XML
+			GameRecovery::UpdateView(counterViewControllers); // Update VIEW CONTROLLER in XML
 
 			return true;
 		}
@@ -3105,7 +3104,7 @@ void LifeCycle::QuitGame()
 	SDL_FreeSurface(linesLabelSurface);
 	SDL_FreeSurface(linesSurface);
 	SDL_FreeSurface(betLabelSurface);
-    SDL_FreeSurface(betSurface);
+	SDL_FreeSurface(betSurface);
 	SDL_FreeSurface(goodLuckSurface);
 	SDL_FreeSurface(totalBetSurface);
 	SDL_FreeSurface(winningPayLinesSurface);

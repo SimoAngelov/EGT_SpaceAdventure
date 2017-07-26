@@ -22,6 +22,8 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_mixer.h>
+// timer
+#include <SDL2/SDL_timer.h>
 #include <vector>
 
 // MAC includes
@@ -332,11 +334,7 @@ private:
 
     // Logic Object
 
-    IntroController introController;
-
     GameController gameController;
-
-    GameRecovery gameRecovery;
 
     // Logic Variables ->
 

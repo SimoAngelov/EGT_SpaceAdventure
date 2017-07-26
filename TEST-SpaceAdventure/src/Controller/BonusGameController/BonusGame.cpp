@@ -223,7 +223,7 @@ string BonusGame::GambleAmount()
 {
 	string res = itos(BonusGame::m_iBet);
 	//return the bet, which is the current winnings from the game
-	return res.c_str();
+	return res;
 }
 
 //amount to win
@@ -231,7 +231,7 @@ string BonusGame::GambleToWin()
 {
 	string res = itos(2 * BonusGame::m_iBet);
 	//the expected win is double the old winnings
-	return res.c_str();
+	return res;
 }
 
 //return the status of the quit member field

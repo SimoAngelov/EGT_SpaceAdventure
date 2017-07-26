@@ -8,6 +8,8 @@
 #include "GameController.h"
 #include <exception>
 int GameController::m_iBetStep = 0;
+//member field to control the number of betting steps
+
 
 //member field to hold the bets at each step
 vector<BET> GameController::m_vecBetPerStep
@@ -20,17 +22,14 @@ int GameController::m_iBonusCounter = 0;
 
 //constructor
 GameController::GameController() :
-m_baseGame(), m_vecWinningLines()
+		m_baseGame(), m_vecWinningLines()
 {
-
-	// TODO Auto-generated constructor stub
 }
 
 GameController::~GameController()
 {
 // TODO Auto-generated destructor stub
 }
-
 
 //start new game
 void GameController::NewGame()
@@ -78,11 +77,7 @@ void GameController::Spin()
 		//Calculate the winnings from the spin
 		this->SetTotalWin();
 		GameRecovery::UpdateGameModel(&(this->m_baseGame));
-		//test cout
-		cout << "GameController::VALID SPIN" << endl;
 	} // end if
-	  //GameRecovery::UpdateNumberOfPaylines(12);
-	  //
 }
 
 //intialize the reels for the currentGame
@@ -91,9 +86,9 @@ void GameController::InitCurrentReels()
 	//initialize the reels with figures from 0 to 7
 	this->InitRandomReels();
 	//randomly set or don't set a special figure for a row
-	this->SetSpecialFigure();
+//	this->SetSpecialFigure();
 	//set a special figure for all the rows
-	//this->StartBonusGame();
+	this->StartBonusGame();
 }
 
 //initialize the game reels with random values
@@ -112,9 +107,6 @@ void GameController::InitRandomReels()
 			//static cast from int to Figures
 			Figures randomFigure = static_cast<Figures>(rand() % eFigure8);
 			this->m_baseGame.SetReelElement(randomFigure, iRow, iReel);
-			//test cout
-			//cout << "Reel: " << iReel << "\tRow: " << iRow << "\tElement"
-			//		<< randomFigure << endl;
 		} //end row for
 	} // end reel for
 }
@@ -135,11 +127,8 @@ void GameController::SetSpecialFigure()
 			if (randomFigure == eFigure9)
 			{
 				//if the current figure is 9 aka special, break the inner loop
-				//GameModel::m_iGameReels[iRow][iCol] = randomFigure;
 				this->m_baseGame.SetReelElement(randomFigure, iReel, iRow);
-				//test cout
-			//	cout << "GameController::bonus counter ="
-			//			<< GameController::m_iBonusCounter << endl;
+				//increment the bonus counter
 				GameController::m_iBonusCounter++;
 				break;
 			} //end if
@@ -158,15 +147,10 @@ void GameController::StartBonusGame()
 		int iRandomRow = rand() % 3;
 		Figures specialFigure = eFigure9;
 		this->m_baseGame.SetReelElement(specialFigure, iRandomRow, iReel);
-		//cout << "Reel: " << iReel << "\tRow: " << iRandomRow << "\tElement"
-		//		<< specialFigure << endl;
-		//tes//coutut
-		//cout << "GameController::bonus counter ="
-		//		<< GameController::m_iBonusCounter << endl;
+		//increment the bonus counter
 		GameController::m_iBonusCounter++;
 	} //end reel for
 }
-
 
 //set the same figures per each reel
 void GameController::SetTheSameFigures()
@@ -305,13 +289,9 @@ void GameController::IncreaseBet()
 		if (!(this->BetExceedsCredits(iNextStep)))
 		{
 			GameController::m_iBetStep++;
-			//test //cout
-			//cout << "\t\t\t\tIncreasing Bet To " << GameController::m_iBetStep
-					//<< endl;
 			this->SetBetPerPayline(GameController::m_iBetStep);
-			//cout << "\t\t\t\tBetPerLine is " << this->GetBetPerLine() << endl;
-		}
-	}
+		}//end if bet does not exceed credits
+	} //end if the current step doesn't exceed the the max value
 }
 
 //decrease the bet by 1 step
@@ -319,12 +299,11 @@ void GameController::DecreaseBet()
 {
 	if (GameController::m_iBetStep > 0)
 	{
+		//decrement the bet step
 		GameController::m_iBetStep--;
-		//test cout
-		//cout << "\t\t\t\tDecreasingBet To " << GameController::m_iBetStep
-		//		<< endl;
+		//update the bet per line
 		this->SetBetPerPayline(GameController::m_iBetStep);
-		//cout << "\t\t\t\tBetPerLine is " << this->GetBetPerLine() << endl;
+		//update the total bet
 		this->SetTotalBet();
 	}
 
@@ -387,14 +366,13 @@ void GameController::SetTotalWin()
 {
 	this->WinFromPaylines();
 	this->AddWinToCredits();
-	//TODO save the win and credits to XML
-
-//TODO bonus game
+	//save the win and credits to XML
+	GameRecovery::UpdateWin(this->GetWin());
+	GameRecovery::UpdateCredits(this->GetCredits());
+	//check if bonus game
 	if (this->IsBonusGame())
 	{
-		//test cout
-		//cout << "GameController:: This is Bonus Game" << endl;
-		//start the bonus game by passing the win and credits as arguments
+		//start the bonus game by the game model by reference
 		BonusGame::InitBonusGame(&this->m_baseGame);
 	}
 }
@@ -403,19 +381,17 @@ void GameController::SetTotalWin()
 void GameController::WinFromPaylines()
 {
 	int winFromPaylines = 0;
-	for (int i = 0; i < this->GetNumberOfLines(); i++)
+	for (int iLine = 0; iLine < this->GetNumberOfLines(); iLine++)
 	{
-		Payline currentPayline = this->m_baseGame.GetVecPaylines()[i];
+		Payline currentPayline = this->m_baseGame.GetVecPaylines()[iLine];
 		winFromPaylines += this->WinFromSinglePayline(currentPayline);
-        //if it is a winning payline add it to the winning paylines vector
-        if (this->WinFromSinglePayline(currentPayline) > 0)
-        {
-            cout << "Win at line: " << i + 1<< "\t won: " <<
-            this->WinFromSinglePayline(currentPayline) << endl;
-            this->m_vecWinningLines.push_back(i + 1);
-        }
-    }
-    int currentWinnings = this->GetWin();
+		//if it is a winning payline add it to the winning paylines vector
+		if (this->WinFromSinglePayline(currentPayline) > 0)
+		{
+			this->m_vecWinningLines.push_back(iLine + 1);
+		}//end if winnig line
+	}// end line traversal
+	int currentWinnings = this->GetWin();
 	int newWinnings = currentWinnings + winFromPaylines;
 	this->m_baseGame.SetIWin(newWinnings);
 }
@@ -508,8 +484,12 @@ void GameController::AddWinToCredits()
 	//if there was a win, add it to the credits
 	if (this->GetWin() > 0)
 	{
-		//test cout
-		//cout << "GameController::THERE IS A WIN" << endl;
+		//if bonus game - add 5 times max bet to the win
+		if(this->IsBonusGame())
+		{
+			int iBonusWin = this->GetWin() + (5 * MAX_BET);
+			this->m_baseGame.SetIWin(iBonusWin);
+		}
 		//add the win to the credits
 		int iCurrCredits = this->GetCredits();
 		int iCurrWin = this->GetWin();
@@ -560,11 +540,17 @@ int GameController::GetWin() const
 
 const vector<int>& GameController::GetWinningPaylines() const
 {
-    return this->m_vecWinningLines;
+	return this->m_vecWinningLines;
+}
+
+//set the credits to null for cashout
+void GameController::SetNullCredits()
+{
+	this->m_baseGame.SetICredits(0);
+	GameRecovery::UpdateCredits(0);
 }
 
 //to string methods
-
 string GameController::BetPerLineAsString() const
 {
 	string res = itos(this->m_baseGame.GetIBetPerLine());
@@ -597,29 +583,27 @@ string GameController::WinAsString() const
 
 string GameController::WinningPaylinesAsString() const
 {
-    //string to hold the result
-    string res;
-    //string to hold the comma
-    string comma = ",";
-    int size = this->GetWinningPaylines().size();
-    for(int i = 0; i < size; i++)
-    {
-        //get the current element from the vector
-        int iCurrLine = this->GetWinningPaylines()[i];
-        //convert it to string
-        string strLine = itos(iCurrLine);
-        //append it to the result
-        res.append(strLine);
-        //if not last element, append a comma
-        if(i != (size - 1))
-        {
-            res.append(comma);
-        }
-    }//end vector for
-    return res;
+	//string to hold the result
+	string res;
+	//string to hold the comma
+	string comma = ",";
+	int size = this->GetWinningPaylines().size();
+	for(int i = 0; i < size; i++)
+	{
+		//get the current element from the vector
+		int iCurrLine = this->GetWinningPaylines()[i];
+		//convert it to string
+		string strLine = itos(iCurrLine);
+		//append it to the result
+		res.append(strLine);
+		//if not last element, append a comma
+		if(i != (size - 1))
+		{
+			res.append(comma);
+		}
+	}//end vector for
+	return res;
 }
-
-
 //printing functions
 
 void GameController::PrintInfo() const
@@ -628,6 +612,7 @@ void GameController::PrintInfo() const
 	this->PrintReels();
 	this->PrintPaylines();
 	this->PrintNumLines();
+	this->PrintWinningPaylines();
 	this->PrintBetPerLine();
 	this->PrintTotalBet();
 	this->PrintWin();
@@ -638,7 +623,6 @@ void GameController::PrintReels() const
 {
 	this->m_baseGame.PrintReels();
 	cout << endl;
-	//cout << "GameController::Print..." << endl;
 
 }
 
@@ -686,10 +670,14 @@ void GameController::PrintWin() const
 	cout << "Win: " << this->WinAsString() << endl;
 }
 
+void GameController::PrintWinningPaylines() const
+{
+	cout << "Winning lines: " << this->WinningPaylinesAsString() << endl;
+}
 //erase the contents from the vector, holding the paylines
 void GameController::ErasePaylines()
 {
-	//check if the vector is empty
+	//check if the vector, holding the paylines is empty is empty
 	if (!this->m_baseGame.GetVecPaylines().empty())
 	{
 		//iterator pointing to the first element of the payline vector
@@ -701,18 +689,18 @@ void GameController::ErasePaylines()
 		//erase the contents of the vector
 		this->m_baseGame.GetVecPaylines().erase(paylinesBegin, paylinesEnd);
 	}
-
-    if(!this->m_vecWinningLines.empty())
-    {
-        //iterator pointing to the first element of the winning payline vector
-        vector<int>::iterator paylinesBegin =
-        this->m_vecWinningLines.begin();
-        //iterator pointing to the one after last element of  the winning payline vector
-        vector<int>::iterator paylinesEnd =
-        this->m_vecWinningLines.end();
-        //erase the contents of the vector
-        this->m_vecWinningLines.erase(paylinesBegin, paylinesEnd);
-    }
+	//if the winnig paylines vector is not empty, erase its contents
+	if(!this->m_vecWinningLines.empty())
+	{
+		//iterator pointing to the first element of the winning payline vector
+		vector<int>::iterator paylinesBegin =
+				this->m_vecWinningLines.begin();
+		//iterator pointing to the one after last element of  the winning payline vector
+		vector<int>::iterator paylinesEnd =
+				this->m_vecWinningLines.end();
+		//erase the contents of the vector
+		this->m_vecWinningLines.erase(paylinesBegin, paylinesEnd);
+	}
 }
 
 //initialize each payline individually
