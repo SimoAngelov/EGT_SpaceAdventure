@@ -54,8 +54,10 @@ bool BonusGame::IsBonusGame(int iBonusCounter)
 //initialize the member fields
 void BonusGame::InitBonusGame(GameModel* gameModelPtr)
 {
-	//load the players choice from the xml
-	BonusGame::m_playerChoice = GameRecovery::LoadBonusPlayerChoice();
+	//load the players choice from the xml, if not present- set invalid color
+	BonusGame::m_playerChoice = (GameRecovery::IsSaveGame()) ?
+			GameRecovery::LoadBonusPlayerChoice():
+			eInvalidColor;
 	//set the game model
 	BonusGame::m_baseGamePtr = gameModelPtr;
 	//store the value of the current game win
@@ -251,3 +253,14 @@ BonusGame::~BonusGame()
 	// TODO Auto-generated destructor stub
 }
 
+//get the bonus game result
+COLOR BonusGame::GetBonusGameResult()
+{
+	return BonusGame::m_bonusGameResult;
+}
+
+//get the player choice
+COLOR BonusGame::GetPlayerChoice()
+{
+	return BonusGame::m_playerChoice;
+}

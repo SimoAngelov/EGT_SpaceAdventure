@@ -31,6 +31,10 @@ public:
 	static bool IsBonusGame(int);
 	//initialize the member fields
 	static void InitBonusGame(GameModel*);
+	//get the bonus game result
+	static COLOR GetBonusGameResult();
+	//get the player choice
+	static COLOR GetPlayerChoice();
 	//return the bonus win
 	static int GetWin();
 	//if the plater selected black
