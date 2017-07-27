@@ -689,9 +689,9 @@ void Bonus_Game::PlayBonusGame()
 
 	//For Bonus Game
 	Bonus_Game.SetBackgroundTexture(LoadTexture("Background.png"));
-	Bonus_Game.SetRedButtonTexture1(LoadTexture("Red Button.png"));
-	Bonus_Game.SetRedButtonTexture2(LoadTexture("Red Button_Over.png"));
-	Bonus_Game.SetRedButtonTexture3(LoadTexture("Red Button_Over.png")); //******
+	Bonus_Game.SetRedButtonTexture1(LoadTexture("RedButton.png"));
+	Bonus_Game.SetRedButtonTexture2(LoadTexture("RedButton_Over.png"));
+	Bonus_Game.SetRedButtonTexture3(LoadTexture("RedButton_Over.png")); //******
 	Bonus_Game.SetBlackButtonTexture1(LoadTexture("Black Button.png"));
 	Bonus_Game.SetBlackButtonTexture2(LoadTexture("Black Button_Over.png"));
 	Bonus_Game.SetBlackButtonTexture3(LoadTexture("Black Button_Over.png")); //*******
@@ -862,6 +862,8 @@ void Bonus_Game::PlayBonusGame()
 			{
 				quit = true;
 			}
+            
+            SDL_GetMouseState(&xZ, &yZ);
 
 			if (presentScreen)
 			{
@@ -888,13 +890,15 @@ void Bonus_Game::PlayBonusGame()
 				SDL_RenderPresent(rendererPtr);
 				SDL_Delay(6000);
 
-				counterScreen++;
+				
 			}
+            
+            counterScreen = 2;
 
 			//SCREEN 2 - Bonus Game
 			if (counterScreen == 2)
 			{
-				while (rectBackground.y <= 0)
+				while (rectBackground.y <= 0) // Backround falling from Up to Down
 				{
 					rectBackground.y += 3;
 
@@ -904,9 +908,7 @@ void Bonus_Game::PlayBonusGame()
 
 					SDL_RenderCopy(rendererPtr,
 							Bonus_Game.GetBackgroundTexture(), NULL,
-							&rectBackground);
-
-					SDL_GetMouseState(&xZ, &yZ);
+                                   &rectBackground);
 
 					SDL_RenderCopy(rendererPtr,
 							Bonus_Game.GetRedButtonTexture1(),
@@ -958,6 +960,7 @@ void Bonus_Game::PlayBonusGame()
 				//MOUSE MOTION Red Button
 				if (e.type == SDL_MOUSEMOTION)
 				{
+                    
 					if ((xZ >= rectRedButton.x) && (xZ <= 230)
 							&& (yZ >= rectRedButton.y) && (yZ <= 450))
 					{
@@ -977,7 +980,6 @@ void Bonus_Game::PlayBonusGame()
 								Bonus_Game.GetBlackButtonTexture1(),
 								NULL, &rectBlackButton);
 
-						//
 						SDL_RenderCopy(rendererPtr,
 								Bonus_Game.GetFaceDownCardTexture1(),
 								NULL, &rectFaceDownCard1);
@@ -1023,6 +1025,7 @@ void Bonus_Game::PlayBonusGame()
 				//MOUSE MOTION Black Button
 				if (e.type == SDL_MOUSEMOTION)
 				{
+                    
 					//MOUSE MOTION Black Button
 					if ((xZ >= rectBlackButton.x) && (xZ <= 700)
 							&& (yZ >= rectBlackButton.y) && (yZ <= 450))
@@ -1038,6 +1041,8 @@ void Bonus_Game::PlayBonusGame()
 						SDL_RenderCopy(rendererPtr,
 								Bonus_Game.GetRedButtonTexture1(),
 								NULL, &rectRedButton);
+                        
+                        
 
 						SDL_RenderCopy(rendererPtr,
 								Bonus_Game.GetBlackButtonTexture2(),
