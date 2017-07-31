@@ -69,7 +69,6 @@ void GameRecovery::CreateBlankSave()
 	GameRecovery::AddTotalBetToRoot(rootNode);
 	GameRecovery::AddWinToRoot(rootNode);
 	GameRecovery::AddCreditsToRoot(rootNode);
-	GameRecovery::AddBonusGameToRoot(rootNode);
 	//save document to file
 	GameRecovery::UpdateDoc(docPtr);
 }
@@ -166,17 +165,6 @@ void GameRecovery::AddCreditsToRoot(pugi::xml_node& rootNode)
 	creditsNode.append_attribute(STR_VALUE) = 0;
 }
 
-//add bonus game node to root node
-void GameRecovery::AddBonusGameToRoot(pugi::xml_node& rootNode)
-{
-	//append bonus game node to the root node
-	pugi::xml_node bonusGameNode = rootNode.append_child(STR_BONUS_GAME);
-	//append player choice node to the bonus game node
-	pugi::xml_node playerChoiceNode = bonusGameNode.append_child(
-			STR_PLAYER_CHOICE);
-	//append value attribute to the player choice node
-	playerChoiceNode.append_attribute(STR_VALUE) = eInvalidColor;
-}
 
 //load the document
 void GameRecovery::LoadDoc(pugi::xml_document* docPtr)
@@ -395,28 +383,6 @@ void GameRecovery::UpdateCredits(int iCredits)
 
 
 
-void GameRecovery::UpdateBonusPlayerChoice(const COLOR& playerChoice)
-{
-	//create xml document in memory
-	pugi::xml_document* docPtr = new pugi::xml_document();
-
-	//open the document
-	GameRecovery::LoadDoc(docPtr);
-
-	//create a player choice node
-	pugi::xml_node playerChoiceNode =
-			docPtr->child(STR_ROOT).child(STR_BONUS_GAME).child(STR_PLAYER_CHOICE);
-	//take the attribute of the player node
-	pugi::xml_attribute  valueAttribute = playerChoiceNode.attribute(STR_VALUE);
-	//update the attribute
-	if (!valueAttribute.set_value(playerChoice))
-	{
-		cerr << "Failed to update the player choice!" << endl;
-	}	// end attribute if
-
-	//update the document
-	GameRecovery::UpdateDoc(docPtr);
-}
 
 //update the game mode;
 void GameRecovery::UpdateGameModel(const GameModel* gameModelPtr)
@@ -574,17 +540,4 @@ void GameRecovery::LoadGameModel(GameModel* gameModelPtr)
 	gameModelPtr->SetICredits(iCredits);
 }
 
-COLOR GameRecovery::LoadBonusPlayerChoice()
-{
-	pugi::xml_document* docPtr = new pugi::xml_document();
-	//load doc
-	GameRecovery::LoadDoc(docPtr);
-	pugi::xml_attribute valueAttribute =
-			docPtr->child(STR_PLAYER_CHOICE).child(STR_CREDITS).attribute(STR_VALUE);
-	//static cast from int to COLOR
-	COLOR res = static_cast<COLOR>(valueAttribute.as_int());
-	//delete the docPtr, calling its destructor and destroy set the reference to NULL
-	delete docPtr;
-	docPtr = NULL;
-	return res;
-}
+

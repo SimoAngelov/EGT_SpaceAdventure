@@ -14,8 +14,7 @@ class TestBonusGame
 {
 public:
 	TestBonusGame();
-	static void Round(bool );
-	static void TestWinRound();
+	static void Round();
 	static void TestRound();
 	static void Quit();
 	static void PlayBonusGame();

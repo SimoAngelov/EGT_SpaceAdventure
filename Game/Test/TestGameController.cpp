@@ -127,6 +127,8 @@ void TestGameController::TestSpin()
 			if (BonusGame::IsQuitBonusGame())
 				break;
 		}
+		//update credits and win
+		m_gameController.LoadGame();
 		cout << "Bonus Total Bet: " << m_gameController.GetTotalBet() << endl;
 		cout << "Bonus New Credits: " << m_gameController.GetCredits() << endl;
 		cout << "Bonus New Win: " << m_gameController.GetWin() << endl;

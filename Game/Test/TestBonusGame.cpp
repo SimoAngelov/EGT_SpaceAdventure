@@ -17,7 +17,7 @@ TestBonusGame::TestBonusGame()
 
 }
 
-void TestBonusGame::Round(bool win)
+void TestBonusGame::Round()
 {
 	//if the player hasn't quit the bonus game
 	if (!BonusGame::IsQuitBonusGame())
@@ -33,7 +33,7 @@ void TestBonusGame::Round(bool win)
 		{
 		case 1:
 			cout << "TestBonusGame::1 - select Black Card" << endl;
-			cout << "TestBonusGame::2 - select Black Card" << endl;
+			cout << "TestBonusGame::2 - select Red Card" << endl;
 			cin >> iChoice;
 			switch (iChoice)
 			{
@@ -45,17 +45,8 @@ void TestBonusGame::Round(bool win)
 				break;
 			}
 
-			cout << "TestBonusGame::Current Credits: "
-					<< TestGameController::m_gameController.GetCredits()
-					<< endl;
-
 			BonusGame::PlayBonusRound();
 
-			cout << "TestBonusGame::New Win: "
-					<< TestGameController::m_gameController.GetWin() << endl;
-			cout << "TestBonusGame::New Credits: "
-					<< TestGameController::m_gameController.GetCredits()
-					<< endl;
 			break;
 		case 2:
 			BonusGame::QuitBonusGame();
@@ -64,17 +55,13 @@ void TestBonusGame::Round(bool win)
 	}
 }
 
-void TestBonusGame::TestWinRound()
-{
-	cout << "TestBonusGame::Welcome to bonus round " << endl;
-	TestBonusGame::Round(true);
-}
 
 void TestBonusGame::TestRound()
 {
 	cout << "TestBonusGame::Welcome to bonus round " << endl;
-	TestBonusGame::Round(false);
-
+	if(BonusGame::IsValidRound())
+	TestBonusGame::Round();
+	else cout << "Not a valid round" << endl;
 }
 
 void TestBonusGame::Quit()
@@ -86,17 +73,15 @@ void TestBonusGame::PlayBonusGame()
 {
 	cout << "TestBonusGame::Welcome to the bonus game.\n";
 	cout << "TestBonusGame::1 - Play Round " << endl;
-	cout << "TestBonusGame::XP 2 - Play winning round " << endl;
 	cout << "TestBonusGame::Default - Quit " << endl;
 	int iChoice = 0;
 	cin >> iChoice;
 	switch (iChoice)
 	{
 	case 1:
+
 		TestBonusGame::TestRound();
-		break;
-	case 2:
-		TestBonusGame::TestWinRound();
+
 		break;
 	default:
 		TestBonusGame::Quit();

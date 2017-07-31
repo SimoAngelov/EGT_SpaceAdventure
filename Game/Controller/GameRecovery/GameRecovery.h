@@ -43,8 +43,6 @@ public:
 	static void UpdateWin(int);
 	//update the credits
 	static void UpdateCredits(int);
-	//update the bonus game
-	static void UpdateBonusPlayerChoice(const COLOR&);
 	//update the game mode;
 	static void UpdateGameModel(const GameModel*);
 	//load functions
@@ -57,7 +55,6 @@ public:
 	static int LoadWin();
 	static int LoadCredits();
 	static void LoadGameModel(GameModel*);
-	static COLOR LoadBonusPlayerChoice();
 	virtual ~GameRecovery();
 private:
 	//add view node to root node
@@ -78,8 +75,6 @@ private:
 	static void AddWinToRoot(pugi::xml_node&);
 	//add credits node to rood node
 	static void AddCreditsToRoot(pugi::xml_node&);
-	//add bonus game node to root node
-	static void AddBonusGameToRoot(pugi::xml_node&);
 };
 
 #endif /* CONTROLLER_GAMERECOVERY_GAMERECOVERY_H_ */

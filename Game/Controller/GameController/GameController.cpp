@@ -372,7 +372,7 @@ void GameController::SetTotalWin()
 	if (this->IsBonusGame())
 	{
 		//start the bonus game by the game model by reference
-		BonusGame::InitBonusGame(&this->m_baseGame);
+		BonusGame::InitBonusGame();
 	}
 }
 
@@ -388,6 +388,8 @@ void GameController::WinFromPaylines()
 		if (this->WinFromSinglePayline(currentPayline) > 0)
 		{
 			this->m_vecWinningLines.push_back(iLine + 1);
+			cout << "Win at line " << (iLine + 1) << "\tis" <<
+					WinFromSinglePayline(currentPayline) << endl;
 		}//end if winnig line
 	}// end line traversal
 	int currentWinnings = this->GetWin();
@@ -488,6 +490,7 @@ void GameController::AddWinToCredits()
 		{
 			int iBonusWin = this->GetWin() + (5 * MAX_BET);
 			this->m_baseGame.SetIWin(iBonusWin);
+			cout << "After adding bonus win: " << GetWin() << endl;
 		}
 		//add the win to the credits
 		int iCurrCredits = this->GetCredits();
