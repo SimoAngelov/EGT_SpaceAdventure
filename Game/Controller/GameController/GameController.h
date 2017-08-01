@@ -9,7 +9,7 @@
 #define GAMECONTROLLER_H_
 
 #include "../../Model/GameModel.h"
-#include "../BonusGameController/BonusGame.h"
+#include "../BonusGameController/BonusGameController.h"
 #include "../GameRecovery/GameRecovery.h"
 class GameController
 {

@@ -372,7 +372,7 @@ void GameController::SetTotalWin()
 	if (this->IsBonusGame())
 	{
 		//start the bonus game by the game model by reference
-		BonusGame::InitBonusGame();
+		BonusGameController::InitBonusGame();
 	}
 }
 
@@ -482,16 +482,16 @@ int GameController::FigureCoefficient(const Figures& figure, int iOccurrences)
 //Add the win from the paylines to the credits
 void GameController::AddWinToCredits()
 {
+	//if bonus game - add 5 times max bet to the win
+	if(this->IsBonusGame())
+	{
+		int iBonusWin = this->GetWin() + (5 * MAX_BET);
+		this->m_baseGame.SetIWin(iBonusWin);
+		cout << "After adding bonus win: " << GetWin() << endl;
+	}
 	//if there was a win, add it to the credits
 	if (this->GetWin() > 0)
 	{
-		//if bonus game - add 5 times max bet to the win
-		if(this->IsBonusGame())
-		{
-			int iBonusWin = this->GetWin() + (5 * MAX_BET);
-			this->m_baseGame.SetIWin(iBonusWin);
-			cout << "After adding bonus win: " << GetWin() << endl;
-		}
 		//add the win to the credits
 		int iCurrCredits = this->GetCredits();
 		int iCurrWin = this->GetWin();
@@ -504,7 +504,7 @@ void GameController::AddWinToCredits()
 bool GameController::IsBonusGame()
 {
 	//pass the bonus counter to the bonus game
-	bool result = BonusGame::IsBonusGame(GameController::m_iBonusCounter);
+	bool result = BonusGameController::IsBonusGame(GameController::m_iBonusCounter);
 	//return the result
 	return result;
 }
