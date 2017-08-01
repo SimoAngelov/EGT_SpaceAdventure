@@ -761,7 +761,7 @@ void LifeCycle:: WhiteScreenAndCashOutAnimation()
     
     Rect.rectWhiteScreen.y = -730;
     
-    m_nCredit = 0;
+    m_nCredit = gameController.GetCredits();
     
     creditText = "INSERT CREDIT";
     
@@ -1252,6 +1252,9 @@ void LifeCycle:: HideBonusGame(bool presentingBonusGame)
 
         //update the game controller
         gameController.LoadGame();
+
+        //update the credits in the view
+        m_nCredit = gameController.GetCredits();
     }
 }
 
@@ -2320,7 +2323,8 @@ bool LifeCycle:: IsInsertCreditPressed(int x, int y) // Insert Credit / Start Ne
     {
         if(x >= Rect.rectInsertCredit.x && x <= (Rect.rectInsertCredit.x + Rect.rectInsertCredit.w) && y >= Rect.rectInsertCredit.y && y <= (Rect.rectInsertCredit.y + Rect.rectInsertCredit.h)  && StartCreditMenuEffect == false && presentSpaceShip == false && counterViewControllers == 1 && infoShown == false &&     payTableShown == false && IsBonusGamePresent == false)
         {
-            m_nCredit = 0;
+            m_nCredit = (GameRecovery::IsSaveGame())
+            		? GameRecovery::LoadCredits() : 0;
             
             introController.PlayNewGame(); // Create Blank XML FIle
             
@@ -2758,7 +2762,7 @@ bool LifeCycle:: IsStartSpinPressed(int x, int y) // Start Spin Button
                 }
                 else if(IsBonusGamePresent == true)
                 {
-                    BonusGameController::InitBonusGame();
+                   // BonusGameController::InitBonusGame();
                     
                     while(Rect.rectWinningPayLines.x >= 440)
                     {
