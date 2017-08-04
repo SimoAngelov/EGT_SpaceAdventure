@@ -49,6 +49,9 @@ void IntroController::DecreaseCredits()
 void IntroController::SaveCredits()
 {
 	GameRecovery::UpdateCredits(IntroController::m_iCredits);
+	//set the credits to null for the next new game
+	IntroController::m_iCredits = 0;
+
 }
 
 //print

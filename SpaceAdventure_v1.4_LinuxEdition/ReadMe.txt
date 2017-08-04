@@ -9,6 +9,8 @@ open drop down menu near to "Run button" -->den open "Run configuration" --> ope
 
 2)Set the credits from the credit menu to be updated with the value from the xml file, or set to 0 if the file is not present
 
+3) Update the credits in View3_Slot after the bonus game ends
+4) Check why Bonus Games behaves strangely when a win occurrs
+
 TODO:
-Update the credits in View3_Slot after the bonus game ends
-Check why Bonus Games behaves strangely when a win occurrs
+Fix the TTF in the bonus game
